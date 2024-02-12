@@ -3,6 +3,19 @@
         FIXTURES
     </div>
     <div class="pro-clubs-page-template">
-        
+        <div *ngFor="let game of fixturesData">
+            <div class="pro-clubs-header-2 text-white">
+                FIXTURE {{game.fixtureNum}}
+            </div>
+            <div class="pro-clubs-text-regular text-white">
+                {{game.date | date: dateFormat}}
+            </div>
+            <div class="pro-clubs-text-regular text-white">
+                {{game.homeTeamName}} vs {{game.awayTeamName}}
+            </div>
+            <div class="pro-clubs-text-regular text-white">
+                {{game.homeGoalsAmount}} : {{game.awayGoalsAmount}}
+            </div>
+        </div>
     </div>
 </div>
