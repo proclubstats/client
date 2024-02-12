@@ -1,0 +1,20 @@
+.pro-clubs-bg-primary {
+    background: var(--bg-primary);
+}
+
+.pro-clubs-bg-secondary {
+    background: var(--secondary);
+}
+
+.pro-clubs-header-1 {
+    font-size: 24px;
+}
+
+@media screen and (min-width: 800px) {
+    .pro-clubs-page-template {
+        width: 1100px;
+        height: 800px;
+        border-radius: 4px;
+        background: var(--secondary);
+    }
+}
