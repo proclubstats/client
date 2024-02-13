@@ -3,7 +3,7 @@
 }
 
 .pro-clubs-bg-secondary {
-    background: var(--secondary);
+    background: var(--secondary) !important;
 }
 
 .pro-clubs-header-1 {
@@ -25,5 +25,6 @@
         height: 800px;
         border-radius: 4px;
         background: var(--secondary);
+        padding: 30px 110px;
     }
 }
