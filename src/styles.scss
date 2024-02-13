@@ -1,5 +1,22 @@
 @import "./styles/color-variables.scss";
+@import "./styles/common-classes.scss";
 
-* {
-    background: var(--bg-primary);
+body {
+    background-color: var(--bg-primary) !important;
+    color: white !important;
 }
+
+.place-content-center {
+    place-content: center;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+// Override modal content
+.modal-content {
+    background-color: var(--bg-primary) !important;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
