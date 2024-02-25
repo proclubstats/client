@@ -3,6 +3,7 @@
         TOP ASSISTS
     </div>
     <div class="pro-clubs-page-template">
-        <pro-clubs-data-table [tableData]="dataSource" [columnsToDisplay]="displayedColumns"></pro-clubs-data-table>
+        <pro-clubs-data-table [tableData]="dataSource" [defaultSort]="'assistsAmount'" (onRowClickEvent)="onPlayerClick($event)"
+         [columnsToDisplay]="displayedColumns"></pro-clubs-data-table>
     </div>
 </div>

@@ -1,13 +1,26 @@
 @import "./styles/color-variables.scss";
 @import "./styles/common-classes.scss";
 
+@font-face {
+    font-family: Montserrat;
+    src: url('assets/Fonts/Montserrat.ttf');
+}
+
 body {
     background-color: var(--bg-primary) !important;
     color: white !important;
 }
 
+* {
+    font-family: Montserrat;
+}
+
 .place-content-center {
     place-content: center;
+}
+
+input:focus {
+    outline: none;
 }
 
 .cursor-pointer {
@@ -18,5 +31,31 @@ body {
 .modal-content {
     background-color: var(--bg-primary) !important;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+    overflow-y: hidden;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 20px;
+}

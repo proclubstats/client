@@ -12,6 +12,10 @@ import { GameDetailsComponent } from "./components/game-details/game-details.com
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatTableModule } from "@angular/material/table";
 import { SharedModule } from "./shared/shared.module";
+import { EnterResultComponent } from "./components/enter-result/enter-result.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { PlayerDetailsComponent } from "./components/player-details/player-details.component";
+import { TeamDetailsComponent } from "./components/team-details/team-details.component";
 
 @NgModule({
     declarations: [
@@ -22,17 +26,22 @@ import { SharedModule } from "./shared/shared.module";
         LeagueTableComponent,
         TopAssistsComponent,
         TopScorersComponent,
-        GameDetailsComponent
+        GameDetailsComponent,
+        EnterResultComponent,
+        PlayerDetailsComponent,
+        TeamDetailsComponent
     ],
     imports: [
         AppRoutingModule,
         BrowserModule,
-        SharedModule
+        SharedModule,
+        ReactiveFormsModule,
+        FormsModule,
     ],
     exports: [],
     providers: [
-    provideAnimationsAsync()
-  ],
+        provideAnimationsAsync()
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

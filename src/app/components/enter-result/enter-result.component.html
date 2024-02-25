@@ -1,0 +1,26 @@
+<div class="w-100 d-grid justify-content-center ">
+    <div class="pro-clubs-header-1">
+        ENTER RESULT
+    </div>
+    <div class="pro-clubs-page-template games-area">
+        <div *ngFor="let game of fixturesData" class="text-center pro-clubs-bg-primary game-area mb-3 cursor-pointer align-items-center d-grid">
+        <div class="d-flex place-content-center">
+            <div class="home-side align-items-center d-grid">
+                {{game.homeTeamName}}
+            </div>
+            <div class="score-side pro-clubs-header-1 align-items-center d-flex gap-3">
+                <div>
+                    <input type="text" class="pro-clubs-short-input"/>
+                </div>
+                :
+                <div>
+                    <input type="text" class="pro-clubs-short-input"/>
+                </div>
+            </div>
+            <div class="away-side align-items-center d-grid">
+                {{game.awayTeamName}}
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

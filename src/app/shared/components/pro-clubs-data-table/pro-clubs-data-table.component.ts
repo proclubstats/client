@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Column } from '../../models/column.model';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'pro-clubs-data-table',
@@ -8,11 +9,16 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrl: './pro-clubs-data-table.component.scss'
 })
 export class ProClubsDataTableComponent {
+
+  @ViewChild(MatSort) sort: MatSort | null = null;
+
   displayedColumnsData: Column[] = [];
   columnsNamesOnly: string[] = [];
   sortedTableData: any;
   tempData: any;
   originalData: any;
+
+  @Input() defaultSort?: string;
   @Input() set columnsToDisplay(displayedColumns: Column[]) {
     if (displayedColumns) {
       this.displayedColumnsData = [...displayedColumns];
@@ -28,8 +34,14 @@ export class ProClubsDataTableComponent {
     this.originalData = new MatTableDataSource(data);
     this.sortedTableData = new MatTableDataSource(data);
   }
+
+  @Output() onRowClickEvent: EventEmitter<any> = new EventEmitter();
+
   constructor() { }
 
+  ngOnInit() {
+    this.defaultSort ? this.sortData({ active: this.defaultSort, direction: 'desc' }) : null;
+  }
 
   sortData(sort: any) {
     const data = this.tempData.slice();
@@ -44,7 +56,12 @@ export class ProClubsDataTableComponent {
     });
 
   }
+
   compare(a: number | string, b: number | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  onRowClick(element: any) : void{
+    this.onRowClickEvent.emit(element);
   }
 }
