@@ -1,0 +1,15 @@
+// override background color of all the table
+.mat-mdc-table {
+    background-color: var(--bg-primary) !important;
+}
+
+// override color of td 
+.mat-mdc-cell {
+    color: white !important;
+}
+
+// override color of headers 
+.mat-mdc-header-cell {
+    color: white !important;
+    border-bottom: 2px solid var(--primary);
+}

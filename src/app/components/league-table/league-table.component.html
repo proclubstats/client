@@ -1,0 +1,10 @@
+<div class="w-100 d-grid justify-content-center">
+    <div class="pro-clubs-header-1 text-white">
+        LEAGUE TABLE
+    </div>
+    <div class="pro-clubs-page-template">
+        <pro-clubs-data-table [tableData]="dataSource" [columnsToDisplay]="displayedColumns"
+            [defaultSort]="'pointsAmount'" (onRowClickEvent)="onTeamClick($event)">
+        </pro-clubs-data-table>
+    </div>
+</div>

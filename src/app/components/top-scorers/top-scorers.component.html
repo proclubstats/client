@@ -1,0 +1,9 @@
+<div class="w-100 d-grid justify-content-center">
+    <div class="pro-clubs-header-1 text-white">
+        TOP SCORERS
+    </div>
+    <div class="pro-clubs-page-template">
+        <pro-clubs-data-table [tableData]="dataSource" [defaultSort]="'goalsAmount'" (onRowClickEvent)="onPlayerClick($event)"
+        [columnsToDisplay]="displayedColumns"></pro-clubs-data-table>
+    </div>
+</div>
