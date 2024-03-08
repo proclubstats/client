@@ -10,12 +10,17 @@ import { TopAssistsComponent } from "./components/top-assists/top-assists.compon
 import { TopScorersComponent } from "./components/top-scorers/top-scorers.component";
 import { GameDetailsComponent } from "./components/game-details/game-details.component";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { MatTableModule } from "@angular/material/table";
 import { SharedModule } from "./shared/shared.module";
 import { EnterResultComponent } from "./components/enter-result/enter-result.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PlayerDetailsComponent } from "./components/player-details/player-details.component";
 import { TeamDetailsComponent } from "./components/team-details/team-details.component";
+import { AddPlayerComponent } from "./components/add-player/add-player.component";
+import { AddTeamComponent } from "./components/add-team/add-team.component";
+import { PlayerService } from "./services/player.service";
+import { TeamService } from "./services/team.service";
+import { FixtureService } from "./services/fixtures.service";
+import { LeagueService } from "./services/league.service";
 
 @NgModule({
     declarations: [
@@ -29,7 +34,9 @@ import { TeamDetailsComponent } from "./components/team-details/team-details.com
         GameDetailsComponent,
         EnterResultComponent,
         PlayerDetailsComponent,
-        TeamDetailsComponent
+        TeamDetailsComponent,
+        AddPlayerComponent,
+        AddTeamComponent
     ],
     imports: [
         AppRoutingModule,
@@ -37,10 +44,15 @@ import { TeamDetailsComponent } from "./components/team-details/team-details.com
         SharedModule,
         ReactiveFormsModule,
         FormsModule,
+        ReactiveFormsModule
     ],
     exports: [],
     providers: [
-        provideAnimationsAsync()
+        provideAnimationsAsync(),
+        PlayerService,
+        TeamService,
+        FixtureService,
+        LeagueService
     ],
     bootstrap: [AppComponent]
 })

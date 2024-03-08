@@ -21,4 +21,15 @@ export const NAVBAR_ITEMS: NavItem[] = [
         displayText: "Enter Result",
         link: "enter-result"
     }
+];
+
+export const NAVBAR_OPTIONS_ITEMS : NavItem[] = [
+    {
+        displayText: "Add Team",
+        link: "add-team"
+    },
+    {
+        displayText: "Add Player",
+        link: "add-player"
+    },
 ]
