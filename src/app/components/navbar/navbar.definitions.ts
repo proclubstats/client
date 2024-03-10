@@ -6,19 +6,22 @@ export const NAVBAR_ITEMS: NavItem[] = [
         link: "league-table"
     },
     {
-        displayText: "Fixtures",
-        link: "fixtures"
-    },
-    {
         displayText: "Top Scorers",
         link: "top-scorers"
     },
     {
         displayText: "Top Assists",
         link: "top-assists"
+    }
+];
+
+export const NAVBAR_OPTIONS_ITEMS : NavItem[] = [
+    {
+        displayText: "Add Team",
+        link: "add-team"
     },
     {
-        displayText: "Enter Result",
-        link: "enter-result"
-    }
+        displayText: "Add Player",
+        link: "add-player"
+    },
 ]

@@ -5,9 +5,10 @@ import { FixturesComponent } from './components/fixtures/fixtures.component';
 import { LeagueTableComponent } from './components/league-table/league-table.component';
 import { TopScorersComponent } from './components/top-scorers/top-scorers.component';
 import { TopAssistsComponent } from './components/top-assists/top-assists.component';
-import { EnterResultComponent } from './components/enter-result/enter-result.component';
 import { TeamDetailsComponent } from './components/team-details/team-details.component';
 import { PlayerDetailsComponent } from './components/player-details/player-details.component';
+import { AddTeamComponent } from './components/add-team/add-team.component';
+import { AddPlayerComponent } from './components/add-player/add-player.component';
 
 const routes: Routes = [
     {
@@ -34,16 +35,20 @@ const routes: Routes = [
         component: LeagueTableComponent
     },
     {
-        path: 'enter-result',
-        component: EnterResultComponent
-    },
-    {
         path: 'team-details',
         component: TeamDetailsComponent
     },
     {
         path: 'player-details',
         component: PlayerDetailsComponent
+    },
+    {
+        path: 'add-team',
+        component: AddTeamComponent
+    },
+    {
+        path: 'add-player',
+        component: AddPlayerComponent
     }
 ];
 

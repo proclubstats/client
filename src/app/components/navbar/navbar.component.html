@@ -4,16 +4,13 @@
         <li class="nav-item" *ngFor="let navbarItem of navbarItems">
             <a class="nav-link" [href]="navbarItem.link">{{navbarItem.displayText}}</a>
         </li>
-        <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Dropdown link
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Options
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-        </li> -->
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown" >
+              <li class="navbar-dark" *ngFor="let option of navbarOptionsItems"><a class="dropdown-item" [href]="option.link">{{option.displayText}}</a></li>
+            </ul>
+          </li>
     </ul>
 </nav>

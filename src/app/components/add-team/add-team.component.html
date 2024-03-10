@@ -1,0 +1,23 @@
+<div class="w-100 d-grid justify-content-center ">
+    <div class="pro-clubs-header-1">
+        ADD TEAM
+    </div>
+    <div class="pro-clubs-page-template games-area">
+        <form [formGroup]="addTeamFormGroup" (ngSubmit)="onSubmit()">
+            <ng-container *ngFor="let control of formControls">
+                <div class="d-flex mt-3">
+                    <div class="w-25 d-grid align-content-center">
+                        {{ control.displayText }}:
+                    </div>
+                    <div>
+                        <input [formControlName]="control.fieldName" [placeholder]="control.displayText" [maxlength]="control.maxLength"
+                            class="pro-clubs-input"> 
+                    </div>
+                </div>
+            </ng-container>
+            <div class="text-center mt-5">
+                <button type="submit" class="pro-clubs-button-primary" [disabled]="addTeamFormGroup.invalid">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
