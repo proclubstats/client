@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class PlayerService {
+  PLAYERS_CONTROLLER_URL = "players/";
 
   constructor() { }
 

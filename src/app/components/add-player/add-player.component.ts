@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ADD_PLAYER_FORM_CONTROLS } from './add-player.definitions';
 
 @Component({
   selector: 'app-add-player',
@@ -10,7 +9,14 @@ import { ADD_PLAYER_FORM_CONTROLS } from './add-player.definitions';
 export class AddPlayerComponent {
   addPlayerFormGroup: FormGroup;
 
-  formControls = ADD_PLAYER_FORM_CONTROLS;
+  formControls = [
+    { control: new FormControl(''), displayText: 'Name' },
+    { control: new FormControl(''), displayText: 'Phone' },
+    { control: new FormControl(''), displayText: 'Age' },
+    { control: new FormControl(''), displayText: 'Team' },
+    { control: new FormControl(''), displayText: 'Position' },
+    { control: new FormControl(''), displayText: 'Playable Positions' }
+  ];
 
   constructor(){
     let group: any = {};

@@ -11,7 +11,6 @@ import { TopScorersComponent } from "./components/top-scorers/top-scorers.compon
 import { GameDetailsComponent } from "./components/game-details/game-details.component";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { SharedModule } from "./shared/shared.module";
-import { EnterResultComponent } from "./components/enter-result/enter-result.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PlayerDetailsComponent } from "./components/player-details/player-details.component";
 import { TeamDetailsComponent } from "./components/team-details/team-details.component";
@@ -32,7 +31,6 @@ import { LeagueService } from "./services/league.service";
         TopAssistsComponent,
         TopScorersComponent,
         GameDetailsComponent,
-        EnterResultComponent,
         PlayerDetailsComponent,
         TeamDetailsComponent,
         AddPlayerComponent,

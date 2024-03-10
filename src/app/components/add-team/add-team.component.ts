@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ADD_TEAM_FORM_CONTROLS } from './add-team.definitions';
 
 @Component({
   selector: 'app-add-team',
@@ -10,7 +9,9 @@ import { ADD_TEAM_FORM_CONTROLS } from './add-team.definitions';
 export class AddTeamComponent {
   addTeamFormGroup: FormGroup;
 
-  formControls = ADD_TEAM_FORM_CONTROLS;
+  formControls = [
+    { control: new FormControl(''), fieldName: 'name', displayText: 'Name', maxLength: 11 }
+  ];
 
   constructor() {
     let group: any = {};

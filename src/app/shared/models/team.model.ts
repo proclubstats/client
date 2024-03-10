@@ -9,5 +9,5 @@ export class Team {
     goalsFor: number = 0;
     goalsAgainst: number = 0;
     goalsDifference: number = 0;
-    adminID? : number;
+    adminID? : string;
 }

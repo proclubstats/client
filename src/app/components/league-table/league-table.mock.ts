@@ -2,7 +2,7 @@ import { Column } from "../../shared/models/column.model";
 import { Team } from "../../shared/models/team.model";
 
 export const ELEMENT_DATA: Team[] = [
-    { id: 4, name: 'SHANA TOVAU', pointsAmount: 73, winsAmount: 24, drawsAmount: 1, losesAmount: 3,gamesAmount: 28, goalsFor: 79, goalsAgainst: 25, goalsDifference: 54, adminID: 1 },
+    { id: 4, name: 'SHANA TOVAU', pointsAmount: 73, winsAmount: 24, drawsAmount: 1, losesAmount: 3,gamesAmount: 28, goalsFor: 79, goalsAgainst: 25, goalsDifference: 54, adminID: '1' },
     { id: 1, name: 'Kwincovim', pointsAmount:67, winsAmount: 22, drawsAmount: 1, losesAmount: 3,gamesAmount: 26, goalsFor: 103, goalsAgainst: 31, goalsDifference: 72 },
     { id: 2, name: 'Bishbashim', pointsAmount: 61, winsAmount: 19, drawsAmount: 4, losesAmount: 4,gamesAmount: 27, goalsFor: 84, goalsAgainst: 35, goalsDifference: 49 },
     { id: 3, name: 'Beitar Jerusalem', pointsAmount: 70, winsAmount: 23, drawsAmount: 1, losesAmount: 5,gamesAmount: 29, goalsFor: 104, goalsAgainst: 55, goalsDifference: 49 },
