@@ -20,6 +20,7 @@ import { PlayerService } from "./services/player.service";
 import { TeamService } from "./services/team.service";
 import { FixtureService } from "./services/fixtures.service";
 import { LeagueService } from "./services/league.service";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ import { LeagueService } from "./services/league.service";
         SharedModule,
         ReactiveFormsModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HttpClientModule
     ],
     exports: [],
     providers: [
