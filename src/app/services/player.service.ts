@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { Observable } from 'rxjs';
+import { Player } from '../shared/models/player.model';
+import { PLAYERS_DATA } from '../components/top-scorers/top-scorers.definitions';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,9 @@ export class PlayerService {
       return this.apiService.get(`${this.PLAYERS_CONTROLLER_URL}`);
   }
 
-  getPlayerById(id: string): Promise<any> {
-    return this.apiService.get(`${this.PLAYERS_CONTROLLER_URL}`, id);
+  getPlayerById(id: string): any  {
+    return PLAYERS_DATA.find(player=> player.id === id);
+    // return this.apiService.get(`${this.PLAYERS_CONTROLLER_URL}`, id);
   }
 
   addPlayer(data: any): Promise<any> {

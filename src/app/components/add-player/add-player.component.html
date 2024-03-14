@@ -4,19 +4,34 @@
     </div>
     <div class="pro-clubs-page-template games-area">
         <form [formGroup]="addPlayerFormGroup" (ngSubmit)="onSubmit()">
+            <div class="d-flex mt-3">
+                <div class="w-25 d-grid align-content-center">
+                    Team Name:
+                </div>
+                <div class="pro-clubs-input d-grid align-content-center">
+                    {{ teamName}}
+                </div>
+            </div>
             <ng-container *ngFor="let control of formControls">
                 <div class="d-flex mt-3">
                     <div class="w-25 d-grid align-content-center">
                         {{ control.displayText }}:
                     </div>
                     <div>
-                        <input [formControlName]="control.displayText" [placeholder]="control.displayText"
-                            class="pro-clubs-input">
+                        <input *ngIf="control.type === 'text-input' " [formControlName]="control.displayText"
+                            [placeholder]="control.displayText" class="pro-clubs-input">
+                        <pro-clubs-auto-complete-select *ngIf="control.type === 'select'"
+                            [placeholder]="control.displayText" (selectionChange)="onSelectionChange($event)"
+                            [selectOptions]="playablePositionOptions"></pro-clubs-auto-complete-select>
+                        <pro-clubs-multiple-select *ngIf="control.type === 'multi-select' "
+                            [placeholder]="control.displayText"  (selectionChange)="onMultipleSelectionChange($event)"
+                            [selectOptions]="playablePositionOptions"></pro-clubs-multiple-select>
                     </div>
                 </div>
             </ng-container>
             <div class="text-center mt-5">
-                <button type="submit" class="pro-clubs-button-primary" [disabled]="addPlayerFormGroup.invalid">Submit</button>
+                <button type="submit" class="pro-clubs-button-primary"
+                    [disabled]="addPlayerFormGroup.invalid">Submit</button>
             </div>
         </form>
     </div>

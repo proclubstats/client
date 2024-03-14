@@ -10,12 +10,14 @@ import { FormControl } from '@angular/forms';
 })
 export class ProClubsAutoCompleteSelectComponent {
   @Input() selectOptions: ListOption[] = [];
+  @Input() placeholder : string = '';
+  
   myControl = new FormControl('');
   inputValue: string = '';
   filteredOptions?: Observable<string[]>;
   selectOptionsTextOnly: string[] = [];
 
-  @Output() selectionChange = new EventEmitter<number>();
+  @Output() selectionChange = new EventEmitter<ListOption>();
   
   constructor(private cdRef: ChangeDetectorRef) { }
 
@@ -44,7 +46,7 @@ export class ProClubsAutoCompleteSelectComponent {
   }
 
   onInputChange(value:any) {
-    var selectedValue = this.selectOptions.find(x=>x.displayText == value)?.value;
+    var selectedValue = this.selectOptions.find(x=>x.displayText == value);
     this.selectionChange.emit(selectedValue);
 
     if(this.onChanged)

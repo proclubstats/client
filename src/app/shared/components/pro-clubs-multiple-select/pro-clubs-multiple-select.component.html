@@ -1,0 +1,6 @@
+<mat-form-field>
+    <mat-select [formControl]="myControl" multiple [placeholder]="placeholder" [(ngModel)]="selectedOptions" (ngModelChange)="onOptionChange()">
+        <mat-option *ngFor="let option of selectOptions" 
+            [value]="option">{{option.displayText}}</mat-option>
+    </mat-select>
+</mat-form-field>
