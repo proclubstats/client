@@ -1,5 +1,5 @@
 export class Team {
-    id: number = 0;
+    id: string = '';
     name: string = "";
     gamesAmount: number = 0;
     winsAmount: number = 0;

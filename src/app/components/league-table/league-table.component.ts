@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ELEMENT_DATA, LEAGUE_TABLE_DISPLAY_COLUMN } from './league-table.mock';
+import { TEAMS_DATA, LEAGUE_TABLE_DISPLAY_COLUMN } from './league-table.mock';
 import { Column } from '../../shared/models/column.model';
 import { Team } from '../../shared/models/team.model';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LeagueTableComponent {
   displayedColumns: Column[] = LEAGUE_TABLE_DISPLAY_COLUMN;
-  dataSource = ELEMENT_DATA;
+  dataSource = TEAMS_DATA;
 
   constructor(private router: Router) { }
 
@@ -20,6 +20,6 @@ export class LeagueTableComponent {
   }
 
   onTeamClick($teamDetails: Team) {
-    this.router.navigate(['/team-details', { id: JSON.stringify($teamDetails.id) }])
+    this.router.navigate(['/team-details', { id: $teamDetails.id }])
   }
 }

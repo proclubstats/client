@@ -1,5 +1,5 @@
 export class Player {
-    id: number = 0;
+    id: string = '';
     name: string = "";
     teamID: number = 0;
     gamesAmount: number = 0;

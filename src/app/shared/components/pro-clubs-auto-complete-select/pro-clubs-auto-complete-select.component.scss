@@ -16,8 +16,7 @@
     border-radius: 4px;
 }
 
-::ng-deep .mdc-text-field--focused {
-}
+::ng-deep .mdc-text-field--focused {}
 
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input ::placeholder {
     color: white !important;
@@ -31,4 +30,8 @@
 .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-indeterminate::after,
 ::ng-deep .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
     color: var(--primary) !important;
+}
+
+input::placeholder {
+    color: #999999 !important;
 }

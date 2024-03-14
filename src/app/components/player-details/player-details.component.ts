@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Player } from '../../shared/models/player.model';
-import { ELEMENT_DATA } from '../top-scorers/top-scorers.definitions';
+import { PLAYERS_DATA } from '../top-scorers/top-scorers.definitions';
+import { PlayerService } from '../../services/player.service';
 
 @Component({
   selector: 'app-player-details',
@@ -9,17 +10,17 @@ import { ELEMENT_DATA } from '../top-scorers/top-scorers.definitions';
   styleUrl: './player-details.component.scss'
 })
 export class PlayerDetailsComponent {
-  playerID: number = 0;
+  playerID: string = '';
   chosenPlayer?: Player;
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private playerService: PlayerService) { }
 
   ngOnInit() {
-    this.route.params.subscribe(event => {
-      if (event['id']) {
-        this.playerID = parseInt(event['id']);
-      }
-    });
+    this.loadPlayerData();
+  }
 
-    this.chosenPlayer = ELEMENT_DATA.find(player => player.id === this.playerID);
+  private loadPlayerData(): void {
+    this.playerID = this.route.snapshot.paramMap.get('id') || this.playerID;
+
+    this.chosenPlayer = this.playerService.getPlayerById(this.playerID);
   }
 }

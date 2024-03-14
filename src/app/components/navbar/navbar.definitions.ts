@@ -19,9 +19,5 @@ export const NAVBAR_OPTIONS_ITEMS : NavItem[] = [
     {
         displayText: "Add Team",
         link: "add-team"
-    },
-    {
-        displayText: "Add Player",
-        link: "add-player"
-    },
+    }
 ]
