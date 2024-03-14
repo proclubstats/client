@@ -3,6 +3,8 @@
         LEAGUE TABLE
     </div>
     <div class="pro-clubs-page-template">
-        <pro-clubs-data-table [tableData]="dataSource" [columnsToDisplay]="displayedColumns"></pro-clubs-data-table>
+        <pro-clubs-data-table [tableData]="dataSource" [columnsToDisplay]="displayedColumns"
+            [defaultSort]="'pointsAmount'" (onRowClickEvent)="onTeamClick($event)">
+        </pro-clubs-data-table>
     </div>
 </div>

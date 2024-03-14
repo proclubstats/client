@@ -2,15 +2,27 @@ import { Column } from "../../shared/models/column.model";
 
 export const LEAGUE_TABLE_DISPLAY_COLUMN: Column[] = [
     {
-        fieldName: 'name',
-        displayText: 'Name'
+        fieldName: 'index',
+        displayText: '#'
     },
     {
-        fieldName: 'teamID',
-        displayText: 'Team ID'
+        fieldName: 'name',
+        displayText: 'Player Name'
+    },
+    {
+        fieldName: 'teamName',
+        displayText: 'Team Name'
     },
     {
         fieldName: 'assistsAmount',
         displayText: 'Assists'
+    },
+    {
+        fieldName: 'gamesAmount',
+        displayText: 'Games'
+    },
+    {
+        fieldName: 'apg',
+        displayText: 'ApG'
     }
 ]

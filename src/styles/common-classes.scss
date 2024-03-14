@@ -19,12 +19,60 @@
     font-weight: 400;
 }
 
+.pro-clubs-input {
+    background-color: var(--bg-primary);
+    color: white;
+    width: 216px;
+    padding: 0px 16px;
+    height: 60px;
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+}
+
+.pro-clubs-short-input {
+    background-color: var(--bg-primary);
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    width: 60px;
+    text-align: center;
+    color: white;
+}
+
+.pro-clubs-button-primary {
+    color: white;
+    background: var(--bg-primary);
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    height: 40px;
+}
+
+.text-green {
+    color: green;
+}
+
+.text-red{
+    color: var(--primary);
+}
+
+.text-orange {
+    color: orange;
+}
+
 @media screen and (min-width: 800px) {
     .pro-clubs-page-template {
-        width: 1100px;
+        width: 1300px;
         height: 800px;
         border-radius: 4px;
         background: var(--secondary);
         padding: 30px 110px;
+        overflow-y: auto;
     }
+}
+
+.primary-border-bottom {
+    border-bottom: 0.5px solid var(--primary);
+}
+
+.pro-clubs-border-radius {
+    border-radius: 4px;
 }

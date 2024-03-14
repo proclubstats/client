@@ -11,4 +11,5 @@
 // override color of headers 
 .mat-mdc-header-cell {
     color: white !important;
+    border-bottom: 2px solid var(--primary);
 }
