@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { PLAYERS_DATA, LEAGUE_TABLE_DISPLAY_COLUMN } from './top-scorers.definitions';
+import { LEAGUE_TABLE_DISPLAY_COLUMN } from './top-scorers.definitions';
 import { Column } from '../../shared/models/column.model';
 import { Player } from '../../shared/models/player.model';
 import { Router } from '@angular/router';
-import { PlayerService } from '../../services/player.service';
+import { LeagueService } from '../../services/league.service';
 
 @Component({
   selector: 'app-top-scorers',
@@ -12,18 +12,21 @@ import { PlayerService } from '../../services/player.service';
 })
 export class TopScorersComponent {
   displayedColumns: Column[] = LEAGUE_TABLE_DISPLAY_COLUMN;
-  dataSource = PLAYERS_DATA;
+  dataSource = [];
 
-  constructor(private router: Router, private playerService: PlayerService){}
+  constructor(private router: Router, private leagueService: LeagueService) { }
 
   ngOnInit() {
-    this.dataSource.map(player=> player.gpg = (player.goalsAmount / player.gamesAmount).toFixed(2));
-    this.playerService.getAllPlayers().then(res=>{
-      console.log(res);
+    this.loadTopScorersData();
+  }
+
+  private loadTopScorersData(): void {
+    this.leagueService.getTopScorers().then(serverResponse => {
+      this.dataSource = serverResponse;
     })
   }
 
-  onPlayerClick($playerDetails : Player) : void {
-    this.router.navigate(['/player-details', { id: JSON.stringify($playerDetails.id) }])
+  onPlayerClick($playerDetails: Player): void {
+    this.router.navigate(['/player-details', { id: $playerDetails.id }])
   }
 }

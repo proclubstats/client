@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { LEAGUE_TABLE_DISPLAY_COLUMN } from './top-assists.definitions';
-import { PLAYERS_DATA } from '../top-scorers/top-scorers.definitions';
 import { Column } from '../../shared/models/column.model';
 import { Player } from '../../shared/models/player.model';
 import { Router } from '@angular/router';
+import { LeagueService } from '../../services/league.service';
 
 @Component({
   selector: 'app-top-assists',
@@ -12,15 +12,21 @@ import { Router } from '@angular/router';
 })
 export class TopAssistsComponent {
   displayedColumns: Column[] = LEAGUE_TABLE_DISPLAY_COLUMN;
-  dataSource = PLAYERS_DATA;
+  dataSource = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private leagueService: LeagueService) { }
 
   ngOnInit() {
-    this.dataSource.map(player => player.apg = (player.assistsAmount / player.gamesAmount).toFixed(2));
+    this.loadTopAssistsData();
+  }
+
+  private loadTopAssistsData(): void {
+    this.leagueService.getTopAssists().then(serverResponse => {
+      this.dataSource = serverResponse;
+    })
   }
 
   onPlayerClick($playerDetails: Player): void {
-    this.router.navigate(['/player-details', { id: JSON.stringify($playerDetails.id) }])
+    this.router.navigate(['/player-details', { id: $playerDetails.id }])
   }
 }
