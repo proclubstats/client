@@ -60,6 +60,14 @@ body {
     border-radius: 20px;
 }
 
+.h-5 {
+    height: 5%;
+}
+
+.h-95 {
+    height: 95%;
+}
+
 .h-15 {
     height: 15%;
 }
@@ -70,4 +78,24 @@ body {
 
 .w-30 {
     width: 30%;
+}
+
+.width-max-content {
+    width: max-content;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
+.justify-items-center{
+    justify-items: center;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.gap-15px {
+    gap: 15px;
 }

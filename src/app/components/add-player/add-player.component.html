@@ -24,8 +24,19 @@
                             [placeholder]="control.displayText" (selectionChange)="onSelectionChange($event)"
                             [selectOptions]="playablePositionOptions"></pro-clubs-auto-complete-select>
                         <pro-clubs-multiple-select *ngIf="control.type === 'multi-select' "
-                            [placeholder]="control.displayText"  (selectionChange)="onMultipleSelectionChange($event)"
+                            [placeholder]="control.displayText" (selectionChange)="onMultipleSelectionChange($event)"
                             [selectOptions]="playablePositionOptions"></pro-clubs-multiple-select>
+                        <div *ngIf="control.type === 'photo'" class="d-flex gap-15px">
+                            <label for="urlPhoto" class="custom-file-label">
+                                <button type="button" (click)="fileInput.click()"
+                                    class="pro-clubs-button-primary pro-clubs-input">ADD
+                                    PHOTO</button>
+                            </label>
+                            <div class="d-grid align-items-center ml-3" *ngIf="control.control.value != ''">
+                                {{control.control.value}}</div>
+                            <input type="file" #fileInput id="urlPhoto" class="custom-file-input"
+                                (change)="onFileSelected($event)">
+                        </div>
                     </div>
                 </div>
             </ng-container>

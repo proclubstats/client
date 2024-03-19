@@ -19,18 +19,5 @@ export class TeamDetailsComponent {
     this.teamID = this.route.snapshot.paramMap.get('id') || this.teamID;
 
     this.chosenTeam = TEAMS_DATA.find(team => team.id === this.teamID)!;
-    
-  }
-
-  onAddPlayerClick(): void {
-    this.router.navigate(['/add-player', { id: this.teamID }]);
-  }
-
-  convertPlayerIdToName(id : string) : string {
-    return PLAYERS_DATA.find(player=>player.id === id)?.name!;
-  }
-
-  navigateToPlayerDetails(playerId: string) :void {
-    this.router.navigate(['/player-details', { id: playerId }]);
   }
 }

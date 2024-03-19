@@ -1,69 +1,60 @@
-import { Game } from "../../shared/models/game.model";
+import { Fixture } from "../../shared/models/game.model";
+import { PlayerStat } from "../../shared/models/player-stat.model";
 
-export const gamesArray : Game[] = [
+export const gamesArray: Fixture[] = [
     {
         id: 0,
-        homeTeamID: 1,
-        homeTeamName: "Super Strike",
-        awayTeamID: 2,
-        awayTeamName: "Beitar Jerusalem",
-        homeGoalsAmount: 3,
-        awayGoalsAmount: 0,
+        homeTeamDetails: { teamID: '1', teamName: 'Kwincovim', teamGoalsAmount: 3 },
+        awayTeamDetails: { teamID: '2', teamName: 'SHANA TOVAU', teamGoalsAmount: 2 },
         date: new Date(),
         fixtureNum: 1
     },
     {
         id: 1,
-        homeTeamID: 3,
-        homeTeamName: "SHANA TOVAU",
-        awayTeamID: 4,
-        homeGoalsAmount: 2,
-        awayGoalsAmount: 2,
-        awayTeamName: "AOTISTIM FC",
+        homeTeamDetails: {
+            teamID: '1', teamName: 'Kwincovim', teamGoalsAmount: 2, teamScorers: [
+                { playerId: '2', playerStatsAmount: 1 }, { playerId: '15', playerStatsAmount: 1 }
+            ],
+            teamAssists: [
+                { playerId: '1232', playerStatsAmount: 1 }, { playerId: '1239', playerStatsAmount: 1 }
+            ]
+        },
+        awayTeamDetails: {
+            teamID: '1', teamName: 'SHANA TOVAU', teamGoalsAmount: 3, teamScorers: [
+                { playerId: '252222', playerStatsAmount: 1 }, { playerId: '1231', playerStatsAmount: 2 }
+            ],
+            teamAssists: [
+                { playerId: '2544', playerStatsAmount: 1 }, { playerId: '25444', playerStatsAmount: 2 }
+            ]
+        },
         date: new Date(),
         fixtureNum: 1
     },
     {
         id: 2,
-        homeTeamID: 5,
-        homeTeamName: "SHANA TOVAU",
-        awayTeamID: 6,
-        awayTeamName: "Maccabi Jerusalem",
-        homeGoalsAmount: 5,
-        awayGoalsAmount: 1,
+        homeTeamDetails: { teamID: '1', teamName: 'Kwincovim', teamGoalsAmount: 3 },
+        awayTeamDetails: { teamID: '2', teamName: 'SHANA TOVAU', teamGoalsAmount: 2 },
         date: new Date(),
         fixtureNum: 1
     },
     {
         id: 3,
-        homeTeamID: 5,
-        homeTeamName: "ISRAEL1010",
-        awayTeamID: 6,
-        awayTeamName: "AOTISTIM FC",
-        homeGoalsAmount: 5,
-        awayGoalsAmount: 1,
+        homeTeamDetails: { teamID: '1', teamName: 'Kwincovim', teamGoalsAmount: 3 },
+        awayTeamDetails: { teamID: '2', teamName: 'SHANA TOVAU', teamGoalsAmount: 2 },
         date: new Date(),
         fixtureNum: 1
     },
     {
         id: 4,
-        homeTeamID: 5,
-        homeTeamName: "Beitar Jerusalem",
-        awayTeamID: 6,
-        awayTeamName: "Bnei Yehuda",
-        homeGoalsAmount: 5,
-        awayGoalsAmount: 1,
+        homeTeamDetails: { teamID: '1', teamName: 'Kwincovim', teamGoalsAmount: 3 },
+        awayTeamDetails: { teamID: '2', teamName: 'SHANA TOVAU', teamGoalsAmount: 2 },
         date: new Date(),
         fixtureNum: 1
     },
     {
-        id: 4,
-        homeTeamID: 5,
-        homeTeamName: "SHANA TOVAU",
-        awayTeamID: 6,
-        awayTeamName: "Kenzi And Benio",
-        homeGoalsAmount: 5,
-        awayGoalsAmount: 1,
+        id: 6,
+        homeTeamDetails: { teamID: '1', teamName: 'Kwincovim', teamGoalsAmount: 3 },
+        awayTeamDetails: { teamID: '2', teamName: 'SHANA TOVAU', teamGoalsAmount: 2 },
         date: new Date(),
         fixtureNum: 1
     },

@@ -5,59 +5,14 @@
     <div class="pro-clubs-page-template">
         <div class="d-flex h-100 team-overall-area">
             <div class="w-25 pro-clubs-bg-primary h-100 pro-clubs-border-radius">
-                <div class="pro-clubs-header-1 primary-border-bottom w-100 text-center">
-                    {{chosenTeam?.name}}
-                </div>
-                <div class="mt-4 pro-clubs-text-regular width-max-content w-100 text-center">
-                    CAPTAIN
-                </div>
-                <div class=" w-100 text-center" (click)="navigateToPlayerDetails(chosenTeam?.adminID!)">
-                    {{convertPlayerIdToName(chosenTeam?.adminID!)}}
-                </div>
+                <team-details-overall [chosenTeam]="chosenTeam!"></team-details-overall>
             </div>
             <div class="team-stats-area w-75 d-flex flex-column h-100">
-                <div class="d-flex h-15 justify-content-between games-stats-row">
-                    <div class="pro-clubs-bg-primary flex-fill pro-clubs-header-2 d-grid text-center place-content-center pro-clubs-border-radius">
-                        <div>
-                            GAMES
-                        </div>
-                        <div>
-                            {{chosenTeam?.gamesAmount}}
-                        </div>
-                    </div>
-                    <div class="pro-clubs-bg-primary flex-fill pro-clubs-header-2 d-grid text-center place-content-center pro-clubs-border-radius">
-                        <div>
-                            WINS
-                        </div>
-                        <div class="text-green">
-                            {{chosenTeam?.winsAmount}}
-                        </div>
-                    </div>
-                    <div class="pro-clubs-bg-primary flex-fill pro-clubs-header-2 d-grid text-center place-content-center pro-clubs-border-radius">
-                        <div>
-                            DRAWS
-                        </div>
-                        <div class="text-orange">
-                            {{chosenTeam?.drawsAmount}}
-                        </div>
-                    </div>
-                    <div class="pro-clubs-bg-primary flex-fill pro-clubs-header-2 d-grid text-center place-content-center pro-clubs-border-radius">
-                        <div>
-                            LOSSES
-                        </div>
-                        <div class="text-red">
-                            {{chosenTeam?.losesAmount}}
-                        </div>
-                    </div>
+                <div class="d-flex h-15  ">
+                   <team-details-stats [chosenTeam]="chosenTeam!" class="w-100 d-flex justify-content-between games-stats-row"></team-details-stats>
                 </div>
                 <div class="h-85 pro-clubs-bg-primary pro-clubs-border-radius squad-area">
-                    <div class="pro-clubs-header-2">
-                        SQUAD
-                    </div>
-
-                    <div>
-                        <button class="pro-clubs-button-primary" (click)="onAddPlayerClick()">Add Player</button>
-                    </div>
+                    <team-details-squad [chosenTeam]="chosenTeam!"></team-details-squad>
                 </div>
             </div>
         </div>

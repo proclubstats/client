@@ -5,13 +5,23 @@
     <div class="pro-clubs-page-template">
         <div class="d-flex h-100 team-overall-area">
             <div class="w-25 pro-clubs-bg-primary h-100 pro-clubs-border-radius">
-                <div class="pro-clubs-header-1 primary-border-bottom w-100 text-center">
+                <div class="pro-clubs-header-1 mt-4 w-100 text-center">
                     {{chosenPlayer?.name}}
+                </div>
+                <div class="mt-4 w-100 text-center cursor-pointer primary-border-bottom pb-4">
+                    <img src="assets/Icons/PlayerPhoto.png" class="player-photo-size">
+                </div>
+                <div class="pro-clubs-header-1 mt-4 w-100 text-center">
+                    {{chosenPlayer?.teamName}}
+                </div>
+                <div class="mt-4 w-100 text-center">
+                    <img src="assets/Icons/TeamLogo.jpg" class="player-photo-size">
                 </div>
             </div>
             <div class="team-stats-area w-75 d-flex flex-column h-100">
                 <div class="d-flex h-15 justify-content-between games-stats-row">
-                    <div class="pro-clubs-bg-primary flex-fill pro-clubs-header-2 d-grid text-center place-content-center pro-clubs-border-radius">
+                    <div
+                        class="pro-clubs-bg-primary flex-fill pro-clubs-header-2 d-grid text-center place-content-center pro-clubs-border-radius">
                         <div>
                             GAMES
                         </div>
@@ -19,7 +29,8 @@
                             {{chosenPlayer?.gamesAmount}}
                         </div>
                     </div>
-                    <div class="pro-clubs-bg-primary flex-fill pro-clubs-header-2 d-grid text-center place-content-center pro-clubs-border-radius">
+                    <div
+                        class="pro-clubs-bg-primary flex-fill pro-clubs-header-2 d-grid text-center place-content-center pro-clubs-border-radius">
                         <div>
                             GOALS
                         </div>
@@ -27,9 +38,10 @@
                             {{chosenPlayer?.goalsAmount}}
                         </div>
                     </div>
-                    <div class="pro-clubs-bg-primary flex-fill pro-clubs-header-2 d-grid text-center place-content-center pro-clubs-border-radius">
+                    <div
+                        class="pro-clubs-bg-primary flex-fill pro-clubs-header-2 d-grid text-center place-content-center pro-clubs-border-radius">
                         <div>
-                            WINS
+                            ASSISTS
                         </div>
                         <div class="text-green">
                             {{chosenPlayer?.assistsAmount}}
@@ -37,13 +49,7 @@
                     </div>
                 </div>
                 <div class="h-85 pro-clubs-bg-primary pro-clubs-border-radius squad-area">
-                    <div class="pro-clubs-header-2">
-                        SQUAD
-                    </div>
-
-                    <!-- <div>
-                        <button class="pro-clubs-button-primary" (click)="onAddPlayerClick()">Add Player</button>
-                    </div> -->
+                
                 </div>
             </div>
         </div>

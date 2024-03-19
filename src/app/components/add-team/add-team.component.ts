@@ -10,7 +10,8 @@ export class AddTeamComponent {
   addTeamFormGroup: FormGroup;
 
   formControls = [
-    { control: new FormControl(''), fieldName: 'name', displayText: 'Name', maxLength: 11 }
+    { control: new FormControl(''), fieldName: 'name', displayText: 'Name', maxLength: 11 },
+    { control: new FormControl(''), fieldName: 'photo-url', displayText: 'Photo URL'}
   ];
 
   constructor() {
@@ -38,5 +39,19 @@ export class AddTeamComponent {
     } else {
       console.log('Form submission failed! Please check the form.');
     }
+  }
+
+  selectFile() {
+    const fileInput = document.getElementById('customFile');
+    fileInput?.click(); // Trigger click event on the hidden file input
+  }
+
+  onFileSelected($event: any) {
+    if (!$event.target.files) 
+      return;
+
+    const file: File = $event.target.files[0];
+    this.addTeamFormGroup.get('photo-url')?.setValue(file.name);
+    // You can now handle the selected file (e.g., upload it, display it, etc.)
   }
 }

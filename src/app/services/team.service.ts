@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
+import { PLAYERS_DATA } from '../components/top-scorers/top-scorers.definitions';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,13 @@ export class TeamService {
 
   getAllTeams(): Promise<any> {
     return this.apiService.get(`${this.TEAMS_CONTROLLER_URL}`);
+  }
+
+  getPlayersByTeam(id: string) : Promise<any> {
+    var players = PLAYERS_DATA.filter(player=> {return player.teamID === id});
+
+    return new Promise((resolve) => {
+      resolve(players);
+    });
   }
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { Player } from '../shared/models/player.model';
 import { PLAYERS_DATA } from '../components/top-scorers/top-scorers.definitions';
 
 @Injectable({
