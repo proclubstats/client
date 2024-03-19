@@ -3,27 +3,46 @@
         FIXTURES
     </div>
     <div class="pro-clubs-page-template games-area">
-        <div *ngFor="let game of fixturesData" class="text-center pro-clubs-bg-primary game-area mb-3 cursor-pointer align-items-center d-grid"
-            (click)="onGameClick(game)">
-            <div class="d-flex place-content-center">
+        <div *ngFor="let game of fixturesData"
+            class="text-center  mb-3  gap-15px cursor-pointer align-items-center d-flex">
+            <div class="d-flex game-area place-content-center pro-clubs-bg-primary w-100" (click)="onGameClick(game)">
                 <div class="home-side align-items-center d-grid">
-                    {{game.homeTeamName}}
+                    {{game.homeTeamDetails.teamName}}
                 </div>
                 <div class="score-side pro-clubs-header-1 align-items-center d-grid">
-                    {{game.homeGoalsAmount}}:{{game.awayGoalsAmount}}
+                    {{game.homeTeamDetails.teamGoalsAmount}}:{{game.awayTeamDetails.teamGoalsAmount}}
                 </div>
                 <div class="away-side align-items-center d-grid">
-                    {{game.awayTeamName}}
+                    {{game.awayTeamDetails.teamName}}
                 </div>
+            </div>
+            <div class="d-grid align-items-center ml-2">
+                <i class="fas fa-edit text-white" (click)="onGameClick(game)"></i>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" id="gameDetailsModal" aria-labelledby="gameDetailsModal" aria-hidden="true">
-    <div class="modal-dialog ">
-        <div class="modal-content align-items-center pro-clubs-bg-primary">
-            <app-game-details [selectedGame]="selectedGame"></app-game-details>
+<div class="modal fade" tabindex="-1" #gameDetailsModal id="gameDeatilsModal" aria-hidden="true"
+    *ngIf="selectedFixture">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 1100px;">
+        <div class="modal-content align-items-center pro-clubs-bg-primary overflow-y-auto"
+            style="height: 600px; padding: 20px;">
+            <div class="d-flex w-100 justify-content-between">
+                <div class="d-flex  cursor-pointer" *ngIf="!editFixture">
+                    <div (click)="onEditClick()">
+                        EDIT FIXTURE <i class="fas fa-edit text-white"></i>
+                    </div>
+                </div>
+                <div *ngIf="editFixture" class="d-flex cursor-pointer" (click)="onCancelClick()">
+                    CANCEL EDIT MODE
+                </div>
+                <div class="d-flex">
+                    <i class="fa-solid fa-xmark cursor-pointer" (click)="closeModal()"></i>
+                </div>
+            </div>
+            <app-game-details [selectedFixture]="selectedFixture" class="w-100" *ngIf="!editFixture"></app-game-details>
+            <modify-fixture [selectedFixture]="selectedFixture" class="w-100" *ngIf="editFixture"></modify-fixture>
         </div>
     </div>
 </div>

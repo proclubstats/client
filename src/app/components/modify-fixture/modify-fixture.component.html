@@ -1,0 +1,70 @@
+<div class="game-details-area">
+    <div class="d-flex pro-clubs-header-1 score-gap mt-4 justify-content-center">
+        <div>
+            {{selectedFixture?.homeTeamDetails?.teamName}}
+        </div>
+        <div>
+            <input type="text" maxlength="2" [(ngModel)]="homeTeamGoalsAmount" class="pro-clubs-short-input">
+            :
+            <input type="text" maxlength="2" [(ngModel)]="awayTeamGoalsAmount" class="pro-clubs-short-input">
+        </div>
+        <div>
+            {{selectedFixture?.awayTeamDetails?.teamName}}
+        </div>
+    </div>
+
+    <div class="d-flex mt-3">
+        <div class="w-50">
+            <div>
+                <div (click)="addNewPlayerStat('home-scorer')">
+                    ADD HOME TEAM SCORER <i class="fa-solid fa-plus"></i>
+                </div>
+                <div *ngFor="let scorer of selectedFixture?.homeTeamDetails?.teamScorers">
+                    <pro-clubs-auto-complete-select [selectOptions]="homeTeamPlayersOptions"
+                        [placeholder]="'Choose Player'" [defaultOption]="scorer.playerId"
+                        (selectionChange)="onSelectionChange($event, scorer.playerId)"></pro-clubs-auto-complete-select>
+                    <input type="text" maxlength="2" [(ngModel)]="scorer.playerStatsAmount" class="pro-clubs-short-input">
+                </div>
+            </div>
+            <div>
+                <div (click)="addNewPlayerStat('home-assister')">
+                    ADD HOME TEAM ASSIST <i class="fa-solid fa-plus"></i>
+                </div>
+                <div *ngFor="let assister of selectedFixture?.homeTeamDetails?.teamAssists">
+                    <pro-clubs-auto-complete-select [selectOptions]="homeTeamPlayersOptions"
+                        [placeholder]="'Choose Player'"
+                        (selectionChange)="onSelectionChange($event, assister.playerId)"></pro-clubs-auto-complete-select>
+                    <input type="text" maxlength="2" [(ngModel)]="assister.playerStatsAmount"  class="pro-clubs-short-input">
+                </div>
+            </div>
+        </div>
+        <div class="w-50">
+            <div>
+                <div (click)="addNewPlayerStat('away-scorer')">
+                    ADD AWAY TEAM SCORER <i class="fa-solid fa-plus"></i>
+                </div>
+                <div *ngFor="let scorer of selectedFixture?.awayTeamDetails?.teamScorers">
+                    <pro-clubs-auto-complete-select [selectOptions]="awayTeamPlayersOptions"
+                        [placeholder]="'Choose Player'"
+                        (selectionChange)="onSelectionChange($event, scorer.playerId)"></pro-clubs-auto-complete-select>
+                    <input type="text" maxlength="2" [(ngModel)]="scorer.playerStatsAmount" class="pro-clubs-short-input">
+                </div>
+            </div>
+            <div>
+                <div (click)="addNewPlayerStat('away-assister')">
+                    ADD AWAY TEAM ASSIST <i class="fa-solid fa-plus"></i>
+                </div>
+                <div *ngFor="let assister of selectedFixture?.awayTeamDetails?.teamAssists">
+                    <pro-clubs-auto-complete-select [selectOptions]="awayTeamPlayersOptions"
+                        [placeholder]="'Choose Player'"
+                        (selectionChange)="onSelectionChange($event, assister.playerId)"></pro-clubs-auto-complete-select>
+                    <input type="text" maxlength="2"  [(ngModel)]="assister.playerStatsAmount" class="pro-clubs-short-input">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <button class="pro-clubs-button-primary" (click)="onSaveClick()">Save</button>
+    </div>
+</div>

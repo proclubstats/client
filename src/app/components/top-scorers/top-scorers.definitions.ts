@@ -62,63 +62,63 @@ export const LEAGUE_TABLE_DISPLAY_COLUMN: Column[] = [
 
 export const PLAYABLE_POSITIONS_OPTIONS: ListOption[] = [
     {
-      value: 0,
+      value: 'GK',
       displayText: 'GK'
     },
     {
-      value: 1,
+      value: 'RB',
       displayText: 'RB'
     },
     {
-      value: 2,
+      value: 'RWB',
       displayText: 'RWB'
     },
     {
-      value: 3,
+      value: 'CB',
       displayText: 'CB'
     },
     {
-      value: 4,
+      value: 'LB',
       displayText: 'LB'
     },
     {
-      value: 5,
+      value: 'LWB',
       displayText: 'LWB'
     },
     {
-      value: 6,
+      value: 'CDM',
       displayText: 'CDM'
     },
     {
-      value: 7,
+      value: 'CM',
       displayText: 'CM'
     },
     {
-      value: 8,
+      value: 'CAM',
       displayText: 'CAM'
     },
     {
-      value: 9,
+      value: 'CF',
       displayText: 'CF'
     },
     {
-      value: 10,
+      value: 'ST',
       displayText: 'ST'
     },
     {
-      value: 11,
+      value: 'RF',
       displayText: 'RF'
     },
     {
-      value: 12,
+      value: 'LF',
       displayText: 'LF'
     },
     {
-      value: 13,
+      value: 'RW',
       displayText: 'RW'
     },
     {
-      value: 14,
+      value: 'LW',
       displayText: 'LW'
     },
   ]

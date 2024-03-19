@@ -12,6 +12,10 @@ export const NAVBAR_ITEMS: NavItem[] = [
     {
         displayText: "Top Assists",
         link: "top-assists"
+    },
+    {
+        displayText: "Fixtures",
+        link: "fixtures"
     }
 ];
 

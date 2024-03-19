@@ -1,4 +1,4 @@
 export class ListOption {
-    value: number = 0;
+    value: string = "";
     displayText: string = "";
 }

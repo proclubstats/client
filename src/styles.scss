@@ -91,3 +91,11 @@ body {
 .justify-items-center{
     justify-items: center;
 }
+
+input[type="file"] {
+    display: none;
+}
+
+.gap-15px {
+    gap: 15px;
+}

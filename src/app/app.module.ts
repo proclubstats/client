@@ -24,6 +24,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { TeamDetailsSquadComponent } from "./components/team-details/team-details-squad/team-details-squad.component";
 import { TeamDetailsOverallComponent } from "./components/team-details/team-details-overall/team-details-overall.component";
 import { TeamDetailsStatsComponent } from "./components/team-details/team-details-stats/team-details-stats.component";
+import { ModifyFixtureComponent } from "./components/modify-fixture/modify-fixture.component";
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import { TeamDetailsStatsComponent } from "./components/team-details/team-detail
         AddTeamComponent,
         TeamDetailsSquadComponent,
         TeamDetailsOverallComponent,
-        TeamDetailsStatsComponent
+        TeamDetailsStatsComponent,
+        ModifyFixtureComponent
     ],
     imports: [
         AppRoutingModule,

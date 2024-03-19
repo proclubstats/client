@@ -10,20 +10,21 @@ import { FormControl } from '@angular/forms';
 })
 export class ProClubsAutoCompleteSelectComponent {
   @Input() selectOptions: ListOption[] = [];
-  @Input() placeholder : string = '';
-  
-  myControl = new FormControl('');
+  @Input() placeholder: string = '';
+  @Input() defaultOption: any = '';
+  selectedOption = new FormControl(this.defaultOption);
+
   inputValue: string = '';
   filteredOptions?: Observable<string[]>;
   selectOptionsTextOnly: string[] = [];
 
   @Output() selectionChange = new EventEmitter<ListOption>();
-  
+
   constructor(private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.selectOptionsTextOnly = this.selectOptions.map(x => x.displayText)
-    this.filteredOptions = this.myControl.valueChanges.pipe(
+    this.filteredOptions = this.selectedOption.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '')),
     );
@@ -33,7 +34,7 @@ export class ProClubsAutoCompleteSelectComponent {
   registerOnChange(fn: (value: string) => void) {
     this.onChanged = fn;
 
-    this.myControl.valueChanges.pipe(
+    this.selectedOption.valueChanges.pipe(
       startWith(''),
       map((value: any) => this._filter(value || '')),
     );
@@ -45,13 +46,13 @@ export class ProClubsAutoCompleteSelectComponent {
     return this.selectOptionsTextOnly.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  onInputChange(value:any) {
-    var selectedValue = this.selectOptions.find(x=>x.displayText == value);
+  onInputChange(value: any) {
+    var selectedValue = this.selectOptions.find(x => x.displayText == value);
     this.selectionChange.emit(selectedValue);
 
-    if(this.onChanged)
+    if (this.onChanged)
       this.onChanged(value);
-      this.cdRef.detectChanges();
+    this.cdRef.detectChanges();
   }
 
   onChanged?: (val: any) => void;

@@ -5,3 +5,7 @@
 .score-gap {
     gap: 15px;
 }
+
+::ng-deep .cdk-overlay-container {
+    z-index: 9999;
+}

@@ -10,13 +10,24 @@
                         {{ control.displayText }}:
                     </div>
                     <div>
-                        <input [formControlName]="control.fieldName" [placeholder]="control.displayText" [maxlength]="control.maxLength"
-                            class="pro-clubs-input"> 
+                        <input *ngIf="control.fieldName === 'name'" [formControlName]="control.fieldName"
+                            [placeholder]="control.displayText" [maxlength]="control.maxLength!"
+                            class="pro-clubs-input">
+                        <div *ngIf="control.fieldName === 'photo-url'" class="d-flex gap-15px">
+                            <label for="urlPhoto" class="custom-file-label">
+                                <button type="button" (click)="fileInput.click()" class="pro-clubs-button-primary pro-clubs-input">ADD
+                                    PHOTO</button>
+                            </label>
+                            <div class="d-grid align-items-center ml-3" *ngIf="control.control.value != ''">{{control.control.value}}</div>
+                            <input type="file" #fileInput id="urlPhoto" class="custom-file-input"
+                                (change)="onFileSelected($event)">
+                        </div>
                     </div>
                 </div>
             </ng-container>
             <div class="text-center mt-5">
-                <button type="submit" class="pro-clubs-button-primary" [disabled]="addTeamFormGroup.invalid">Submit</button>
+                <button type="submit" class="pro-clubs-button-primary"
+                    [disabled]="addTeamFormGroup.invalid">Submit</button>
             </div>
         </form>
     </div>

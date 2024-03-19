@@ -21,7 +21,8 @@ export class AddPlayerComponent {
     { control: new FormControl(''), displayText: 'Phone', type: 'text-input' },
     { control: new FormControl(''), displayText: 'Age', type: 'text-input' },
     { control: new FormControl(''), displayText: 'Position', type: 'select' },
-    { control: new FormControl(''), displayText: 'Playable Positions', type: 'multi-select' }
+    { control: new FormControl(''), displayText: 'Playable Positions', type: 'multi-select' },
+    { control: new FormControl(''), displayText: 'Photo URL', type: 'photo' }
   ];
 
   playablePositionOptions = PLAYABLE_POSITIONS_OPTIONS;
@@ -78,5 +79,14 @@ export class AddPlayerComponent {
 
     this.addPlayerFormGroup.get('Playable Positions')?.setValue(positionsValuesOnly);
 
+  }
+
+  onFileSelected($event: any) {
+    if (!$event.target.files) 
+      return;
+
+    const file: File = $event.target.files[0];
+    this.addPlayerFormGroup.get('Photo URL')?.setValue(file.name);
+    // You can now handle the selected file (e.g., upload it, display it, etc.)
   }
 }

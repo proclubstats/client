@@ -1,5 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Game } from '../../shared/models/game.model';
+import { Component, ViewChild } from '@angular/core';
+import { Fixture } from '../../shared/models/game.model';
 import { gamesArray } from './fixtures.mock';
 import { Modal } from 'bootstrap';
 
@@ -9,16 +9,34 @@ import { Modal } from 'bootstrap';
   styleUrl: './fixtures.component.scss'
 })
 export class FixturesComponent {
-  fixturesData: Game[] = gamesArray;
-  selectedGame: Game | undefined = undefined;
+  fixturesData: Fixture[] = gamesArray;
+  selectedFixture: Fixture | undefined = undefined;
   dateFormat = 'dd.MM.YYYY';
-  @ViewChild('gameDetailsModal') modalRef : any;
+  editFixture: boolean = false;
 
-  constructor() { }
+  @ViewChild('gameDetailsModal') modalRef: any;
 
-  onGameClick(selectedGame: Game): void {
-    this.selectedGame = selectedGame;
+  constructor() {
+  }
+
+  ngOnInit() {}
+
+  onGameClick(selectedFixture: Fixture): void {
+    this.selectedFixture = selectedFixture;
     const modal = new Modal(this.modalRef.nativeElement);
     modal.show();
+  }
+
+  closeModal() {
+    const modal = new Modal(this.modalRef.nativeElement);
+    modal.hide();
+  }
+
+  onEditClick() {
+    this.editFixture = true;
+  }
+
+  onCancelClick() {
+    this.editFixture = false;
   }
 }
