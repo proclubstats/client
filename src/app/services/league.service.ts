@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { PLAYERS_DATA } from '../components/top-scorers/top-scorers.definitions';
+import { ILeague } from '../shared/models/league-table.model';
+import { LeagueTableRow } from '../shared/models/leagueTableTeam';
+import { IPlayer } from '../shared/models/player.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,37 +12,45 @@ export class LeagueService {
 
   constructor(private apiService: ApiService) { }
 
-  addLeague(name: string): Promise<any> {
-    return this.apiService.post(`${this.LEAGUE_CONTROLLER_URL}`, name);
+  async addLeague(name: string): Promise<ILeague> {
+    const response = await this.apiService.post<ILeague>(`${this.LEAGUE_CONTROLLER_URL}`, name);
+
+    return response.data;
   }
 
-  getLeagueById(id: string): Promise<any> {
-    return this.apiService.get(`${this.LEAGUE_CONTROLLER_URL}`, id);
+  async getLeagueById(id: string): Promise<ILeague> {
+    const response = await this.apiService.get<ILeague>(`${this.LEAGUE_CONTROLLER_URL}`, id);
+
+    return response.data;
   }
 
-  getAllLeagues(): Promise<any> {
-    return this.apiService.get(`${this.LEAGUE_CONTROLLER_URL}`);
+  async getLeagueTable(id: string): Promise<LeagueTableRow[]> {
+    const response = await this.apiService.get<LeagueTableRow[]>(`${this.LEAGUE_CONTROLLER_URL}${id}/table`);
+
+    return response.data;
   }
 
-  removeLeague(id: string): Promise<any> {
-    return this.apiService.delete(`${this.LEAGUE_CONTROLLER_URL}`, id);
+  async getAllLeagues(): Promise<ILeague[]> {
+    const response = await this.apiService.get<ILeague[]>(`${this.LEAGUE_CONTROLLER_URL}`);
+
+    return response.data;
   }
 
-  getTopScorers(id?: string): Promise<any> {
-    var topscorers = PLAYERS_DATA;
-    topscorers.map(player => player.gpg = (player.goalsAmount / player.gamesAmount).toFixed(2));
-    return new Promise((resolve) => {
-      resolve(topscorers);
-    });
-    //return this.apiService.get(`${this.LEAGUE_CONTROLLER_URL}topScorers`, id);
+  async removeLeague(id: string): Promise<ILeague> {
+    const response = await this.apiService.delete<ILeague>(`${this.LEAGUE_CONTROLLER_URL}`, id);
+
+    return response.data;
   }
 
-  getTopAssists(id?: string): Promise<any> {
-    var topAssists = PLAYERS_DATA;
-    topAssists.map(player => player.apg = (player.assistsAmount / player.gamesAmount).toFixed(2));
-    return new Promise((resolve) => {
-      resolve(topAssists);
-    });
-   // return this.apiService.get(`${this.LEAGUE_CONTROLLER_URL}topAssists`, id);
+  async getTopScorers(leagueId: string): Promise<IPlayer[]> {
+    const response = await this.apiService.get<IPlayer[]>(`${this.LEAGUE_CONTROLLER_URL}${leagueId}/topScorers`);
+
+    return response.data;
+  }
+
+  async getTopAssists(leagueId: string): Promise<IPlayer[]> {
+    const response = await this.apiService.get<IPlayer[]>(`${this.LEAGUE_CONTROLLER_URL}${leagueId}/topAssists`);
+
+    return response.data;
   }
 }

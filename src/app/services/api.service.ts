@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import axios from 'axios';
-import { Observable, share } from 'rxjs';
+import axios, { AxiosResponse } from 'axios';
 
 @Injectable({
     providedIn: 'root'
@@ -11,21 +9,15 @@ export class ApiService {
 
     constructor() { }
 
-    get(path: string, params: any = {}): Promise<any> {
-        const observable = axios.get(this.SERVER_URL + path, params);
-
-        return observable;
+    async get<T>(path: string, params: any = {}): Promise<AxiosResponse<T, any>> {
+        return await axios.get(this.SERVER_URL + path, params);
     }
 
-    post(path: string, params: any = {}): Promise<any> {
-        const observable = axios.post(this.SERVER_URL + path, params);
-
-        return observable;
+    async post<T>(path: string, params: any = {}): Promise<AxiosResponse<T, any>> {
+        return await axios.post(this.SERVER_URL + path, params);
     }
 
-    delete(path: string, params: any = {}): Promise<any> {
-        const observable = axios.delete(this.SERVER_URL + path, params);
-
-        return observable;
+    async delete<T>(path: string, params: any = {}): Promise<AxiosResponse<T, any>> {
+        return await axios.delete(this.SERVER_URL + path, params);
     }
 }

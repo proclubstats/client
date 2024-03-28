@@ -1,29 +1,35 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { PLAYERS_DATA } from '../components/top-scorers/top-scorers.definitions';
+import { AddPlayerDataRequest } from '../shared/models/addPlayerDataRequest';
+import { IPlayer } from '../shared/models/player.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerService {
-  PLAYERS_CONTROLLER_URL = "player/";
+  PLAYERS_CONTROLLER_URL = "player";
 
   constructor(private apiService: ApiService) { }
 
-  getAllPlayers() : Promise<any>{
-      return this.apiService.get(`${this.PLAYERS_CONTROLLER_URL}`);
+  async getAllPlayers(): Promise<IPlayer[]> {
+    const response = await this.apiService.get<IPlayer[]>(`${this.PLAYERS_CONTROLLER_URL}/`);
+
+    return response.data;
   }
 
-  getPlayerById(id: string): any  {
-    return PLAYERS_DATA.find(player=> player.id === id);
-    // return this.apiService.get(`${this.PLAYERS_CONTROLLER_URL}`, id);
+  async getPlayerById(id: string): Promise<IPlayer> {
+    const response = await this.apiService.get<IPlayer>(`${this.PLAYERS_CONTROLLER_URL}/${id}/`);
+
+    return response.data;
   }
 
-  addPlayer(data: any): Promise<any> {
-    return this.apiService.post(`${this.PLAYERS_CONTROLLER_URL}`, data);
+  async addPlayer(data: AddPlayerDataRequest): Promise<IPlayer> {
+    const response = await this.apiService.post<IPlayer>(`${this.PLAYERS_CONTROLLER_URL}/`, data);
+
+    return response.data;
   }
 
-  deletePlayer(id: string): Promise<any> {
-    return this.apiService.delete(`${this.PLAYERS_CONTROLLER_URL}`, id);
+  async deletePlayer(id: string): Promise<void> {
+    await this.apiService.delete<void>(`${this.PLAYERS_CONTROLLER_URL}/`, id);
   }
 }

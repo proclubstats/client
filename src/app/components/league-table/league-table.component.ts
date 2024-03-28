@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { TEAMS_DATA, LEAGUE_TABLE_DISPLAY_COLUMN } from './league-table.mock';
+import { LEAGUE_TABLE_DISPLAY_COLUMN } from './league-table.mock';
 import { Column } from '../../shared/models/column.model';
-import { Team } from '../../shared/models/team.model';
 import { Router } from '@angular/router';
+import { LeagueService } from '../../services/league.service';
+import { LeagueTableRow } from '../../shared/models/leagueTableTeam';
+import { LEAGUE_ID } from '../../constants/constants';
 
 @Component({
   selector: 'app-league-table',
@@ -11,15 +13,22 @@ import { Router } from '@angular/router';
 })
 export class LeagueTableComponent {
   displayedColumns: Column[] = LEAGUE_TABLE_DISPLAY_COLUMN;
-  dataSource = TEAMS_DATA;
+  leagueTable: LeagueTableRow[] = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private leagueService: LeagueService) { }
 
   ngOnInit() {
+    this.loadLeagueTableData();
+  }
+
+  async loadLeagueTableData() {
+    const leagueTableResponse = await this.leagueService.getLeagueTable(LEAGUE_ID);
+
+    this.leagueTable = leagueTableResponse;
 
   }
 
-  onTeamClick($teamDetails: Team) {
-    this.router.navigate(['/team-details', { id: $teamDetails.id }])
+  onTeamClick(teamDetails: LeagueTableRow) {
+    this.router.navigate(['/team-details', { id: teamDetails.teamId }])
   }
 }

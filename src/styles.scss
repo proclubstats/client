@@ -72,7 +72,7 @@ body {
     height: 15%;
 }
 
-.h-85{
+.h-85 {
     height: 85%;
 }
 
@@ -88,7 +88,7 @@ body {
     overflow-y: auto;
 }
 
-.justify-items-center{
+.justify-items-center {
     justify-items: center;
 }
 
@@ -99,3 +99,24 @@ input[type="file"] {
 .gap-15px {
     gap: 15px;
 }
+
+// sets active tab text color
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+    color: var(--primary) !important;
+}
+
+// sets note active tab text color
+.mat-mdc-tab .mdc-tab__text-label {
+    color: white !important;
+}
+
+//sets active tab border-down color
+.mat-mdc-tab-group, .mat-mdc-tab-nav-bar {
+    --mdc-tab-indicator-active-indicator-color: var(--primary) !important;
+    --mat-tab-header-active-focus-label-text-color: var(--primary) !important;
+    --mat-tab-header-active-hover-label-text-color: var(--primary) !important;
+    --mat-tab-header-active-ripple-color : var(--primary) !important;
+    --mat-tab-header-inactive-ripple-color : var(--primary) !important;
+    --mat-tab-header-active-focus-indicator-color: var(--primary) !important;
+    --mat-tab-header-active-hover-indicator-color : var(--primary) !important;
+  }

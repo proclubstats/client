@@ -18,7 +18,7 @@
                         {{ control.displayText }}:
                     </div>
                     <div>
-                        <input *ngIf="control.type === 'text-input' " [formControlName]="control.displayText"
+                        <input *ngIf="control.type === 'text-input' " [formControlName]="control.field"
                             [placeholder]="control.displayText" class="pro-clubs-input">
                         <pro-clubs-auto-complete-select *ngIf="control.type === 'select'"
                             [placeholder]="control.displayText" (selectionChange)="onSelectionChange($event)"
@@ -30,7 +30,7 @@
                             <label for="urlPhoto" class="custom-file-label">
                                 <button type="button" (click)="fileInput.click()"
                                     class="pro-clubs-button-primary pro-clubs-input">ADD
-                                    PHOTO</button>
+                                    IMAGE</button>
                             </label>
                             <div class="d-grid align-items-center ml-3" *ngIf="control.control.value != ''">
                                 {{control.control.value}}</div>

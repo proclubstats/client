@@ -4,6 +4,8 @@ import { PLAYABLE_POSITIONS_OPTIONS } from '../top-scorers/top-scorers.definitio
 import { ActivatedRoute } from '@angular/router';
 import { TEAMS_DATA } from '../league-table/league-table.mock';
 import { ListOption } from '../../shared/models/list-option.model';
+import { AddPlayerDataRequest } from '../../shared/models/addPlayerDataRequest';
+import { PlayerService } from '../../services/player.service';
 
 @Component({
   selector: 'app-add-player',
@@ -17,17 +19,17 @@ export class AddPlayerComponent {
   teamName: string = '';
 
   formControls = [
-    { control: new FormControl(''), displayText: 'Name', type: 'text-input' },
-    { control: new FormControl(''), displayText: 'Phone', type: 'text-input' },
-    { control: new FormControl(''), displayText: 'Age', type: 'text-input' },
-    { control: new FormControl(''), displayText: 'Position', type: 'select' },
-    { control: new FormControl(''), displayText: 'Playable Positions', type: 'multi-select' },
-    { control: new FormControl(''), displayText: 'Photo URL', type: 'photo' }
+    { control: new FormControl(''), field: 'name', displayText: 'Name', type: 'text-input' },
+    { control: new FormControl(''), field: 'phone', displayText: 'Phone', type: 'text-input' },
+    { control: new FormControl(''), field: 'age', displayText: 'Age', type: 'text-input' },
+    { control: new FormControl(''), field: 'position', displayText: 'Position', type: 'select' },
+    { control: new FormControl(''), field: 'playablePositions', displayText: 'Playable Positions', type: 'multi-select' },
+    { control: new FormControl(''), field: 'imgUrl', displayText: 'Image URL', type: 'photo' }
   ];
 
   playablePositionOptions = PLAYABLE_POSITIONS_OPTIONS;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private playersService: PlayerService) { }
 
   ngOnInit() {
     this.loadFormControl();
@@ -37,7 +39,7 @@ export class AddPlayerComponent {
   loadFormControl() {
     let group: any = {};
     this.formControls.forEach(item => {
-      group[item.displayText] = item.control;
+      group[item.field] = item.control;
     });
 
     this.addPlayerFormGroup = new FormGroup(group);
@@ -48,7 +50,7 @@ export class AddPlayerComponent {
 
     if (!this.teamID) { return; }
 
-    this.teamName = TEAMS_DATA.find(team => team.id === this.teamID)?.name!;
+    this.teamName = TEAMS_DATA.find(team => team.teamId === this.teamID)?.teamName!;
 
   }
 
@@ -56,9 +58,11 @@ export class AddPlayerComponent {
     this.addPlayerFormGroup.reset();
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.addPlayerFormGroup.valid) {
-      console.log('Form submitted successfully!');
+      const convertedForm = this.convertFormToModel();
+      const response = await this.playersService.addPlayer(convertedForm);
+
       console.log('Form value:', this.addPlayerFormGroup.value);
       // Here you can send form data to your backend or perform any necessary action
     } else {
@@ -66,10 +70,17 @@ export class AddPlayerComponent {
     }
   }
 
+  // when the user presses on submit, converting the form group into model before passing it to the server
+  convertFormToModel(): AddPlayerDataRequest {
+    const convertedForm: AddPlayerDataRequest = this.addPlayerFormGroup.value;
+    convertedForm.teamId = this.teamID;
+    return convertedForm;
+  }
+
   onSelectionChange($chosenPosition: ListOption) {
     if (!$chosenPosition) return;
 
-    this.addPlayerFormGroup.get('Position')?.setValue($chosenPosition.displayText);
+    this.addPlayerFormGroup.get('position')?.setValue($chosenPosition.displayText);
 
   }
 
@@ -77,16 +88,16 @@ export class AddPlayerComponent {
     if (!$chosenPositions) return;
     var positionsValuesOnly = $chosenPositions.map(position => { return position.displayText });
 
-    this.addPlayerFormGroup.get('Playable Positions')?.setValue(positionsValuesOnly);
+    this.addPlayerFormGroup.get('playablePositions')?.setValue(positionsValuesOnly);
 
   }
 
   onFileSelected($event: any) {
-    if (!$event.target.files) 
+    if (!$event.target.files)
       return;
 
     const file: File = $event.target.files[0];
-    this.addPlayerFormGroup.get('Photo URL')?.setValue(file.name);
+    this.addPlayerFormGroup.get('imgUrl')?.setValue(file.name);
     // You can now handle the selected file (e.g., upload it, display it, etc.)
   }
 }

@@ -1,15 +1,15 @@
 import { Column } from "../../shared/models/column.model";
-import { Team } from "../../shared/models/team.model";
+import { LeagueTableRow } from "../../shared/models/leagueTableTeam";
 
-export const TEAMS_DATA: Team[] = [
-    { id: '4', name: 'SHANA TOVAU', pointsAmount: 86, winsAmount: 28, drawsAmount: 2, losesAmount: 4,gamesAmount: 34, goalsFor: 96, goalsAgainst: 33, goalsDifference: 63, captainID: '1231' },
-    { id: '1', name: 'Kwincovim', pointsAmount:88, winsAmount: 29, drawsAmount: 1, losesAmount: 4,gamesAmount: 34, goalsFor: 129, goalsAgainst: 38, goalsDifference: 91, captainID:  '15'},
-    { id: '2', name: 'Bishbashim', pointsAmount: 74, winsAmount: 23, drawsAmount: 5, losesAmount: 6,gamesAmount: 34, goalsFor: 100, goalsAgainst: 45, goalsDifference: 55, captainID: '4' },
-    { id: '6', name: 'Ironi Tiberias', pointsAmount: 62, winsAmount: 19, drawsAmount: 5, losesAmount: 10,gamesAmount: 34, goalsFor: 107, goalsAgainst: 72, goalsDifference: 35,captainID: '6' },
-    { id: '8', name: 'FC BROTHERSS', pointsAmount: 60, winsAmount: 19, drawsAmount: 3, losesAmount: 12,gamesAmount: 34, goalsFor: 109, goalsAgainst: 72, goalsDifference: 37, captainID: '25' },
-    { id: '13', name: 'Yeshishim', pointsAmount: 56, winsAmount: 17, drawsAmount: 5, losesAmount: 12,gamesAmount: 34, goalsFor: 85, goalsAgainst: 61, goalsDifference: 24, captainID: '1652'},
-    { id: '11', name: 'Saba Meir FC', pointsAmount: 53, winsAmount: 17, drawsAmount: 2, losesAmount: 15,gamesAmount: 34, goalsFor: 80, goalsAgainst: 67, goalsDifference: 13, captainID: '1765' },
-    { id: '9', name: 'Maccabi Jerusalem', pointsAmount: 52, winsAmount: 16, drawsAmount: 4, losesAmount: 14,gamesAmount: 34, goalsFor: 98, goalsAgainst: 82, goalsDifference: 16, captainID: '3' },
+export const TEAMS_DATA: LeagueTableRow[] = [
+    { teamId: '4', teamName: 'SHANA TOVAU', points: 86, gamesWon: 28, draws: 2, gamesLost: 4,gamesPlayed: 34, goalsScored: 96, goalsConceded: 33, goalDifference: 63, cleanSheets:0 },
+    { teamId: '1', teamName: 'Kwincovim', points:88, gamesWon: 29, draws: 1, gamesLost: 4,gamesPlayed: 34, goalsScored: 129, goalsConceded: 38, goalDifference: 91, cleanSheets:0 },
+    { teamId: '2', teamName: 'Bishbashim', points: 74, gamesWon: 23, draws: 5, gamesLost: 6,gamesPlayed: 34, goalsScored: 100, goalsConceded: 45, goalDifference: 55, cleanSheets:0 },
+    { teamId: '6', teamName: 'Ironi Tiberias', points: 62, gamesWon: 19, draws: 5, gamesLost: 10,gamesPlayed: 34, goalsScored: 107, goalsConceded: 72, goalDifference: 35, cleanSheets:0},
+    { teamId: '8', teamName: 'FC BROTHERSS', points: 60, gamesWon: 19, draws: 3, gamesLost: 12,gamesPlayed: 34, goalsScored: 109, goalsConceded: 72, goalDifference: 37, cleanSheets:0},
+    { teamId: '13', teamName: 'Yeshishim', points: 56, gamesWon: 17, draws: 5, gamesLost: 12,gamesPlayed: 34, goalsScored: 85, goalsConceded: 61, goalDifference: 24, cleanSheets:0},
+    { teamId: '11', teamName: 'Saba Meir FC', points: 53, gamesWon: 17, draws: 2, gamesLost: 15,gamesPlayed: 34, goalsScored: 80, goalsConceded: 67, goalDifference: 13, cleanSheets:0 },
+    { teamId: '9', teamName: 'Maccabi Jerusalem', points: 52, gamesWon: 16, draws: 4, gamesLost: 14,gamesPlayed: 34, goalsScored: 98, goalsConceded: 82, goalDifference: 16 , cleanSheets:0},
 ];
 
 export const LEAGUE_TABLE_DISPLAY_COLUMN: Column[] = [
@@ -18,39 +18,39 @@ export const LEAGUE_TABLE_DISPLAY_COLUMN: Column[] = [
         displayText: '#'
     },
     {
-        fieldName: 'name',
+        fieldName: 'teamName',
         displayText: 'Name'
     },
     {
-        fieldName: 'gamesAmount',
+        fieldName: 'gamesPlayed',
         displayText: 'GP'
     },
     {
-        fieldName: 'winsAmount',
+        fieldName: 'gamesWon',
         displayText: 'W'
     },
     {
-        fieldName: 'drawsAmount',
+        fieldName: 'draws',
         displayText: 'D'
     },
     {
-        fieldName: 'losesAmount',
+        fieldName: 'gamesLost',
         displayText: 'L'
     },
     {
-        fieldName: 'goalsFor',
+        fieldName: 'goalsScored',
         displayText: 'GF'
     },
     {
-        fieldName: 'goalsAgainst',
+        fieldName: 'goalsConceded',
         displayText: 'GA'
     },
     {
-        fieldName: 'goalsDifference',
+        fieldName: 'goalDifference',
         displayText: 'DIF'
     },
     {
-        fieldName: 'pointsAmount',
+        fieldName: 'points',
         displayText: 'P'
     }
 

@@ -4,7 +4,7 @@ import { gamesArray } from './fixtures.mock';
 import { Modal } from 'bootstrap';
 
 @Component({
-  selector: 'app-fixtures',
+  selector: 'fixtures',
   templateUrl: './fixtures.component.html',
   styleUrl: './fixtures.component.scss'
 })
