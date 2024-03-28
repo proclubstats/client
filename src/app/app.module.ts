@@ -21,10 +21,14 @@ import { TeamService } from "./services/team.service";
 import { FixtureService } from "./services/fixtures.service";
 import { LeagueService } from "./services/league.service";
 import { HttpClientModule } from "@angular/common/http";
-import { TeamDetailsSquadComponent } from "./components/team-details/team-details-squad/team-details-squad.component";
-import { TeamDetailsOverallComponent } from "./components/team-details/team-details-overall/team-details-overall.component";
-import { TeamDetailsStatsComponent } from "./components/team-details/team-details-stats/team-details-stats.component";
 import { ModifyFixtureComponent } from "./components/modify-fixture/modify-fixture.component";
+import { MatTabsModule } from '@angular/material/tabs';
+import { TeamDetailsOverallComponent } from "./components/team-details/tabs/team-details-overall/team-details-overall.component";
+import { TeamDetailsOverallDataComponent } from "./components/team-details/tabs/team-details-overall/team-details-overall-data/team-details-overall-data.component";
+import { TeamDetailsMatchesComponent } from "./components/team-details/tabs/team-details-matches/team-details-matches.component";
+import { TeamDetailsSquadComponent } from "./components/team-details/tabs/team-details-overall/team-details-squad/team-details-squad.component";
+import { TeamDetailsStatsComponent } from "./components/team-details/tabs/team-details-stats/team-details-stats.component";
+import { TeamDetailsOverallStatsComponent } from "./components/team-details/tabs/team-details-overall/team-details-overall-stats/team-details-overall-stats.component";
 
 @NgModule({
     declarations: [
@@ -40,10 +44,14 @@ import { ModifyFixtureComponent } from "./components/modify-fixture/modify-fixtu
         TeamDetailsComponent,
         AddPlayerComponent,
         AddTeamComponent,
-        TeamDetailsSquadComponent,
+        ModifyFixtureComponent,
+        TeamDetailsComponent,
         TeamDetailsOverallComponent,
+        TeamDetailsOverallDataComponent,
+        TeamDetailsOverallStatsComponent,
+        TeamDetailsMatchesComponent,
+        TeamDetailsSquadComponent,
         TeamDetailsStatsComponent,
-        ModifyFixtureComponent
     ],
     imports: [
         AppRoutingModule,
@@ -52,7 +60,8 @@ import { ModifyFixtureComponent } from "./components/modify-fixture/modify-fixtu
         ReactiveFormsModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        MatTabsModule
     ],
     exports: [],
     providers: [

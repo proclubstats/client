@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { LEAGUE_TABLE_DISPLAY_COLUMN } from './top-assists.definitions';
 import { Column } from '../../shared/models/column.model';
-import { Player } from '../../shared/models/player.model';
 import { Router } from '@angular/router';
 import { LeagueService } from '../../services/league.service';
+import { IPlayer } from '../../shared/models/player.model';
+import { LEAGUE_ID } from '../../constants/constants';
 
 @Component({
   selector: 'app-top-assists',
@@ -12,7 +13,7 @@ import { LeagueService } from '../../services/league.service';
 })
 export class TopAssistsComponent {
   displayedColumns: Column[] = LEAGUE_TABLE_DISPLAY_COLUMN;
-  dataSource = [];
+  topAssistsData: IPlayer[] = [];
 
   constructor(private router: Router, private leagueService: LeagueService) { }
 
@@ -20,13 +21,13 @@ export class TopAssistsComponent {
     this.loadTopAssistsData();
   }
 
-  private loadTopAssistsData(): void {
-    this.leagueService.getTopAssists().then(serverResponse => {
-      this.dataSource = serverResponse;
-    })
+  private async loadTopAssistsData() {
+    const topAssistsResponse = await this.leagueService.getTopAssists(LEAGUE_ID);
+
+    this.topAssistsData = topAssistsResponse;
   }
 
-  onPlayerClick($playerDetails: Player): void {
+  onPlayerClick($playerDetails: IPlayer): void {
     this.router.navigate(['/player-details', { id: $playerDetails.id }])
   }
 }

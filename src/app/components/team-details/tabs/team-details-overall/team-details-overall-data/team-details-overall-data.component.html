@@ -1,6 +1,6 @@
 <div>
     <div class="pro-clubs-header-1 mt-4 w-100 text-center">
-        {{chosenTeam.name}}
+        {{chosenTeam!.name}}
     </div>
     <div class="mt-3 w-100 text-center primary-border-bottom pb-4">
         <img src="assets/Icons/TeamLogo.jpg" class="player-photo-size">
@@ -8,10 +8,10 @@
     <div class="mt-4 pro-clubs-text-regular width-max-content w-100 text-center">
         CAPTAIN
     </div>
-    <div class="mt-3 w-100 text-center cursor-pointer" (click)="navigateToPlayerDetails(chosenTeam.captainID!)">
+    <div class="mt-3 w-100 text-center cursor-pointer" (click)="navigateToPlayerDetails(chosenTeam!.captain!)">
         <img src="https://i.ibb.co/2YBwMw5/Player-Photo.png" class="player-photo-size">
     </div>
-    <div class=" mt-3 w-100 text-center cursor-pointer" (click)="navigateToPlayerDetails(chosenTeam.captainID!)">
-        {{convertPlayerIdToName(chosenTeam.captainID!)}}
+    <div class=" mt-3 w-100 text-center cursor-pointer" (click)="navigateToPlayerDetails(chosenTeam!.captain!)">
+        {{convertPlayerIdToName(chosenTeam!.captain)}}
     </div>
 </div>

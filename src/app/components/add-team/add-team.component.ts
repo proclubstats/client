@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { CreateTeamModel } from '../../shared/models/team.model';
+import { TeamService } from '../../services/team.service';
 
 @Component({
   selector: 'app-add-team',
@@ -8,13 +10,14 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class AddTeamComponent {
   addTeamFormGroup: FormGroup;
+  LEAGUE_ID = "65ecb1eb2f272e434483a821";
 
   formControls = [
-    { control: new FormControl(''), fieldName: 'name', displayText: 'Name', maxLength: 11 },
-    { control: new FormControl(''), fieldName: 'photo-url', displayText: 'Photo URL'}
+    { control: new FormControl(''), fieldName: 'name', displayText: 'Name' },
+    { control: new FormControl(''), fieldName: 'photo-url', displayText: 'Photo URL' }
   ];
 
-  constructor() {
+  constructor(private teamService: TeamService) {
     let group: any = {};
     this.formControls.forEach(item => {
       group[item.fieldName] = item.control;
@@ -31,14 +34,22 @@ export class AddTeamComponent {
     this.addTeamFormGroup.reset();
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.addTeamFormGroup.valid) {
-      console.log('Form submitted successfully!');
-      console.log('Form value:', this.addTeamFormGroup.value);
-      // Here you can send form data to your backend or perform any necessary action
-    } else {
-      console.log('Form submission failed! Please check the form.');
+      var createTeamModel = this.convertFormToModel();
+      const createTeamResponse = await this.teamService.createTeam(createTeamModel);
+
+      window.alert(`${createTeamResponse.name} Added Successfuly`);
     }
+  }
+
+  convertFormToModel(): CreateTeamModel {
+    const formValues = this.addTeamFormGroup.value;
+    return {
+      name: formValues.name,
+      leagueId: this.LEAGUE_ID,
+      logoUrl: formValues['photo-url']
+    };
   }
 
   selectFile() {
@@ -47,7 +58,7 @@ export class AddTeamComponent {
   }
 
   onFileSelected($event: any) {
-    if (!$event.target.files) 
+    if (!$event.target.files)
       return;
 
     const file: File = $event.target.files[0];

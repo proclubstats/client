@@ -14,7 +14,7 @@ export const LEAGUE_TABLE_DISPLAY_COLUMN: Column[] = [
         displayText: 'Team Name'
     },
     {
-        fieldName: 'assistsAmount',
+        fieldName: 'assists',
         displayText: 'Assists'
     },
     {

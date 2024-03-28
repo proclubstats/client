@@ -19,6 +19,7 @@ export class ProClubsDataTableComponent {
   originalData: any;
 
   @Input() defaultSort?: string;
+  @Input() isClickable: boolean = false;
   @Input() set columnsToDisplay(displayedColumns: Column[]) {
     if (displayedColumns) {
       this.displayedColumnsData = [...displayedColumns];

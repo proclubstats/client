@@ -1,12 +1,20 @@
-export class Player {
-    id: string = '';
-    name: string = "";
-    teamID: string = "";
-    gamesAmount: number = 0;
-    goalsAmount: number = 0;
-    assistsAmount: number = 0;
-    teamName: string = "";
-    position?: string = "";
-    gpg? : string;
-    apg? : string;
+export interface IPlayerStats {
+    games: number;
+    goals: number;
+    assists: number;
+    cleanSheets: number;
+    playerOfTheMatch: number;
+}
+
+export interface IPlayer{
+    id: string;
+    team: string;
+    phone?: Number;
+    email?: string;
+    name: string;
+    age: number;
+    imgUrl?: string;
+    stats: IPlayerStats;
+    position: string;
+    playablePositions: string[];
 }

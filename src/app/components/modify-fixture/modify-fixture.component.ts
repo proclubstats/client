@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Fixture } from '../../shared/models/game.model';
 import { ListOption } from '../../shared/models/list-option.model';
-import { PLAYERS_DATA } from '../top-scorers/top-scorers.definitions';
 import { PlayerStat } from '../../shared/models/player-stat.model';
 
 @Component({
@@ -32,15 +31,17 @@ export class ModifyFixtureComponent {
   }
 
   loadPlayersOptions() {
-    this.homeTeamPlayersOptions = PLAYERS_DATA.filter(player => player.teamID === this.selectedFixture?.homeTeamDetails.teamID).map(player => {
-      const option = { value: player.id, displayText: player.name } as ListOption;
-      return option;
-    });
+    // this.homeTeamPlayersOptions = PLAYERS_DATA.filter(player => player.teamID === this.selectedFixture?.homeTeamDetails.teamID).map(player => {
+    //   const option = { value: player.id, displayText: player.name } as ListOption;
+    //   return option;
+    // });
 
-    this.awayTeamPlayersOptions = PLAYERS_DATA.filter(player => player.teamID === this.selectedFixture?.awayTeamDetails.teamID).map(player => {
-      const option = { value: player.id, displayText: player.name } as ListOption;
-      return option;
-    });
+    // this.awayTeamPlayersOptions = PLAYERS_DATA.filter(player => player.teamID === this.selectedFixture?.awayTeamDetails.teamID).map(player => {
+    //   const option = { value: player.id, displayText: player.name } as ListOption;
+    //   return option;
+    // });
+
+    
   }
 
   onSelectionChange($chosenPlayer: ListOption, playerId: string) {

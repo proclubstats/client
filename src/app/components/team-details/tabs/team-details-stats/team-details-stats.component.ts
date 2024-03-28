@@ -1,6 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { Team } from '../../../shared/models/team.model';
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'team-details-stats',
@@ -8,6 +6,5 @@ import { Team } from '../../../shared/models/team.model';
   styleUrl: './team-details-stats.component.scss'
 })
 export class TeamDetailsStatsComponent {
-  @Input() chosenTeam: Team = new Team();
 
 }

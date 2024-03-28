@@ -11,7 +11,7 @@
                     </div>
                     <div>
                         <input *ngIf="control.fieldName === 'name'" [formControlName]="control.fieldName"
-                            [placeholder]="control.displayText" [maxlength]="control.maxLength!"
+                            [placeholder]="control.displayText"
                             class="pro-clubs-input">
                         <div *ngIf="control.fieldName === 'photo-url'" class="d-flex gap-15px">
                             <label for="urlPhoto" class="custom-file-label">
@@ -26,7 +26,7 @@
                 </div>
             </ng-container>
             <div class="text-center mt-5">
-                <button type="submit" class="pro-clubs-button-primary"
+                <button type="submit" class="pro-clubs-button-primary" 
                     [disabled]="addTeamFormGroup.invalid">Submit</button>
             </div>
         </form>

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Player } from '../../shared/models/player.model';
-import { PLAYERS_DATA } from '../top-scorers/top-scorers.definitions';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
+import { IPlayer } from '../../shared/models/player.model';
 
 @Component({
   selector: 'app-player-details',
@@ -11,16 +10,21 @@ import { PlayerService } from '../../services/player.service';
 })
 export class PlayerDetailsComponent {
   playerID: string = '';
-  chosenPlayer?: Player;
-  constructor(private route: ActivatedRoute, private playerService: PlayerService) { }
+  chosenPlayer: IPlayer | null = null;
+
+  constructor(private route: ActivatedRoute, private router: Router, private playerService: PlayerService) { }
 
   ngOnInit() {
     this.loadPlayerData();
   }
 
-  private loadPlayerData(): void {
+  private async loadPlayerData(): Promise<void> {
     this.playerID = this.route.snapshot.paramMap.get('id') || this.playerID;
 
-    this.chosenPlayer = this.playerService.getPlayerById(this.playerID);
+    this.chosenPlayer = await this.playerService.getPlayerById(this.playerID);
+  }
+
+  navigateToTeamDetails(): void {
+    this.router.navigate(['/team-details', { id: this.chosenPlayer!.team }]);
   }
 }

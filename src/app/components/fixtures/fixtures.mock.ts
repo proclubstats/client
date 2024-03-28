@@ -1,5 +1,4 @@
 import { Fixture } from "../../shared/models/game.model";
-import { PlayerStat } from "../../shared/models/player-stat.model";
 
 export const gamesArray: Fixture[] = [
     {
@@ -20,7 +19,7 @@ export const gamesArray: Fixture[] = [
             ]
         },
         awayTeamDetails: {
-            teamID: '1', teamName: 'SHANA TOVAU', teamGoalsAmount: 3, teamScorers: [
+            teamID: '4', teamName: 'SHANA TOVAU', teamGoalsAmount: 3, teamScorers: [
                 { playerId: '252222', playerStatsAmount: 1 }, { playerId: '1231', playerStatsAmount: 2 }
             ],
             teamAssists: [

@@ -1,20 +1,20 @@
-<div class="w-100 d-grid justify-content-center">
+<div class="w-100 d-grid justify-content-center" *ngIf="chosenTeam">
     <div class="pro-clubs-header-1 text-white">
         TEAM DETAILS
     </div>
     <div class="pro-clubs-page-template">
-        <div class="d-flex h-100 team-overall-area">
-            <div class="w-25 pro-clubs-bg-primary h-100 pro-clubs-border-radius">
-                <team-details-overall [chosenTeam]="chosenTeam!"></team-details-overall>
-            </div>
-            <div class="team-stats-area w-75 d-flex flex-column h-100">
-                <div class="d-flex h-15  ">
-                   <team-details-stats [chosenTeam]="chosenTeam!" class="w-100 d-flex justify-content-between games-stats-row"></team-details-stats>
-                </div>
-                <div class="h-85 pro-clubs-bg-primary pro-clubs-border-radius squad-area">
-                    <team-details-squad [chosenTeam]="chosenTeam!"></team-details-squad>
-                </div>
-            </div>
+        <div>
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+                <mat-tab label="OVERALL">
+                    <team-details-overall [chosenTeam]="chosenTeam"></team-details-overall>
+                </mat-tab>
+                <mat-tab label="MATCHES">
+                    <team-details-matches></team-details-matches>
+                </mat-tab>
+                <mat-tab label="STATS">
+                    <team-details-stats></team-details-stats>
+                </mat-tab>
+            </mat-tab-group>
         </div>
     </div>
 </div>

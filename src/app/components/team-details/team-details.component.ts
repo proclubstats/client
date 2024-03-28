@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { Team } from '../../shared/models/team.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PLAYERS_DATA } from '../top-scorers/top-scorers.definitions';
-import { TEAMS_DATA } from '../league-table/league-table.mock';
+import { ITeam } from '../../shared/models/team.model';
+import { TeamService } from '../../services/team.service';
 
 @Component({
   selector: 'app-team-details',
@@ -12,12 +11,16 @@ import { TEAMS_DATA } from '../league-table/league-table.mock';
 export class TeamDetailsComponent {
 
   teamID: string = '';
-  chosenTeam?: Team;
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  chosenTeam: ITeam | null = null;
+  constructor(private route: ActivatedRoute, private teamService: TeamService) { }
 
   ngOnInit() {
+    this.loadTeamDetails();
+  }
+
+  async loadTeamDetails() : Promise<void>{
     this.teamID = this.route.snapshot.paramMap.get('id') || this.teamID;
 
-    this.chosenTeam = TEAMS_DATA.find(team => team.id === this.teamID)!;
+    this.chosenTeam = await this.teamService.getTeamById(this.teamID);
   }
 }

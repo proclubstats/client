@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Team } from '../../../shared/models/team.model';
 import { Router } from '@angular/router';
-import { Player } from '../../../shared/models/player.model';
-import { TeamService } from '../../../services/team.service';
-
+import { TeamService } from '../../../../../services/team.service';
+import { IPlayer } from '../../../../../shared/models/player.model';
+import { ITeam } from '../../../../../shared/models/team.model';
 
 @Component({
   selector: 'team-details-squad',
@@ -11,12 +10,12 @@ import { TeamService } from '../../../services/team.service';
   styleUrl: './team-details-squad.component.scss'
 })
 export class TeamDetailsSquadComponent {
-  @Input() chosenTeam: Team = new Team();
-  allPlayers: Player[] = [];
-  goalkeepers: Player[] = [];
-  defenders: Player[] = [];
-  midfielders: Player[] = [];
-  attackers: Player[] = [];
+  @Input() chosenTeam: ITeam | null = null;
+  allPlayers: IPlayer[] = [];
+  goalkeepers: IPlayer[] = [];
+  defenders: IPlayer[] = [];
+  midfielders: IPlayer[] = [];
+  attackers: IPlayer[] = [];
 
   constructor(private router: Router, private teamService: TeamService) { }
 
@@ -25,7 +24,8 @@ export class TeamDetailsSquadComponent {
   }
 
   loadPlayersData(): void {
-    this.teamService.getPlayersByTeam(this.chosenTeam.id).then(serverResponse => {
+    // TO REMOVE
+    this.teamService.getPlayersByTeam(this.chosenTeam!.id).then(serverResponse => {
       if (serverResponse) {
         this.allPlayers = serverResponse;
 
@@ -38,7 +38,7 @@ export class TeamDetailsSquadComponent {
   }
 
   onAddPlayerClick(): void {
-    this.router.navigate(['/add-player', { id: this.chosenTeam.id }]);
+    this.router.navigate(['/add-player', { id: this.chosenTeam!.id }]);
   }
 
   getTeamAttackers() {
@@ -66,7 +66,7 @@ export class TeamDetailsSquadComponent {
     });
   }
 
-  onPlayerClick(playerId: string) : void {
+  onPlayerClick(playerId: string): void {
     this.router.navigate(['/player-details', { id: playerId }]);
   }
 }

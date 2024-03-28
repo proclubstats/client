@@ -1,36 +1,42 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { PLAYERS_DATA } from '../components/top-scorers/top-scorers.definitions';
+import { CreateTeamModel, ITeam } from '../shared/models/team.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamService {
-  TEAMS_CONTROLLER_URL = "team/";
+  TEAMS_CONTROLLER_URL = "team";
 
   constructor(private apiService: ApiService) { }
 
-  createTeam(name: string, leagueId: string, logoUrl: string): Promise<any> {
-    return this.apiService.post(`${this.TEAMS_CONTROLLER_URL}`, {name:name, leagueId:leagueId, logoUrl: logoUrl});
+  async createTeam(createTeamModel: CreateTeamModel): Promise<ITeam> {
+    const response = await this.apiService.post<ITeam>(`${this.TEAMS_CONTROLLER_URL}`, { name: createTeamModel.name, leagueId: createTeamModel.leagueId, logoUrl: createTeamModel.logoUrl });
+
+    return response.data;
   }
 
-  deleteTeam(id: string): Promise<any> {
-    return this.apiService.delete(`${this.TEAMS_CONTROLLER_URL}`, id);
+  async deleteTeam(id: string): Promise<void> {
+    await this.apiService.delete(`${this.TEAMS_CONTROLLER_URL}/${id}`);
   }
 
-  getTeamById(id: string): Promise<any> {
-    return this.apiService.get(`${this.TEAMS_CONTROLLER_URL}`, id);
+  async getTeamById(id: string): Promise<ITeam> {
+    const response = await this.apiService.get<ITeam>(`${this.TEAMS_CONTROLLER_URL}/${id}/`);
+
+    return response.data;
   }
 
-  getAllTeams(): Promise<any> {
-    return this.apiService.get(`${this.TEAMS_CONTROLLER_URL}`);
+  async getAllTeams(): Promise<ITeam[]> {
+    const response = await this.apiService.get<ITeam[]>(`${this.TEAMS_CONTROLLER_URL}`);
+
+    return response.data;
   }
 
-  getPlayersByTeam(id: string) : Promise<any> {
-    var players = PLAYERS_DATA.filter(player=> {return player.teamID === id});
+  async getPlayersByTeam(id: string): Promise<any> {
+    // var players = PLAYERS_DATA.filter(player=> {return player.teamID === id});
 
     return new Promise((resolve) => {
-      resolve(players);
+      resolve([]);
     });
   }
 }

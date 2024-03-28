@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Fixture } from '../../shared/models/game.model';
-import { PLAYERS_DATA } from '../top-scorers/top-scorers.definitions';
+import { PlayerService } from '../../services/player.service';
+import { IPlayer } from '../../shared/models/player.model';
 
 @Component({
   selector: 'app-game-details',
@@ -10,13 +11,23 @@ import { PLAYERS_DATA } from '../top-scorers/top-scorers.definitions';
 export class GameDetailsComponent {
   @Input() selectedFixture: Fixture | undefined = undefined;
 
-  constructor() { }
+  constructor(private playerService:PlayerService) { }
 
   ngOnInit() {
   }
 
   convertPlayerIdToName(playerId: string): string {
-    return PLAYERS_DATA.find(player => player.id === playerId)?.name!;
+    var playerName: string = '';
+    this.playerService.getPlayerById(playerId).then((serverResponse: IPlayer) => {
+      if (!serverResponse) {
+        return playerName;
+      }
+
+      playerName = serverResponse.name;
+      return playerName;
+    })
+
+    return playerName;
   }
 
 
