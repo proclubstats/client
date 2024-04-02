@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
-import { IPlayer } from '../../shared/models/player.model';
+import { IPlayer, PlayerDTO } from '../../shared/models/player.model';
 
 @Component({
   selector: 'app-player-details',
@@ -10,7 +10,7 @@ import { IPlayer } from '../../shared/models/player.model';
 })
 export class PlayerDetailsComponent {
   playerID: string = '';
-  chosenPlayer: IPlayer | null = null;
+  chosenPlayer: PlayerDTO | null = null;
 
   constructor(private route: ActivatedRoute, private router: Router, private playerService: PlayerService) { }
 
@@ -25,6 +25,6 @@ export class PlayerDetailsComponent {
   }
 
   navigateToTeamDetails(): void {
-    this.router.navigate(['/team-details', { id: this.chosenPlayer!.team }]);
+    this.router.navigate(['/team-details', { id: this.chosenPlayer!.team!.id }]);
   }
 }

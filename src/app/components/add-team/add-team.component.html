@@ -4,29 +4,29 @@
     </div>
     <div class="pro-clubs-page-template games-area">
         <form [formGroup]="addTeamFormGroup" (ngSubmit)="onSubmit()">
-            <ng-container *ngFor="let control of formControls">
-                <div class="d-flex mt-3">
-                    <div class="w-25 d-grid align-content-center">
-                        {{ control.displayText }}:
+            <div class="mt-3">
+                <div class="d-flex">
+                    <div class="w-25 d-flex align-items-center">
+                        Name <span class="text-red px-2">*</span>
                     </div>
                     <div>
-                        <input *ngIf="control.fieldName === 'name'" [formControlName]="control.fieldName"
-                            [placeholder]="control.displayText"
-                            class="pro-clubs-input">
-                        <div *ngIf="control.fieldName === 'photo-url'" class="d-flex gap-15px">
-                            <label for="urlPhoto" class="custom-file-label">
-                                <button type="button" (click)="fileInput.click()" class="pro-clubs-button-primary pro-clubs-input">ADD
-                                    PHOTO</button>
-                            </label>
-                            <div class="d-grid align-items-center ml-3" *ngIf="control.control.value != ''">{{control.control.value}}</div>
-                            <input type="file" #fileInput id="urlPhoto" class="custom-file-input"
-                                (change)="onFileSelected($event)">
-                        </div>
+                        <input [formControlName]="'name'" [placeholder]="'Team Name'" class="pro-clubs-input">
                     </div>
                 </div>
-            </ng-container>
+                <div class="d-flex gap-15px mt-3">
+                    <label for="urlPhoto" class="custom-file-label">
+                        <button type="button" (click)="fileInput.click()"
+                            class="pro-clubs-button-primary pro-clubs-input">ADD
+                            PHOTO</button>
+                    </label>
+                    <!-- <div class="d-grid align-items-center ml-3" *ngIf="control.control.value != ''">
+                        {{control.control.value}}</div> -->
+                    <input type="file" #fileInput id="urlPhoto" class="custom-file-input"
+                        (change)="onFileSelected($event)">
+                </div>
+            </div>
             <div class="text-center mt-5">
-                <button type="submit" class="pro-clubs-button-primary" 
+                <button type="submit" class="pro-clubs-button-primary" [ngClass]="{'disabled-button': addTeamFormGroup.invalid}"
                     [disabled]="addTeamFormGroup.invalid">Submit</button>
             </div>
         </form>

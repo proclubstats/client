@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { TeamService } from '../../../../../services/team.service';
-import { IPlayer } from '../../../../../shared/models/player.model';
-import { ITeam } from '../../../../../shared/models/team.model';
+import { PlayerDTO, PlayerDTOShort } from '../../../../../shared/models/player.model';
+import { PlayerService } from '../../../../../services/player.service';
+import { TeamDTO } from '../../../../../shared/models/team.model';
 
 @Component({
   selector: 'team-details-squad',
@@ -10,57 +11,53 @@ import { ITeam } from '../../../../../shared/models/team.model';
   styleUrl: './team-details-squad.component.scss'
 })
 export class TeamDetailsSquadComponent {
-  @Input() chosenTeam: ITeam | null = null;
-  allPlayers: IPlayer[] = [];
-  goalkeepers: IPlayer[] = [];
-  defenders: IPlayer[] = [];
-  midfielders: IPlayer[] = [];
-  attackers: IPlayer[] = [];
+  @Input() chosenTeam: TeamDTO | null = null;
+  allPlayers: PlayerDTOShort[] = [];
+  goalkeepers: PlayerDTOShort[] = [];
+  defenders: PlayerDTOShort[] = [];
+  midfielders: PlayerDTOShort[] = [];
+  attackers: PlayerDTOShort[] = [];
 
-  constructor(private router: Router, private teamService: TeamService) { }
+  constructor(private router: Router, private teamService: TeamService, private playerService: PlayerService) { }
 
   ngOnInit() {
     this.loadPlayersData();
   }
 
-  loadPlayersData(): void {
-    // TO REMOVE
-    this.teamService.getPlayersByTeam(this.chosenTeam!.id).then(serverResponse => {
-      if (serverResponse) {
-        this.allPlayers = serverResponse;
+  async loadPlayersData() {
+    this.allPlayers = this.chosenTeam!.players!;
 
-        this.getTeamAttackers();
-        this.getTeamMidfielders();
-        this.getTeamDefenders();
-        this.getTeamGoalKeepers();
-      }
-    })
+    this.getTeamAttackers();
+    this.getTeamMidfielders();
+    this.getTeamDefenders();
+    this.getTeamGoalKeepers();
+
   }
 
   onAddPlayerClick(): void {
-    this.router.navigate(['/add-player', { id: this.chosenTeam!.id }]);
+    this.router.navigate(['/add-player', { id: this.chosenTeam!.id, name: this.chosenTeam!.name }]);
   }
 
   getTeamAttackers() {
-    this.attackers = this.allPlayers.filter(player => {
+    this.attackers = this.allPlayers!.filter(player => {
       return player.position === "ST" || player.position === "RW" || player.position === "LW" ||
         player.position === "RF" || player.position === "CF" || player.position === "LF"
     });
   }
 
   getTeamGoalKeepers() {
-    this.goalkeepers = this.allPlayers.filter(player => { return player.position === "GK" });
+    this.goalkeepers = this.allPlayers!.filter(player => { return player.position === "GK" });
   }
 
   getTeamDefenders() {
-    this.defenders = this.allPlayers.filter(player => {
+    this.defenders = this.allPlayers!.filter(player => {
       return player.position === "RB" || player.position === "RWB" || player.position === "LWB" ||
         player.position === "LB" || player.position === "CB"
     });
   }
 
   getTeamMidfielders() {
-    this.midfielders = this.allPlayers.filter(player => {
+    this.midfielders = this.allPlayers!.filter(player => {
       return player.position === "CDM" || player.position === "CM" || player.position === "RM" ||
         player.position === "LM" || player.position === "CAM"
     });

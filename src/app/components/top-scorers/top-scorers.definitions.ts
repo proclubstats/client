@@ -66,6 +66,14 @@ export const PLAYABLE_POSITIONS_OPTIONS: ListOption[] = [
     displayText: 'CM'
   },
   {
+    value: 'RM',
+    displayText: 'RM'
+  },
+  {
+    value: 'LM',
+    displayText: 'LM'
+  },
+  {
     value: 'CAM',
     displayText: 'CAM'
   },

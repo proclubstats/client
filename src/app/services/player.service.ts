@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { AddPlayerDataRequest } from '../shared/models/addPlayerDataRequest';
-import { IPlayer } from '../shared/models/player.model';
+import { IPlayer, PlayerDTO } from '../shared/models/player.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,8 @@ export class PlayerService {
     return response.data;
   }
 
-  async getPlayerById(id: string): Promise<IPlayer> {
-    const response = await this.apiService.get<IPlayer>(`${this.PLAYERS_CONTROLLER_URL}/${id}/`);
+  async getPlayerById(id: string): Promise<PlayerDTO> {
+    const response = await this.apiService.get<PlayerDTO>(`${this.PLAYERS_CONTROLLER_URL}/${id}/`);
 
     return response.data;
   }

@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Fixture } from '../../shared/models/game.model';
 import { PlayerService } from '../../services/player.service';
-import { IPlayer } from '../../shared/models/player.model';
+import { IPlayer, PlayerDTO } from '../../shared/models/player.model';
+import { TeamService } from '../../services/team.service';
 
 @Component({
   selector: 'app-game-details',
@@ -10,25 +11,19 @@ import { IPlayer } from '../../shared/models/player.model';
 })
 export class GameDetailsComponent {
   @Input() selectedFixture: Fixture | undefined = undefined;
+  homeTeamPlayers: PlayerDTO[] = [];
+  awayTeamPlayers: PlayerDTO[] = [];
 
-  constructor(private playerService:PlayerService) { }
+  constructor(private playerService: PlayerService, private teamService: TeamService) { }
 
   ngOnInit() {
+    this.loadPlayers();
   }
 
-  convertPlayerIdToName(playerId: string): string {
-    var playerName: string = '';
-    this.playerService.getPlayerById(playerId).then((serverResponse: IPlayer) => {
-      if (!serverResponse) {
-        return playerName;
-      }
+  async loadPlayers() {
+    this.homeTeamPlayers = await this.teamService.getPlayersByTeam(this.selectedFixture!.homeTeamDetails.teamID);
+    this.awayTeamPlayers = await this.teamService.getPlayersByTeam(this.selectedFixture!.awayTeamDetails.teamID);
 
-      playerName = serverResponse.name;
-      return playerName;
-    })
 
-    return playerName;
   }
-
-
 }

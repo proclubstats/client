@@ -6,12 +6,31 @@
         <img src="assets/Icons/TeamLogo.jpg" class="player-photo-size">
     </div>
     <div class="mt-4 pro-clubs-text-regular width-max-content w-100 text-center">
-        CAPTAIN
-    </div>
-    <div class="mt-3 w-100 text-center cursor-pointer" (click)="navigateToPlayerDetails(chosenTeam!.captain!)">
-        <img src="https://i.ibb.co/2YBwMw5/Player-Photo.png" class="player-photo-size">
-    </div>
-    <div class=" mt-3 w-100 text-center cursor-pointer" (click)="navigateToPlayerDetails(chosenTeam!.captain!)">
-        {{convertPlayerIdToName(chosenTeam!.captain)}}
+        <div class="d-flex justify-content-end pe-2">
+            <i class="fas fa-edit text-white cursor-pointer" *ngIf="!editCaptainMode" (click)="changeEditCaptainModeStatus(true)"></i>
+            <i class="fa-solid fa-xmark cursor-pointer" *ngIf="editCaptainMode" (click)="changeEditCaptainModeStatus(false)"></i>
+        </div>
+        <div *ngIf="!editCaptainMode">
+            <div>
+                CAPTAIN
+            </div>
+            <div class="mt-3 w-100 text-center cursor-pointer"
+                (click)="navigateToPlayerDetails(chosenTeam!.captain!.id)">
+                <img src="https://i.ibb.co/2YBwMw5/Player-Photo.png" class="player-photo-size">
+            </div>
+            <div class=" mt-3 w-100 text-center cursor-pointer"
+                (click)="navigateToPlayerDetails(chosenTeam!.captain!.id)">
+                {{getTeamCaptainName()}}
+            </div>
+        </div>
+        <div *ngIf="editCaptainMode">
+            <div>
+                <pro-clubs-auto-complete-select [defaultOption]="selectedCaptainId!" [selectOptions]="playersOptions!" (selectionChange)="onCaptainSelect($event)" [placeholder]="'Choose Captain'"></pro-clubs-auto-complete-select>
+            </div>
+            <div class="mt-2">
+                <button type="button" (click)="saveNewCaptain()" 
+                class="pro-clubs-button-primary pro-clubs-input">SAVE</button>
+            </div>
+        </div>
     </div>
 </div>

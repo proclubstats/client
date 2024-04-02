@@ -50,12 +50,12 @@
     color: green;
 }
 
-.text-red{
-    color: var(--primary);
-}
-
 .text-orange {
     color: orange;
+}
+
+.text-red {
+    color: red;
 }
 
 @media screen and (min-width: 800px) {
@@ -75,4 +75,12 @@
 
 .pro-clubs-border-radius {
     border-radius: 4px;
+}
+
+.pro-clubs-text-primary{
+    color: var(--primary);
+}
+
+.disabled-button {
+    opacity: 0.5;
 }

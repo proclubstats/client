@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, NgModel } from '@angular/forms';
+import { FormControl, FormGroup, NgModel, Validators } from '@angular/forms';
 import { PLAYABLE_POSITIONS_OPTIONS } from '../top-scorers/top-scorers.definitions';
 import { ActivatedRoute } from '@angular/router';
 import { TEAMS_DATA } from '../league-table/league-table.mock';
@@ -15,16 +15,16 @@ import { PlayerService } from '../../services/player.service';
 
 export class AddPlayerComponent {
   addPlayerFormGroup: FormGroup = new FormGroup({});
+  addPlayerFile: FormData = new FormData();
   teamID: string = '';
   teamName: string = '';
 
   formControls = [
-    { control: new FormControl(''), field: 'name', displayText: 'Name', type: 'text-input' },
-    { control: new FormControl(''), field: 'phone', displayText: 'Phone', type: 'text-input' },
-    { control: new FormControl(''), field: 'age', displayText: 'Age', type: 'text-input' },
-    { control: new FormControl(''), field: 'position', displayText: 'Position', type: 'select' },
-    { control: new FormControl(''), field: 'playablePositions', displayText: 'Playable Positions', type: 'multi-select' },
-    { control: new FormControl(''), field: 'imgUrl', displayText: 'Image URL', type: 'photo' }
+    { control: new FormControl('', Validators.required), field: 'name', displayText: 'Name', type: 'text-input', maxLength: 25 },
+    { control: new FormControl(''), field: 'phone', displayText: 'Phone', type: 'text-input', maxLength: 10 },
+    { control: new FormControl('', Validators.required), field: 'age', displayText: 'Age', type: 'text-input', maxLength: 2 },
+    { control: new FormControl('', Validators.required), field: 'position', displayText: 'Position', type: 'select' },
+    { control: new FormControl(''), field: 'playablePositions', displayText: 'Playable Positions', type: 'multi-select' }
   ];
 
   playablePositionOptions = PLAYABLE_POSITIONS_OPTIONS;
@@ -47,10 +47,9 @@ export class AddPlayerComponent {
 
   private loadSelectedTeam(): void {
     this.teamID = this.route.snapshot.paramMap.get('id') || this.teamID;
+    this.teamName = this.route.snapshot.paramMap.get('name') || this.teamName;
 
-    if (!this.teamID) { return; }
-
-    this.teamName = TEAMS_DATA.find(team => team.teamId === this.teamID)?.teamName!;
+    if (!this.teamID || !this.teamName) { return; }
 
   }
 
@@ -58,21 +57,36 @@ export class AddPlayerComponent {
     this.addPlayerFormGroup.reset();
   }
 
+  isRequiredForm(control: FormControl) {
+    if (control.errors) {
+      return control.errors['required'];
+    }
+
+    return false;
+  }
+
   async onSubmit() {
     if (this.addPlayerFormGroup.valid) {
       const convertedForm = this.convertFormToModel();
       const response = await this.playersService.addPlayer(convertedForm);
 
-      console.log('Form value:', this.addPlayerFormGroup.value);
+      if (response) {
+        window.alert(`${convertedForm.name} Added successfuly`);
+        this.playablePositionOptions = PLAYABLE_POSITIONS_OPTIONS;
+        history.back();
+      }
       // Here you can send form data to your backend or perform any necessary action
     } else {
-      console.log('Form submission failed! Please check the form.');
     }
   }
 
   // when the user presses on submit, converting the form group into model before passing it to the server
   convertFormToModel(): AddPlayerDataRequest {
     const convertedForm: AddPlayerDataRequest = this.addPlayerFormGroup.value;
+
+    //if there's no playable positions -> set only the primary position, else add the primary position
+    this.addPlayerFormGroup.get('playablePositions')!.value == '' ? convertedForm.playablePositions = [convertedForm.position]
+                                                                  : convertedForm.playablePositions.push(convertedForm.position);
     convertedForm.teamId = this.teamID;
     return convertedForm;
   }
@@ -82,6 +96,11 @@ export class AddPlayerComponent {
 
     this.addPlayerFormGroup.get('position')?.setValue($chosenPosition.displayText);
 
+    // removing the selected position from the playable positions options
+    var index = this.playablePositionOptions.findIndex(position => position === $chosenPosition);
+    if (index > 1) {
+      this.playablePositionOptions.splice(index, 1);
+    }
   }
 
   onMultipleSelectionChange($chosenPositions: ListOption[]): void {
@@ -97,7 +116,6 @@ export class AddPlayerComponent {
       return;
 
     const file: File = $event.target.files[0];
-    this.addPlayerFormGroup.get('imgUrl')?.setValue(file.name);
-    // You can now handle the selected file (e.g., upload it, display it, etc.)
+    this.addPlayerFile.append('file', file);
   }
 }
