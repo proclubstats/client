@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ITeam } from '../../../../../shared/models/team.model';
 import { PlayerService } from '../../../../../services/player.service';
-import { IPlayer } from '../../../../../shared/models/player.model';
+import { TeamDTO } from '../../../../../shared/models/team.model';
+import { ListOption } from '../../../../../shared/models/list-option.model';
+import { TeamService } from '../../../../../services/team.service';
 
 @Component({
   selector: 'team-details-overall-data',
@@ -10,24 +11,48 @@ import { IPlayer } from '../../../../../shared/models/player.model';
   styleUrl: './team-details-overall-data.component.scss'
 })
 export class TeamDetailsOverallDataComponent {
-  @Input() chosenTeam: ITeam | null = null;
+  @Input() chosenTeam: TeamDTO | null = null;
+  playersOptions: ListOption[] | null = null;
+  editCaptainMode: boolean = false;
+  selectedCaptainId: string | null = null;
 
-  constructor(private router: Router, private playerService: PlayerService) { }
+  constructor(private router: Router, private teamService: TeamService) { }
 
   ngOnInit() {
-
+    this.loadPlayersOptions();
   }
 
-  async convertPlayerIdToName(id: string): Promise<string> {
-    var playerName: string = '';
-    const response = await this.playerService.getPlayerById(id);
-
-    playerName = response.name;
-
-    return playerName;
+  loadPlayersOptions() {
+    this.playersOptions = this.chosenTeam!.players.map(player => { return { value: player.id, displayText: player.name } as ListOption });
+    this.selectedCaptainId = this.chosenTeam!.captain!.id;
   }
 
+  // when the user clicks on captain's name or photo
   navigateToPlayerDetails(playerId: string): void {
     this.router.navigate(['/player-details', { id: playerId }]);
+  }
+
+  getTeamCaptainName() {
+    if (!this.chosenTeam?.captain) {
+      return '';
+    }
+    return this.chosenTeam!.captain!.name;
+  }
+
+  changeEditCaptainModeStatus(status: boolean) {
+    this.editCaptainMode = status;
+  }
+
+  onCaptainSelect($selectedCaptain: ListOption) {
+    if (!$selectedCaptain) {
+      return;
+    }
+    this.selectedCaptainId = $selectedCaptain.value;
+  }
+
+  async saveNewCaptain() {
+    const response = await this.teamService.setTeamCaptain(this.chosenTeam!.id!, this.selectedCaptainId!);
+
+    this.editCaptainMode = false;
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ITeam } from '../../shared/models/team.model';
+import { ActivatedRoute} from '@angular/router';
+import {  TeamDTO } from '../../shared/models/team.model';
 import { TeamService } from '../../services/team.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { TeamService } from '../../services/team.service';
 export class TeamDetailsComponent {
 
   teamID: string = '';
-  chosenTeam: ITeam | null = null;
+  chosenTeam: TeamDTO | null = null;
   constructor(private route: ActivatedRoute, private teamService: TeamService) { }
 
   ngOnInit() {

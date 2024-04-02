@@ -6,7 +6,7 @@ export interface IPlayerStats {
     playerOfTheMatch: number;
 }
 
-export interface IPlayer{
+export interface IPlayer {
     id: string;
     team: string;
     phone?: Number;
@@ -17,4 +17,34 @@ export interface IPlayer{
     stats: IPlayerStats;
     position: string;
     playablePositions: string[];
+}
+
+export interface PlayerDTO {
+    id: string;
+    team: {
+        id: string;
+        name: string;
+        imgUrl: string;
+    };
+    name: string;
+    age: number;
+    imgUrl?: string;
+    position: string;
+    phone?: string;
+    email?: string;
+    playablePositions: string[];
+    stats: {
+        games: number;
+        goals: number;
+        cleanSheets: number;
+        assists: number;
+        playerOfTheMatch: number;
+    };
+}
+
+export interface PlayerDTOShort {
+    id: string;
+    name: string;
+    imgUrl?: string;
+    position: string;
 }

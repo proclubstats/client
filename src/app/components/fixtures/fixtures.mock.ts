@@ -11,19 +11,19 @@ export const gamesArray: Fixture[] = [
     {
         id: 1,
         homeTeamDetails: {
-            teamID: '1', teamName: 'Kwincovim', teamGoalsAmount: 2, teamScorers: [
-                { playerId: '2', playerStatsAmount: 1 }, { playerId: '15', playerStatsAmount: 1 }
+            teamID: '65ff46d662846e1d7457ae7f', teamName: 'Kwincovim', teamGoalsAmount: 2, teamScorers: [
+                { playerId: '660546612047cc1c6b0d2852', playerStatsAmount: 1 }, { playerId: '66051d33fe92516e9b75c1bc', playerStatsAmount: 1 }
             ],
             teamAssists: [
-                { playerId: '1232', playerStatsAmount: 1 }, { playerId: '1239', playerStatsAmount: 1 }
+                { playerId: '66051d33fe92516e9b75c1bc', playerStatsAmount: 1 }, { playerId: '660546612047cc1c6b0d2852', playerStatsAmount: 1 }
             ]
         },
         awayTeamDetails: {
-            teamID: '4', teamName: 'SHANA TOVAU', teamGoalsAmount: 3, teamScorers: [
-                { playerId: '252222', playerStatsAmount: 1 }, { playerId: '1231', playerStatsAmount: 2 }
+            teamID: '65fb22d3a3cead99b30aa54d', teamName: 'SHANA TOVAU', teamGoalsAmount: 3, teamScorers: [
+                { playerId: '65fb22f2a3cead99b30aa556', playerStatsAmount: 1 }, { playerId: '66029446a7b6303c8031bdfc', playerStatsAmount: 2 }
             ],
             teamAssists: [
-                { playerId: '2544', playerStatsAmount: 1 }, { playerId: '25444', playerStatsAmount: 2 }
+                { playerId: '66029446a7b6303c8031bdfc', playerStatsAmount: 1 }, { playerId: '65fb22f2a3cead99b30aa556', playerStatsAmount: 2 }
             ]
         },
         date: new Date(),

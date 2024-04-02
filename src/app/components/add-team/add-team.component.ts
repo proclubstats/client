@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateTeamModel } from '../../shared/models/team.model';
 import { TeamService } from '../../services/team.service';
 
@@ -10,21 +10,15 @@ import { TeamService } from '../../services/team.service';
 })
 export class AddTeamComponent {
   addTeamFormGroup: FormGroup;
+  addTeamFile: FormData = new FormData();
   LEAGUE_ID = "65ecb1eb2f272e434483a821";
 
-  formControls = [
-    { control: new FormControl(''), fieldName: 'name', displayText: 'Name' },
-    { control: new FormControl(''), fieldName: 'photo-url', displayText: 'Photo URL' }
-  ];
-
-  constructor(private teamService: TeamService) {
-    let group: any = {};
-    this.formControls.forEach(item => {
-      group[item.fieldName] = item.control;
+  constructor(private formBuilder: FormBuilder, private teamService: TeamService) {
+    this.addTeamFormGroup = this.formBuilder.group({
+      name: ['', Validators.required]
     });
-
-    this.addTeamFormGroup = new FormGroup(group);
   }
+
 
   ngOnInit() {
 
@@ -61,8 +55,7 @@ export class AddTeamComponent {
     if (!$event.target.files)
       return;
 
-    const file: File = $event.target.files[0];
-    this.addTeamFormGroup.get('photo-url')?.setValue(file.name);
-    // You can now handle the selected file (e.g., upload it, display it, etc.)
+      const file: File = $event.target.files[0];
+      this.addTeamFile.append('file', file);
   }
 }

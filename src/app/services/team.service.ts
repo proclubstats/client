@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { CreateTeamModel, ITeam } from '../shared/models/team.model';
+import { CreateTeamModel, ITeam, TeamDTO } from '../shared/models/team.model';
+import { IPlayer, PlayerDTO } from '../shared/models/player.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ export class TeamService {
 
   constructor(private apiService: ApiService) { }
 
-  async createTeam(createTeamModel: CreateTeamModel): Promise<ITeam> {
-    const response = await this.apiService.post<ITeam>(`${this.TEAMS_CONTROLLER_URL}`, { name: createTeamModel.name, leagueId: createTeamModel.leagueId, logoUrl: createTeamModel.logoUrl });
+  async createTeam(createTeamModel: CreateTeamModel): Promise<TeamDTO> {
+    const response = await this.apiService.post<TeamDTO>(`${this.TEAMS_CONTROLLER_URL}`, { name: createTeamModel.name, leagueId: createTeamModel.leagueId, logoUrl: createTeamModel.logoUrl });
 
     return response.data;
   }
@@ -20,23 +21,25 @@ export class TeamService {
     await this.apiService.delete(`${this.TEAMS_CONTROLLER_URL}/${id}`);
   }
 
-  async getTeamById(id: string): Promise<ITeam> {
-    const response = await this.apiService.get<ITeam>(`${this.TEAMS_CONTROLLER_URL}/${id}/`);
+  async getTeamById(id: string): Promise<TeamDTO> {
+    const response = await this.apiService.get<TeamDTO>(`${this.TEAMS_CONTROLLER_URL}/${id}/`);
 
     return response.data;
   }
 
-  async getAllTeams(): Promise<ITeam[]> {
-    const response = await this.apiService.get<ITeam[]>(`${this.TEAMS_CONTROLLER_URL}`);
+  async getAllTeams(): Promise<TeamDTO[]> {
+    const response = await this.apiService.get<TeamDTO[]>(`${this.TEAMS_CONTROLLER_URL}/`);
 
     return response.data;
   }
 
-  async getPlayersByTeam(id: string): Promise<any> {
-    // var players = PLAYERS_DATA.filter(player=> {return player.teamID === id});
+  async getPlayersByTeam(id: string): Promise<PlayerDTO[]> {
+    const response = await this.apiService.get<PlayerDTO[]>(`${this.TEAMS_CONTROLLER_URL}/${id}/players/`);
 
-    return new Promise((resolve) => {
-      resolve([]);
-    });
+    return response.data;
+  }
+
+  async setTeamCaptain(teamId: string, playerId: string) {
+    await this.apiService.post<void>(`${this.TEAMS_CONTROLLER_URL}/${teamId}/setCaptain/`, {captainId: playerId});
   }
 }

@@ -26,7 +26,7 @@ export class TopScorersComponent {
     this.topScorers = topScorersResponse;
   }
 
-  onPlayerClick($playerDetails: IPlayer): void {
-    this.router.navigate(['/player-details', { id: $playerDetails.id }])
+  onPlayerClick($playerDetails: any): void {
+    this.router.navigate(['/player-details', { id: $playerDetails._id }])
   }
 }

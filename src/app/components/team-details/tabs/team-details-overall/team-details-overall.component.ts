@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ITeam } from '../../../../shared/models/team.model';
+import {  TeamDTO } from '../../../../shared/models/team.model';
 
 @Component({
   selector: 'team-details-overall',
@@ -7,6 +7,6 @@ import { ITeam } from '../../../../shared/models/team.model';
   styleUrl: './team-details-overall.component.scss'
 })
 export class TeamDetailsOverallComponent {
-  @Input() chosenTeam: ITeam | null = null;
+  @Input() chosenTeam: TeamDTO | null = null;
 
 }
