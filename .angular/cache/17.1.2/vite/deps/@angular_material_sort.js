@@ -7,7 +7,7 @@ import {
   style,
   transition,
   trigger
-} from "./chunk-DTLHWAQJ.js";
+} from "./chunk-MDU535EP.js";
 import {
   AnimationCurves,
   AnimationDurations,
@@ -15,9 +15,8 @@ import {
   ENTER,
   FocusMonitor,
   MatCommonModule,
-  SPACE,
-  mixinInitialized
-} from "./chunk-AKR4QHU4.js";
+  SPACE
+} from "./chunk-POXUNFQ3.js";
 import "./chunk-OQSYYCSG.js";
 import {
   ChangeDetectionStrategy,
@@ -38,7 +37,6 @@ import {
   ViewEncapsulation$1,
   booleanAttribute,
   setClassMetadata,
-  ɵɵInheritDefinitionFeature,
   ɵɵInputTransformsFeature,
   ɵɵNgOnChangesFeature,
   ɵɵStandaloneFeature,
@@ -66,6 +64,7 @@ import {
   ɵɵtemplate
 } from "./chunk-3RQ3VKFC.js";
 import {
+  ReplaySubject,
   Subject,
   merge
 } from "./chunk-WSA2QMXP.js";
@@ -116,9 +115,7 @@ function getSortInvalidDirectionError(direction) {
   return Error(`${direction} is not a valid sort direction ('asc' or 'desc').`);
 }
 var MAT_SORT_DEFAULT_OPTIONS = new InjectionToken("MAT_SORT_DEFAULT_OPTIONS");
-var _MatSortBase = mixinInitialized(class {
-});
-var _MatSort = class _MatSort extends _MatSortBase {
+var _MatSort = class _MatSort {
   /** The sort direction of the currently active MatSortable. */
   get direction() {
     return this._direction;
@@ -130,14 +127,15 @@ var _MatSort = class _MatSort extends _MatSortBase {
     this._direction = direction;
   }
   constructor(_defaultOptions) {
-    super();
     this._defaultOptions = _defaultOptions;
+    this._initializedStream = new ReplaySubject(1);
     this.sortables = /* @__PURE__ */ new Map();
     this._stateChanges = new Subject();
     this.start = "asc";
     this._direction = "";
     this.disabled = false;
     this.sortChange = new EventEmitter();
+    this.initialized = this._initializedStream;
   }
   /**
    * Register function to be used by the contained MatSortables. Adds the MatSortable to the
@@ -188,13 +186,14 @@ var _MatSort = class _MatSort extends _MatSortBase {
     return sortDirectionCycle[nextDirectionIndex];
   }
   ngOnInit() {
-    this._markInitialized();
+    this._initializedStream.next();
   }
   ngOnChanges() {
     this._stateChanges.next();
   }
   ngOnDestroy() {
     this._stateChanges.complete();
+    this._initializedStream.complete();
   }
 };
 _MatSort.ɵfac = function MatSort_Factory(t) {
@@ -216,7 +215,7 @@ _MatSort.ɵdir = ɵɵdefineDirective({
   },
   exportAs: ["matSort"],
   standalone: true,
-  features: [ɵɵInputTransformsFeature, ɵɵInheritDefinitionFeature, ɵɵNgOnChangesFeature]
+  features: [ɵɵInputTransformsFeature, ɵɵNgOnChangesFeature]
 });
 var MatSort = _MatSort;
 (() => {

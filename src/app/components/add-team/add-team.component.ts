@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateTeamModel } from '../../shared/models/team.model';
 import { TeamService } from '../../services/team.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-add-team',
@@ -13,7 +14,7 @@ export class AddTeamComponent {
   addTeamFile: FormData = new FormData();
   LEAGUE_ID = "65ecb1eb2f272e434483a821";
 
-  constructor(private formBuilder: FormBuilder, private teamService: TeamService) {
+  constructor(private formBuilder: FormBuilder, private teamService: TeamService, private notificationService: NotificationService) {
     this.addTeamFormGroup = this.formBuilder.group({
       name: ['', Validators.required]
     });
@@ -33,7 +34,7 @@ export class AddTeamComponent {
       var createTeamModel = this.convertFormToModel();
       const createTeamResponse = await this.teamService.createTeam(createTeamModel);
 
-      window.alert(`${createTeamResponse.name} Added Successfuly`);
+      this.notificationService.success(`${createTeamResponse.name} Added Successfuly`);
     }
   }
 

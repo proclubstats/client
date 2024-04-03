@@ -6,6 +6,7 @@ import { TEAMS_DATA } from '../league-table/league-table.mock';
 import { ListOption } from '../../shared/models/list-option.model';
 import { AddPlayerDataRequest } from '../../shared/models/addPlayerDataRequest';
 import { PlayerService } from '../../services/player.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-add-player',
@@ -27,11 +28,12 @@ export class AddPlayerComponent {
     { control: new FormControl(''), field: 'playablePositions', displayText: 'Playable Positions', type: 'multi-select' }
   ];
 
-  playablePositionOptions = PLAYABLE_POSITIONS_OPTIONS;
+  playablePositionOptions: ListOption[] = [];
 
-  constructor(private route: ActivatedRoute, private playersService: PlayerService) { }
+  constructor(private route: ActivatedRoute, private playersService: PlayerService, private notificationService: NotificationService) { }
 
   ngOnInit() {
+    this.playablePositionOptions = [...PLAYABLE_POSITIONS_OPTIONS];
     this.loadFormControl();
     this.loadSelectedTeam();
   }
@@ -71,8 +73,8 @@ export class AddPlayerComponent {
       const response = await this.playersService.addPlayer(convertedForm);
 
       if (response) {
-        window.alert(`${convertedForm.name} Added successfuly`);
-        this.playablePositionOptions = PLAYABLE_POSITIONS_OPTIONS;
+        this.playablePositionOptions = [...PLAYABLE_POSITIONS_OPTIONS];
+        this.notificationService.success(`${convertedForm.name} Added successfuly to ${this.teamName}`);
         history.back();
       }
       // Here you can send form data to your backend or perform any necessary action
@@ -86,7 +88,7 @@ export class AddPlayerComponent {
 
     //if there's no playable positions -> set only the primary position, else add the primary position
     this.addPlayerFormGroup.get('playablePositions')!.value == '' ? convertedForm.playablePositions = [convertedForm.position]
-                                                                  : convertedForm.playablePositions.push(convertedForm.position);
+      : convertedForm.playablePositions.push(convertedForm.position);
     convertedForm.teamId = this.teamID;
     return convertedForm;
   }
@@ -99,6 +101,7 @@ export class AddPlayerComponent {
     // removing the selected position from the playable positions options
     var index = this.playablePositionOptions.findIndex(position => position === $chosenPosition);
     if (index > 1) {
+      this.playablePositionOptions = [...PLAYABLE_POSITIONS_OPTIONS];
       this.playablePositionOptions.splice(index, 1);
     }
   }

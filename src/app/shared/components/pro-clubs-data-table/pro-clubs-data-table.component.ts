@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { Column } from '../../models/column.model';
+import { Column, DataType } from '../../models/column.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
@@ -9,7 +9,7 @@ import { MatSort } from '@angular/material/sort';
   styleUrl: './pro-clubs-data-table.component.scss'
 })
 export class ProClubsDataTableComponent {
-
+  dataTypes = DataType;
   @ViewChild(MatSort) sort: MatSort | null = null;
 
   displayedColumnsData: Column[] = [];

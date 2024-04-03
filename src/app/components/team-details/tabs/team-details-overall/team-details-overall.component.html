@@ -1,6 +1,6 @@
 <div class="d-flex h-100 team-overall-area" *ngIf="chosenTeam">
     <div class="w-25 pro-clubs-bg-primary h-100 pro-clubs-border-radius">
-        <team-details-overall-data [chosenTeam]="chosenTeam!"></team-details-overall-data>
+        <team-details-overall-data (onTeamUpdateEvent)="onTeamUpdate()" [chosenTeam]="chosenTeam!"></team-details-overall-data>
     </div>
     <div class="team-stats-area w-75 d-flex flex-column h-100">
         <div class="d-flex h-15  ">

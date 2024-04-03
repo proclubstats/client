@@ -6,7 +6,7 @@
         <div class="h-100">
             <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="h-100">
                 <mat-tab label="OVERALL">
-                    <team-details-overall [chosenTeam]="chosenTeam"></team-details-overall>
+                    <team-details-overall (onTeamUpdateEvent)="loadTeamDetails()" [chosenTeam]="chosenTeam"></team-details-overall>
                 </mat-tab>
                 <mat-tab label="MATCHES">
                     <team-details-matches></team-details-matches>

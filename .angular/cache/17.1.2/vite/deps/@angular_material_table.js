@@ -7,14 +7,13 @@ import {
   _VIEW_REPEATER_STRATEGY,
   _ViewRepeaterOperation,
   isDataSource
-} from "./chunk-DVJ2VFLO.js";
+} from "./chunk-BCG3TLOV.js";
 import {
   Directionality,
   MatCommonModule,
   Platform,
-  _isNumberValue,
-  coerceBooleanProperty
-} from "./chunk-AKR4QHU4.js";
+  _isNumberValue
+} from "./chunk-POXUNFQ3.js";
 import {
   DOCUMENT
 } from "./chunk-OQSYYCSG.js";
@@ -147,34 +146,6 @@ function CdkTextColumn_td_2_Template(rf, ctx) {
     ɵɵtextInterpolate1(" ", ctx_r1.dataAccessor(data_r2, ctx_r1.name), " ");
   }
 }
-function mixinHasStickyInput(base) {
-  return class extends base {
-    /** Whether sticky positioning should be applied. */
-    get sticky() {
-      return this._sticky;
-    }
-    set sticky(v) {
-      const prevValue = this._sticky;
-      this._sticky = coerceBooleanProperty(v);
-      this._hasStickyChanged = prevValue !== this._sticky;
-    }
-    /** Whether the sticky value has changed since this was last called. */
-    hasStickyChanged() {
-      const hasStickyChanged = this._hasStickyChanged;
-      this._hasStickyChanged = false;
-      return hasStickyChanged;
-    }
-    /** Resets the dirty check for cases where the sticky state has been used without checking. */
-    resetStickyChanged() {
-      this._hasStickyChanged = false;
-    }
-    constructor(...args) {
-      super(...args);
-      this._sticky = false;
-      this._hasStickyChanged = false;
-    }
-  };
-}
 var CDK_TABLE = new InjectionToken("CDK_TABLE");
 var TEXT_COLUMN_OPTIONS = new InjectionToken("text-column-options");
 var _CdkCellDef = class _CdkCellDef {
@@ -252,16 +223,23 @@ var CdkFooterCellDef = _CdkFooterCellDef;
     type: TemplateRef
   }], null);
 })();
-var CdkColumnDefBase = class {
-};
-var _CdkColumnDefBase = mixinHasStickyInput(CdkColumnDefBase);
-var _CdkColumnDef = class _CdkColumnDef extends _CdkColumnDefBase {
+var _CdkColumnDef = class _CdkColumnDef {
   /** Unique name for this column. */
   get name() {
     return this._name;
   }
   set name(name) {
     this._setNameInput(name);
+  }
+  /** Whether the cell is sticky. */
+  get sticky() {
+    return this._sticky;
+  }
+  set sticky(value) {
+    if (value !== this._sticky) {
+      this._sticky = value;
+      this._hasStickyChanged = true;
+    }
   }
   /**
    * Whether this column should be sticky positioned on the end of the row. Should make sure
@@ -278,9 +256,20 @@ var _CdkColumnDef = class _CdkColumnDef extends _CdkColumnDefBase {
     }
   }
   constructor(_table) {
-    super();
     this._table = _table;
+    this._hasStickyChanged = false;
+    this._sticky = false;
     this._stickyEnd = false;
+  }
+  /** Whether the sticky state has changed. */
+  hasStickyChanged() {
+    const hasStickyChanged = this._hasStickyChanged;
+    this.resetStickyChanged();
+    return hasStickyChanged;
+  }
+  /** Resets the sticky changed state. */
+  resetStickyChanged() {
+    this._hasStickyChanged = false;
   }
   /**
    * Overridable method that sets the css classes that will be added to every cell in this
@@ -326,15 +315,15 @@ _CdkColumnDef.ɵdir = ɵɵdefineDirective({
     }
   },
   inputs: {
-    sticky: "sticky",
     name: [InputFlags.None, "cdkColumnDef", "name"],
+    sticky: [InputFlags.HasDecoratorInputTransform, "sticky", "sticky", booleanAttribute],
     stickyEnd: [InputFlags.HasDecoratorInputTransform, "stickyEnd", "stickyEnd", booleanAttribute]
   },
   standalone: true,
   features: [ɵɵProvidersFeature([{
     provide: "MAT_SORT_HEADER_COLUMN_DEF",
     useExisting: _CdkColumnDef
-  }]), ɵɵInputTransformsFeature, ɵɵInheritDefinitionFeature]
+  }]), ɵɵInputTransformsFeature]
 });
 var CdkColumnDef = _CdkColumnDef;
 (() => {
@@ -342,7 +331,6 @@ var CdkColumnDef = _CdkColumnDef;
     type: Directive,
     args: [{
       selector: "[cdkColumnDef]",
-      inputs: ["sticky"],
       providers: [{
         provide: "MAT_SORT_HEADER_COLUMN_DEF",
         useExisting: CdkColumnDef
@@ -361,6 +349,12 @@ var CdkColumnDef = _CdkColumnDef;
     name: [{
       type: Input,
       args: ["cdkColumnDef"]
+    }],
+    sticky: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     stickyEnd: [{
       type: Input,
@@ -612,18 +606,37 @@ var BaseRowDef = _BaseRowDef;
     type: IterableDiffers
   }], null);
 })();
-var CdkHeaderRowDefBase = class extends BaseRowDef {
-};
-var _CdkHeaderRowDefBase = mixinHasStickyInput(CdkHeaderRowDefBase);
-var _CdkHeaderRowDef = class _CdkHeaderRowDef extends _CdkHeaderRowDefBase {
+var _CdkHeaderRowDef = class _CdkHeaderRowDef extends BaseRowDef {
+  /** Whether the row is sticky. */
+  get sticky() {
+    return this._sticky;
+  }
+  set sticky(value) {
+    if (value !== this._sticky) {
+      this._sticky = value;
+      this._hasStickyChanged = true;
+    }
+  }
   constructor(template, _differs, _table) {
     super(template, _differs);
     this._table = _table;
+    this._hasStickyChanged = false;
+    this._sticky = false;
   }
   // Prerender fails to recognize that ngOnChanges in a part of this class through inheritance.
   // Explicitly define it so that the method is called as part of the Angular lifecycle.
   ngOnChanges(changes) {
     super.ngOnChanges(changes);
+  }
+  /** Whether the sticky state has changed. */
+  hasStickyChanged() {
+    const hasStickyChanged = this._hasStickyChanged;
+    this.resetStickyChanged();
+    return hasStickyChanged;
+  }
+  /** Resets the sticky changed state. */
+  resetStickyChanged() {
+    this._hasStickyChanged = false;
   }
 };
 _CdkHeaderRowDef.ɵfac = function CdkHeaderRowDef_Factory(t) {
@@ -634,10 +647,10 @@ _CdkHeaderRowDef.ɵdir = ɵɵdefineDirective({
   selectors: [["", "cdkHeaderRowDef", ""]],
   inputs: {
     columns: [InputFlags.None, "cdkHeaderRowDef", "columns"],
-    sticky: [InputFlags.None, "cdkHeaderRowDefSticky", "sticky"]
+    sticky: [InputFlags.HasDecoratorInputTransform, "cdkHeaderRowDefSticky", "sticky", booleanAttribute]
   },
   standalone: true,
-  features: [ɵɵInheritDefinitionFeature, ɵɵNgOnChangesFeature]
+  features: [ɵɵInputTransformsFeature, ɵɵInheritDefinitionFeature, ɵɵNgOnChangesFeature]
 });
 var CdkHeaderRowDef = _CdkHeaderRowDef;
 (() => {
@@ -645,7 +658,10 @@ var CdkHeaderRowDef = _CdkHeaderRowDef;
     type: Directive,
     args: [{
       selector: "[cdkHeaderRowDef]",
-      inputs: ["columns: cdkHeaderRowDef", "sticky: cdkHeaderRowDefSticky"],
+      inputs: [{
+        name: "columns",
+        alias: "cdkHeaderRowDef"
+      }],
       standalone: true
     }]
   }], () => [{
@@ -660,20 +676,47 @@ var CdkHeaderRowDef = _CdkHeaderRowDef;
     }, {
       type: Optional
     }]
-  }], null);
+  }], {
+    sticky: [{
+      type: Input,
+      args: [{
+        alias: "cdkHeaderRowDefSticky",
+        transform: booleanAttribute
+      }]
+    }]
+  });
 })();
-var CdkFooterRowDefBase = class extends BaseRowDef {
-};
-var _CdkFooterRowDefBase = mixinHasStickyInput(CdkFooterRowDefBase);
-var _CdkFooterRowDef = class _CdkFooterRowDef extends _CdkFooterRowDefBase {
+var _CdkFooterRowDef = class _CdkFooterRowDef extends BaseRowDef {
+  /** Whether the row is sticky. */
+  get sticky() {
+    return this._sticky;
+  }
+  set sticky(value) {
+    if (value !== this._sticky) {
+      this._sticky = value;
+      this._hasStickyChanged = true;
+    }
+  }
   constructor(template, _differs, _table) {
     super(template, _differs);
     this._table = _table;
+    this._hasStickyChanged = false;
+    this._sticky = false;
   }
   // Prerender fails to recognize that ngOnChanges in a part of this class through inheritance.
   // Explicitly define it so that the method is called as part of the Angular lifecycle.
   ngOnChanges(changes) {
     super.ngOnChanges(changes);
+  }
+  /** Whether the sticky state has changed. */
+  hasStickyChanged() {
+    const hasStickyChanged = this._hasStickyChanged;
+    this.resetStickyChanged();
+    return hasStickyChanged;
+  }
+  /** Resets the sticky changed state. */
+  resetStickyChanged() {
+    this._hasStickyChanged = false;
   }
 };
 _CdkFooterRowDef.ɵfac = function CdkFooterRowDef_Factory(t) {
@@ -684,10 +727,10 @@ _CdkFooterRowDef.ɵdir = ɵɵdefineDirective({
   selectors: [["", "cdkFooterRowDef", ""]],
   inputs: {
     columns: [InputFlags.None, "cdkFooterRowDef", "columns"],
-    sticky: [InputFlags.None, "cdkFooterRowDefSticky", "sticky"]
+    sticky: [InputFlags.HasDecoratorInputTransform, "cdkFooterRowDefSticky", "sticky", booleanAttribute]
   },
   standalone: true,
-  features: [ɵɵInheritDefinitionFeature, ɵɵNgOnChangesFeature]
+  features: [ɵɵInputTransformsFeature, ɵɵInheritDefinitionFeature, ɵɵNgOnChangesFeature]
 });
 var CdkFooterRowDef = _CdkFooterRowDef;
 (() => {
@@ -695,7 +738,10 @@ var CdkFooterRowDef = _CdkFooterRowDef;
     type: Directive,
     args: [{
       selector: "[cdkFooterRowDef]",
-      inputs: ["columns: cdkFooterRowDef", "sticky: cdkFooterRowDefSticky"],
+      inputs: [{
+        name: "columns",
+        alias: "cdkFooterRowDef"
+      }],
       standalone: true
     }]
   }], () => [{
@@ -710,7 +756,15 @@ var CdkFooterRowDef = _CdkFooterRowDef;
     }, {
       type: Optional
     }]
-  }], null);
+  }], {
+    sticky: [{
+      type: Input,
+      args: [{
+        alias: "cdkFooterRowDefSticky",
+        transform: booleanAttribute
+      }]
+    }]
+  });
 })();
 var _CdkRowDef = class _CdkRowDef extends BaseRowDef {
   // TODO(andrewseguin): Add an input for providing a switch function to determine
@@ -739,7 +793,13 @@ var CdkRowDef = _CdkRowDef;
     type: Directive,
     args: [{
       selector: "[cdkRowDef]",
-      inputs: ["columns: cdkRowDefColumns", "when: cdkRowDefWhen"],
+      inputs: [{
+        name: "columns",
+        alias: "cdkRowDefColumns"
+      }, {
+        name: "when",
+        alias: "cdkRowDefWhen"
+      }],
       standalone: true
     }]
   }], () => [{
@@ -1120,10 +1180,12 @@ var StickyStyler = class {
     }
     this._coalescedStyleScheduler.schedule(() => {
       const tfoot = tableElement.querySelector("tfoot");
-      if (stickyStates.some((state) => !state)) {
-        this._removeStickyStyle(tfoot, ["bottom"]);
-      } else {
-        this._addStickyStyle(tfoot, "bottom", 0, false);
+      if (tfoot) {
+        if (stickyStates.some((state) => !state)) {
+          this._removeStickyStyle(tfoot, ["bottom"]);
+        } else {
+          this._addStickyStyle(tfoot, "bottom", 0, false);
+        }
       }
     });
   }
@@ -1554,7 +1616,8 @@ var _CdkTable = class _CdkTable {
     this.stickyCssClass = "cdk-table-sticky";
     this.needsPositionStickyOnElement = true;
     this._isShowingNoDataRow = false;
-    this._hasRendered = false;
+    this._hasAllOutlets = false;
+    this._hasInitialized = false;
     this._cellRoleInternal = void 0;
     this._multiTemplateDataRows = false;
     this._fixedLayout = false;
@@ -1579,8 +1642,11 @@ var _CdkTable = class _CdkTable {
       this._forceRecalculateCellWidths = true;
     });
   }
+  ngAfterContentInit() {
+    this._hasInitialized = true;
+  }
   ngAfterContentChecked() {
-    if (this._hasRendered) {
+    if (this._canRender()) {
       this._render();
     }
   }
@@ -1751,10 +1817,16 @@ var _CdkTable = class _CdkTable {
   }
   /** Invoked whenever an outlet is created and has been assigned to the table. */
   _outletAssigned() {
-    if (!this._hasRendered && this._rowOutlet && this._headerRowOutlet && this._footerRowOutlet && this._noDataRowOutlet) {
-      this._hasRendered = true;
-      this._render();
+    if (!this._hasAllOutlets && this._rowOutlet && this._headerRowOutlet && this._footerRowOutlet && this._noDataRowOutlet) {
+      this._hasAllOutlets = true;
+      if (this._canRender()) {
+        this._render();
+      }
     }
+  }
+  /** Whether the table has all the information to start rendering. */
+  _canRender() {
+    return this._hasAllOutlets && this._hasInitialized;
   }
   /** Renders the table if its state has changed. */
   _render() {
@@ -2910,7 +2982,6 @@ _MatColumnDef.ɵdir = ɵɵdefineDirective({
   type: _MatColumnDef,
   selectors: [["", "matColumnDef", ""]],
   inputs: {
-    sticky: "sticky",
     name: [InputFlags.None, "matColumnDef", "name"]
   },
   standalone: true,
@@ -2928,7 +2999,6 @@ var MatColumnDef = _MatColumnDef;
     type: Directive,
     args: [{
       selector: "[matColumnDef]",
-      inputs: ["sticky"],
       providers: [{
         provide: CdkColumnDef,
         useExisting: MatColumnDef
@@ -3044,13 +3114,13 @@ _MatHeaderRowDef.ɵdir = ɵɵdefineDirective({
   selectors: [["", "matHeaderRowDef", ""]],
   inputs: {
     columns: [InputFlags.None, "matHeaderRowDef", "columns"],
-    sticky: [InputFlags.None, "matHeaderRowDefSticky", "sticky"]
+    sticky: [InputFlags.HasDecoratorInputTransform, "matHeaderRowDefSticky", "sticky", booleanAttribute]
   },
   standalone: true,
   features: [ɵɵProvidersFeature([{
     provide: CdkHeaderRowDef,
     useExisting: _MatHeaderRowDef
-  }]), ɵɵInheritDefinitionFeature]
+  }]), ɵɵInputTransformsFeature, ɵɵInheritDefinitionFeature]
 });
 var MatHeaderRowDef = _MatHeaderRowDef;
 (() => {
@@ -3062,7 +3132,14 @@ var MatHeaderRowDef = _MatHeaderRowDef;
         provide: CdkHeaderRowDef,
         useExisting: MatHeaderRowDef
       }],
-      inputs: ["columns: matHeaderRowDef", "sticky: matHeaderRowDefSticky"],
+      inputs: [{
+        name: "columns",
+        alias: "matHeaderRowDef"
+      }, {
+        name: "sticky",
+        alias: "matHeaderRowDefSticky",
+        transform: booleanAttribute
+      }],
       standalone: true
     }]
   }], null, null);
@@ -3080,13 +3157,13 @@ _MatFooterRowDef.ɵdir = ɵɵdefineDirective({
   selectors: [["", "matFooterRowDef", ""]],
   inputs: {
     columns: [InputFlags.None, "matFooterRowDef", "columns"],
-    sticky: [InputFlags.None, "matFooterRowDefSticky", "sticky"]
+    sticky: [InputFlags.HasDecoratorInputTransform, "matFooterRowDefSticky", "sticky", booleanAttribute]
   },
   standalone: true,
   features: [ɵɵProvidersFeature([{
     provide: CdkFooterRowDef,
     useExisting: _MatFooterRowDef
-  }]), ɵɵInheritDefinitionFeature]
+  }]), ɵɵInputTransformsFeature, ɵɵInheritDefinitionFeature]
 });
 var MatFooterRowDef = _MatFooterRowDef;
 (() => {
@@ -3098,7 +3175,14 @@ var MatFooterRowDef = _MatFooterRowDef;
         provide: CdkFooterRowDef,
         useExisting: MatFooterRowDef
       }],
-      inputs: ["columns: matFooterRowDef", "sticky: matFooterRowDefSticky"],
+      inputs: [{
+        name: "columns",
+        alias: "matFooterRowDef"
+      }, {
+        name: "sticky",
+        alias: "matFooterRowDefSticky",
+        transform: booleanAttribute
+      }],
       standalone: true
     }]
   }], null, null);
@@ -3134,7 +3218,13 @@ var MatRowDef = _MatRowDef;
         provide: CdkRowDef,
         useExisting: MatRowDef
       }],
-      inputs: ["columns: matRowDefColumns", "when: matRowDefWhen"],
+      inputs: [{
+        name: "columns",
+        alias: "matRowDefColumns"
+      }, {
+        name: "when",
+        alias: "matRowDefWhen"
+      }],
       standalone: true
     }]
   }], null, null);
