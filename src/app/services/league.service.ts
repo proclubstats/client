@@ -3,6 +3,8 @@ import { ApiService } from './api.service';
 import { ILeague } from '../shared/models/league-table.model';
 import { LeagueTableRow } from '../shared/models/leagueTableTeam';
 import { IPlayer } from '../shared/models/player.model';
+import { TopScorer } from '../shared/models/topscorer.model';
+import { TopAssister } from '../shared/models/topassister.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,14 +44,14 @@ export class LeagueService {
     return response.data;
   }
 
-  async getTopScorers(leagueId: string): Promise<IPlayer[]> {
-    const response = await this.apiService.get<IPlayer[]>(`${this.LEAGUE_CONTROLLER_URL}${leagueId}/topScorers`);
+  async getTopScorers(leagueId: string): Promise<TopScorer[]> {
+    const response = await this.apiService.get<TopScorer[]>(`${this.LEAGUE_CONTROLLER_URL}${leagueId}/topScorers`);
 
     return response.data;
   }
 
-  async getTopAssists(leagueId: string): Promise<IPlayer[]> {
-    const response = await this.apiService.get<IPlayer[]>(`${this.LEAGUE_CONTROLLER_URL}${leagueId}/topAssists`);
+  async getTopAssists(leagueId: string): Promise<TopAssister[]> {
+    const response = await this.apiService.get<TopAssister[]>(`${this.LEAGUE_CONTROLLER_URL}${leagueId}/topAssists`);
 
     return response.data;
   }

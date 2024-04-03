@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { LEAGUE_TABLE_DISPLAY_COLUMN } from './top-scorers.definitions';
+import { TOP_SCORERS_COLUMNS } from './top-scorers.definitions';
 import { Column } from '../../shared/models/column.model';
 import { Router } from '@angular/router';
 import { LeagueService } from '../../services/league.service';
-import { IPlayer } from '../../shared/models/player.model';
 import { LEAGUE_ID } from '../../constants/constants';
+import { TopScorer } from '../../shared/models/topscorer.model';
 
 @Component({
   selector: 'app-top-scorers',
@@ -12,8 +12,8 @@ import { LEAGUE_ID } from '../../constants/constants';
   styleUrl: './top-scorers.component.scss'
 })
 export class TopScorersComponent {
-  displayedColumns: Column[] = LEAGUE_TABLE_DISPLAY_COLUMN;
-  topScorers: IPlayer[] = [];
+  displayedColumns: Column[] = TOP_SCORERS_COLUMNS;
+  topScorers: TopScorer[] = [];
 
   constructor(private router: Router, private leagueService: LeagueService) { }
 
@@ -26,7 +26,7 @@ export class TopScorersComponent {
     this.topScorers = topScorersResponse;
   }
 
-  onPlayerClick($playerDetails: any): void {
-    this.router.navigate(['/player-details', { id: $playerDetails._id }])
+  onPlayerClick($playerDetails: TopScorer): void {
+    this.router.navigate(['/player-details', { id: $playerDetails.playerId }])
   }
 }

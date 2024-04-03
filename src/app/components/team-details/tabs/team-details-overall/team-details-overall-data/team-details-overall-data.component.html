@@ -25,7 +25,7 @@
         </div>
         <div *ngIf="editCaptainMode">
             <div>
-                <pro-clubs-auto-complete-select [defaultOption]="selectedCaptainId!" [selectOptions]="playersOptions!" (selectionChange)="onCaptainSelect($event)" [placeholder]="'Choose Captain'"></pro-clubs-auto-complete-select>
+                <pro-clubs-auto-complete-select [defaultOption]="selectedCaptain!.value" [selectOptions]="playersOptions!" (selectionChange)="onCaptainSelect($event)" [placeholder]="'Choose Captain'"></pro-clubs-auto-complete-select>
             </div>
             <div class="mt-2">
                 <button type="button" (click)="saveNewCaptain()" 

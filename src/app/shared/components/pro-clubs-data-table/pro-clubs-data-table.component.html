@@ -4,18 +4,23 @@
         <ng-container *ngFor="let column of displayedColumnsData" [matColumnDef]="column.fieldName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.displayText}} </th>
 
-          ֶ  <ng-container *ngIf="column.fieldName === 'index'">
+            ֶ <ng-container *ngIf="column.fieldName === 'index'">
                 <td mat-cell *matCellDef="let element; let i =index ">
-                     {{i + 1}}</td>
+                    {{i + 1}}</td>
 
             </ng-container>
-            <ng-container *ngIf="column.fieldName !== 'index'" >
-                <td mat-cell *matCellDef="let element; let i =index " [ngClass]="{ 'cursor-pointer': isClickable }">
-                    {{element[column.fieldName]}} </td>
-
+            <ng-container *ngIf="column.fieldName !== 'index'">
+                <ng-container *ngIf="!column.dataType">
+                    <td mat-cell *matCellDef="let element; let i =index " [ngClass]="{ 'cursor-pointer': isClickable }">
+                        {{element[column.fieldName]}} </td>
+                </ng-container>
+                <ng-container *ngIf="column.dataType === dataTypes.TEXT_WITH_ICON">
+                    <td mat-cell *matCellDef="let element; let i =index " [ngClass]="{ 'cursor-pointer': isClickable }">
+                        {{element[column.fieldName]}} </td>
+                </ng-container>
             </ng-container>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="columnsNamesOnly"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnsNamesOnly;" (click)="onRowClick(row)" ></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsNamesOnly;" (click)="onRowClick(row)"></tr>
     </table>
 </div>

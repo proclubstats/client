@@ -29,6 +29,8 @@ import { TeamDetailsMatchesComponent } from "./components/team-details/tabs/team
 import { TeamDetailsSquadComponent } from "./components/team-details/tabs/team-details-overall/team-details-squad/team-details-squad.component";
 import { TeamDetailsStatsComponent } from "./components/team-details/tabs/team-details-stats/team-details-stats.component";
 import { TeamDetailsOverallStatsComponent } from "./components/team-details/tabs/team-details-overall/team-details-overall-stats/team-details-overall-stats.component";
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NotificationService } from "./services/notification.service";
 
 @NgModule({
     declarations: [
@@ -61,7 +63,8 @@ import { TeamDetailsOverallStatsComponent } from "./components/team-details/tabs
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        MatTabsModule
+        MatTabsModule,
+        MatSnackBarModule
     ],
     exports: [],
     providers: [
@@ -69,7 +72,8 @@ import { TeamDetailsOverallStatsComponent } from "./components/team-details/tabs
         PlayerService,
         TeamService,
         FixtureService,
-        LeagueService
+        LeagueService,
+        NotificationService
     ],
     bootstrap: [AppComponent]
 })

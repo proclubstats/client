@@ -1,13 +1,13 @@
 import { Column } from "../../shared/models/column.model";
 import { ListOption } from "../../shared/models/list-option.model";
 
-export const LEAGUE_TABLE_DISPLAY_COLUMN: Column[] = [
+export const TOP_SCORERS_COLUMNS: Column[] = [
   {
     fieldName: 'index',
     displayText: '#'
   },
   {
-    fieldName: 'name',
+    fieldName: 'playerName',
     displayText: 'Player Name'
   },
   {
@@ -19,15 +19,15 @@ export const LEAGUE_TABLE_DISPLAY_COLUMN: Column[] = [
     displayText: 'Team Name'
   },
   {
-    fieldName: 'goalsScored',
+    fieldName: 'goals',
     displayText: 'Goals'
   },
   {
-    fieldName: 'gamesAmount',
+    fieldName: 'games',
     displayText: 'Games'
   },
   {
-    fieldName: 'gpg',
+    fieldName: 'goalsPerGame',
     displayText: 'GpG'
   }
 ];

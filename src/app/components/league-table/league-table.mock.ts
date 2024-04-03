@@ -1,4 +1,4 @@
-import { Column } from "../../shared/models/column.model";
+import { Column, DataType } from "../../shared/models/column.model";
 import { LeagueTableRow } from "../../shared/models/leagueTableTeam";
 
 export const TEAMS_DATA: LeagueTableRow[] = [
@@ -19,7 +19,8 @@ export const LEAGUE_TABLE_DISPLAY_COLUMN: Column[] = [
     },
     {
         fieldName: 'teamName',
-        displayText: 'Name'
+        displayText: 'Name',
+        dataType: DataType.TEXT_WITH_ICON
     },
     {
         fieldName: 'gamesPlayed',

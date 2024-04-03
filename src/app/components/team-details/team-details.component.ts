@@ -23,4 +23,5 @@ export class TeamDetailsComponent {
 
     this.chosenTeam = await this.teamService.getTeamById(this.teamID);
   }
+  
 }
