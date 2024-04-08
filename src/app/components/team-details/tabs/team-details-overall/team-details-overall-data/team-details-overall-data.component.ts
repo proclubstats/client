@@ -14,6 +14,8 @@ export class TeamDetailsOverallDataComponent {
   @Input() chosenTeam: TeamDTO | null = null;
   playersOptions: ListOption[] | null = null;
   editCaptainMode: boolean = false;
+  editTeamPhotoMode : boolean = false;
+  editTeamPhotoModel: FormData | null = null;
   selectedCaptain: ListOption | null = null;
 
   @Output() onTeamUpdateEvent: EventEmitter<void> = new EventEmitter();
@@ -27,8 +29,10 @@ export class TeamDetailsOverallDataComponent {
   loadPlayersOptions() {
     this.playersOptions = this.chosenTeam!.players.map(player => { return { value: player.id, displayText: player.name } as ListOption });
     this.selectedCaptain = new ListOption();
-    this.selectedCaptain.value = this.chosenTeam!.captain!.id;
-    this.selectedCaptain.displayText = this.chosenTeam!.captain!.name;
+    if (this.chosenTeam!.captain) {
+      this.selectedCaptain.value = this.chosenTeam!.captain!.id;
+      this.selectedCaptain.displayText = this.chosenTeam!.captain!.name;
+    }
   }
 
   // when the user clicks on captain's name or photo
@@ -52,6 +56,23 @@ export class TeamDetailsOverallDataComponent {
       return;
     }
     this.selectedCaptain = $selectedCaptain;
+  }
+
+  onFileSelected($event: any) {
+    if (!$event.target.files)
+      return;
+
+    const file: File = $event.target.files[0];
+    this.setTeamImage(file);
+  }
+
+  async setTeamImage(file: File) {
+    this.editTeamPhotoModel = new FormData();
+    this.editTeamPhotoModel.append('file', file);
+    const response = await this.teamService.setTeamImage(this.editTeamPhotoModel, this.chosenTeam!.id);
+    this.editTeamPhotoModel = null;
+    this.editTeamPhotoMode = false;
+    this.chosenTeam!.imgUrl = response;
   }
 
   async saveNewCaptain() {

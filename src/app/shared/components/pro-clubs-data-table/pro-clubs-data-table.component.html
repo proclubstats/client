@@ -3,22 +3,27 @@
         matSortDisableClear mat-table [dataSource]="sortedTableData">
         <ng-container *ngFor="let column of displayedColumnsData" [matColumnDef]="column.fieldName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.displayText}} </th>
-
-            ֶ <ng-container *ngIf="column.fieldName === 'index'">
-                <td mat-cell *matCellDef="let element; let i =index ">
-                    {{i + 1}}</td>
-
-            </ng-container>
-            <ng-container *ngIf="column.fieldName !== 'index'">
-                <ng-container *ngIf="!column.dataType">
-                    <td mat-cell *matCellDef="let element; let i =index " [ngClass]="{ 'cursor-pointer': isClickable }">
-                        {{element[column.fieldName]}} </td>
-                </ng-container>
-                <ng-container *ngIf="column.dataType === dataTypes.TEXT_WITH_ICON">
-                    <td mat-cell *matCellDef="let element; let i =index " [ngClass]="{ 'cursor-pointer': isClickable }">
-                        {{element[column.fieldName]}} </td>
-                </ng-container>
-            </ng-container>
+            <td mat-cell *matCellDef="let element; let i =index "
+                [ngClass]="i % 2 === 0 ? 'pro-clubs-bg-primary' :'pro-clubs-bg-secondary'">
+                <div [ngClass]="{ 'cursor-pointer': isClickable }">
+                    <ng-container *ngIf="column.fieldName === 'index'">
+                        {{i + 1}}
+                    </ng-container>
+                    <ng-container *ngIf="!column.dataType">
+                        {{element[column.fieldName]}}
+                    </ng-container>
+                    <ng-container *ngIf="column.dataType === dataTypes.TEXT_WITH_ICON">
+                        <div class="d-flex">
+                            <img [src]="element[column.fieldName].imgUrl ? element[column.fieldName].imgUrl :
+                          (element[column.fieldName].isTeam ? 'assets/Icons/TeamLogo.jpg' : 'assets/Icons/User.jpg')"
+                                class="photo-in-table-row my-2">
+                            <div class="pro-clubs-text-regular d-grid align-items-center mx-2">
+                                {{element[column.fieldName].name}}
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="columnsNamesOnly"></tr>
         <tr mat-row *matRowDef="let row; columns: columnsNamesOnly;" (click)="onRowClick(row)"></tr>

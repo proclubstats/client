@@ -1,4 +1,4 @@
-import { Column } from "../../shared/models/column.model";
+import { Column, DataType } from "../../shared/models/column.model";
 
 export const TOP_ASSISTS_COLUMNS: Column[] = [
     {
@@ -6,8 +6,10 @@ export const TOP_ASSISTS_COLUMNS: Column[] = [
         displayText: '#'
     },
     {
-        fieldName: 'playerName',
-        displayText: 'Player Name'
+        fieldName: 'tableIcon',
+        displayText: 'Player Name',
+        dataType: DataType.TEXT_WITH_ICON
+
     },
     {
         fieldName: 'position',
@@ -29,4 +31,28 @@ export const TOP_ASSISTS_COLUMNS: Column[] = [
         fieldName: 'assistsPerGame',
         displayText: 'ApG'
     }
-]
+];
+
+export const SHORTENED_TOP_ASSISTS_COLUMNS: Column[] = [
+    {
+      fieldName: 'index',
+      displayText: '#'
+    },
+    {
+      fieldName: 'tableIcon',
+      displayText: 'Name',
+      dataType: DataType.TEXT_WITH_ICON
+    },
+    {
+      fieldName: 'teamName',
+      displayText: 'Team'
+    },
+    {
+      fieldName: 'assists',
+      displayText: 'Assists'
+    },
+    {
+      fieldName: 'games',
+      displayText: 'Games'
+    }
+  ];

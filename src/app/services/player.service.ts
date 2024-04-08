@@ -23,8 +23,14 @@ export class PlayerService {
     return response.data;
   }
 
-  async addPlayer(data: AddPlayerDataRequest): Promise<IPlayer> {
-    const response = await this.apiService.post<IPlayer>(`${this.PLAYERS_CONTROLLER_URL}/`, data);
+  async setPlayerImage(playerPhoto: FormData, playerId: string) : Promise<string> {
+    const response = await this.apiService.patch<string>(`${this.PLAYERS_CONTROLLER_URL}/${playerId}/setImage/`, playerPhoto);
+
+    return response.data;
+  }
+
+  async addPlayer(playerRequestModel: FormData): Promise<IPlayer> {
+    const response = await this.apiService.post<IPlayer>(`${this.PLAYERS_CONTROLLER_URL}/`, playerRequestModel);
 
     return response.data;
   }

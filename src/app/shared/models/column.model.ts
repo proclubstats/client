@@ -5,5 +5,5 @@ export class Column {
 }
 
 export enum DataType {
-    TEXT_WITH_ICON,
+    TEXT_WITH_ICON = "text-with-icon",
 }

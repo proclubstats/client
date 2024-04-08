@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
-import { IPlayer, PlayerDTO } from '../../shared/models/player.model';
+import { PlayerDTO } from '../../shared/models/player.model';
 
 @Component({
   selector: 'app-player-details',
@@ -11,6 +11,8 @@ import { IPlayer, PlayerDTO } from '../../shared/models/player.model';
 export class PlayerDetailsComponent {
   playerID: string = '';
   chosenPlayer: PlayerDTO | null = null;
+  editPlayerPhotoMode: boolean = false;
+  editPlayerPhotoModel: FormData | null = null;
 
   constructor(private route: ActivatedRoute, private router: Router, private playerService: PlayerService) { }
 
@@ -26,5 +28,26 @@ export class PlayerDetailsComponent {
 
   navigateToTeamDetails(): void {
     this.router.navigate(['/team-details', { id: this.chosenPlayer!.team!.id }]);
+  }
+
+  async setPlayerImage(file: File) {
+    this.editPlayerPhotoModel = new FormData();
+    this.editPlayerPhotoModel.append('file', file);
+    const response = await this.playerService.setPlayerImage(this.editPlayerPhotoModel, this.playerID);
+    this.editPlayerPhotoModel = null;
+    this.editPlayerPhotoMode = false;
+    this.chosenPlayer!.imgUrl = response;
+  }
+
+  onFileSelected($event: any) {
+    if (!$event.target.files)
+      return;
+
+    const file: File = $event.target.files[0];
+    this.setPlayerImage(file);
+  }
+
+  onArrowBackClick() : void {
+    history.back();
   }
 }

@@ -8,4 +8,9 @@ export type TopAssister = {
     games: number;
     assists: number;
     assistsPerGame: number;
+    tableIcon? :  {
+        name: string;
+        imgUrl: string;
+        isTeam: boolean;
+    }
 };  

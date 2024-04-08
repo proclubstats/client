@@ -8,4 +8,9 @@ export type TopScorer = {
     games: number;
     goals: number;
     goalsPerGame: number;
+    tableIcon? :  {
+        name: string;
+        imgUrl: string;
+        isTeam: boolean;
+    }
 };

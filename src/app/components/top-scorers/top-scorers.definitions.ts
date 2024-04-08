@@ -1,4 +1,4 @@
-import { Column } from "../../shared/models/column.model";
+import { Column, DataType } from "../../shared/models/column.model";
 import { ListOption } from "../../shared/models/list-option.model";
 
 export const TOP_SCORERS_COLUMNS: Column[] = [
@@ -7,8 +7,9 @@ export const TOP_SCORERS_COLUMNS: Column[] = [
     displayText: '#'
   },
   {
-    fieldName: 'playerName',
-    displayText: 'Player Name'
+    fieldName: 'tableIcon',
+    displayText: 'Name',
+    dataType: DataType.TEXT_WITH_ICON
   },
   {
     fieldName: 'position',
@@ -29,6 +30,30 @@ export const TOP_SCORERS_COLUMNS: Column[] = [
   {
     fieldName: 'goalsPerGame',
     displayText: 'GpG'
+  }
+];
+
+export const SHORTENED_TOP_SCORERS_COLUMNS: Column[] = [
+  {
+    fieldName: 'index',
+    displayText: '#'
+  },
+  {
+    fieldName: 'tableIcon',
+    displayText: 'Name',
+    dataType: DataType.TEXT_WITH_ICON
+  },
+  {
+    fieldName: 'teamName',
+    displayText: 'Team'
+  },
+  {
+    fieldName: 'goals',
+    displayText: 'Goals'
+  },
+  {
+    fieldName: 'games',
+    displayText: 'Games'
   }
 ];
 

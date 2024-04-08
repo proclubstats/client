@@ -1,10 +1,10 @@
-<div class="w-100 d-grid justify-content-center ">
-    <div class="pro-clubs-header-1  ">
+<div class="w-100 ">
+    <div class="pro-clubs-header-1 pb-2" *ngIf="!hideTitle">
         FIXTURES
     </div>
-    <div class="pro-clubs-page-template games-area">
+    <div [ngClass]="{'pt-2': hideTitle}">
         <div *ngFor="let game of fixturesData"
-            class="text-center  mb-3  gap-15px cursor-pointer align-items-center d-flex">
+            class="text-center mb-3 gap-15px cursor-pointer align-items-center d-flex" [ngClass]="{'px-4': hideTitle}">
             <div class="d-flex game-area place-content-center pro-clubs-bg-primary w-100" (click)="onGameClick(game)">
                 <div class="home-side align-items-center d-grid">
                     {{game.homeTeamDetails.teamName}}
@@ -16,14 +16,14 @@
                     {{game.awayTeamDetails.teamName}}
                 </div>
             </div>
-            <div class="d-grid align-items-center ml-2">
+            <div class="d-grid align-items-center ml-2" *ngIf="!hideTitle">
                 <i class="fas fa-edit text-white" (click)="onGameClick(game)"></i>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" #gameDetailsModal id="gameDeatilsModal" aria-hidden="true"
+<div class="modal fade" tabindex="-1" #gameDetailsModal id="gameDetailsModal" aria-hidden="true"
     *ngIf="selectedFixture">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 1100px;">
         <div class="modal-content align-items-center pro-clubs-bg-primary overflow-y-auto"

@@ -18,7 +18,7 @@ export const LEAGUE_TABLE_DISPLAY_COLUMN: Column[] = [
         displayText: '#'
     },
     {
-        fieldName: 'teamName',
+        fieldName: 'tableIcon',
         displayText: 'Name',
         dataType: DataType.TEXT_WITH_ICON
     },
@@ -45,6 +45,39 @@ export const LEAGUE_TABLE_DISPLAY_COLUMN: Column[] = [
     {
         fieldName: 'goalsConceded',
         displayText: 'GA'
+    },
+    {
+        fieldName: 'goalDifference',
+        displayText: 'DIF'
+    },
+    {
+        fieldName: 'points',
+        displayText: 'P'
+    }
+
+]
+
+export const SHORTENED_LEAGUE_TABLE_DISPLAY_COLUMN: Column[] = [
+    {
+        fieldName:'index',
+        displayText: '#'
+    },
+    {
+        fieldName: 'teamName',
+        displayText: 'Name',
+        dataType: DataType.TEXT_WITH_ICON
+    },
+    {
+        fieldName: 'gamesWon',
+        displayText: 'W'
+    },
+    {
+        fieldName: 'draws',
+        displayText: 'D'
+    },
+    {
+        fieldName: 'gamesLost',
+        displayText: 'L'
     },
     {
         fieldName: 'goalDifference',

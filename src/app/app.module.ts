@@ -31,6 +31,7 @@ import { TeamDetailsStatsComponent } from "./components/team-details/tabs/team-d
 import { TeamDetailsOverallStatsComponent } from "./components/team-details/tabs/team-details-overall/team-details-overall-stats/team-details-overall-stats.component";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotificationService } from "./services/notification.service";
+import { ProClubsSpinnerComponent } from "./shared/components/pro-clubs-spinner/pro-clubs-spinner.component";
 
 @NgModule({
     declarations: [
@@ -58,13 +59,13 @@ import { NotificationService } from "./services/notification.service";
     imports: [
         AppRoutingModule,
         BrowserModule,
-        SharedModule,
         ReactiveFormsModule,
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
         MatTabsModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        SharedModule
     ],
     exports: [],
     providers: [

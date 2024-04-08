@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Fixture } from '../../shared/models/game.model';
 import { gamesArray } from './fixtures.mock';
 import { Modal } from 'bootstrap';
@@ -13,6 +13,8 @@ export class FixturesComponent {
   selectedFixture: Fixture | undefined = undefined;
   dateFormat = 'dd.MM.YYYY';
   editFixture: boolean = false;
+
+  @Input() hideTitle: boolean = false;
 
   @ViewChild('gameDetailsModal') modalRef: any;
 
