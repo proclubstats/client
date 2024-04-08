@@ -10,12 +10,14 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
 import { ProClubsMultipleSelectComponent } from "./components/pro-clubs-multiple-select/pro-clubs-multiple-select.component";
 import { MatSelectModule } from "@angular/material/select";
+import { ProClubsSpinnerComponent } from "./components/pro-clubs-spinner/pro-clubs-spinner.component";
 
 @NgModule({
     declarations: [
         ProClubsDataTableComponent,
         ProClubsAutoCompleteSelectComponent,
-        ProClubsMultipleSelectComponent
+        ProClubsMultipleSelectComponent,
+        ProClubsSpinnerComponent
     ],
     imports: [
         MatTableModule,
@@ -28,7 +30,7 @@ import { MatSelectModule } from "@angular/material/select";
         MatInputModule,
         MatSelectModule
     ],
-    exports: [ProClubsDataTableComponent, ProClubsAutoCompleteSelectComponent, ProClubsMultipleSelectComponent],
+    exports: [ProClubsDataTableComponent, ProClubsSpinnerComponent, ProClubsAutoCompleteSelectComponent, ProClubsMultipleSelectComponent],
     providers: [
     ],
     bootstrap: []

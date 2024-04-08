@@ -1,10 +1,9 @@
-<div class="w-100 d-grid justify-content-center" *ngIf="leagueTable">
-    <div class="pro-clubs-header-1 text-white">
+<div class="w-100" *ngIf="leagueTable && !isLoading">
+    <div class="pro-clubs-header-1 text-white pb-2" *ngIf="!hideTitle">
         LEAGUE TABLE
     </div>
-    <div class="pro-clubs-page-template">
-        <pro-clubs-data-table [tableData]="leagueTable" [columnsToDisplay]="displayedColumns" [isClickable]="true"
-            [defaultSort]="'pointsAmount'" (onRowClickEvent)="onTeamClick($event)">
-        </pro-clubs-data-table>
-    </div>
+    <pro-clubs-data-table [tableData]="leagueTable" [columnsToDisplay]="displayedColumns" [isClickable]="true"
+        [defaultSort]="'pointsAmount'" (onRowClickEvent)="onTeamClick($event)">
+    </pro-clubs-data-table>
 </div>
+<pro-clubs-spinner *ngIf="isLoading"></pro-clubs-spinner>

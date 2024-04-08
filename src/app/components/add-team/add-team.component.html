@@ -1,8 +1,8 @@
-<div class="w-100 d-grid justify-content-center ">
-    <div class="pro-clubs-header-1">
+<div class="w-100 ">
+    <div class="pro-clubs-header-1 pb-2">
         ADD TEAM
     </div>
-    <div class="pro-clubs-page-template games-area">
+    <div>
         <form [formGroup]="addTeamFormGroup" (ngSubmit)="onSubmit()">
             <div class="mt-3">
                 <div class="d-flex">
@@ -26,7 +26,8 @@
                 </div>
             </div>
             <div class="text-center mt-5">
-                <button type="submit" class="pro-clubs-button-primary" [ngClass]="{'disabled-button': addTeamFormGroup.invalid}"
+                <button type="submit" class="pro-clubs-button-primary"
+                    [ngClass]="{'disabled-button': addTeamFormGroup.invalid}"
                     [disabled]="addTeamFormGroup.invalid">Submit</button>
             </div>
         </form>

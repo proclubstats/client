@@ -1,6 +1,7 @@
 export interface LeagueTableRow {
     teamId: string;
     teamName: string;
+    imgUrl?: string;
     gamesPlayed: number;
     gamesWon: number;
     gamesLost: number;
@@ -10,4 +11,9 @@ export interface LeagueTableRow {
     goalsConceded: number;
     goalsScored: number;
     cleanSheets: number;
+    tableIcon? :  {
+      name: string;
+      imgUrl: string;
+      isTeam: boolean ;
+  }
   }

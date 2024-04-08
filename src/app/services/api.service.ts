@@ -13,6 +13,10 @@ export class ApiService {
         return await axios.get(this.SERVER_URL + path, params);
     }
 
+    async patch<T>(path: string, params: any = {}): Promise<AxiosResponse<T, any>> {
+        return await axios.patch(this.SERVER_URL + path, params);
+    }
+
     async post<T>(path: string, params: any = {}): Promise<AxiosResponse<T, any>> {
         return await axios.post(this.SERVER_URL + path, params);
     }

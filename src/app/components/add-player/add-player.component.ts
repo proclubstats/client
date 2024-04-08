@@ -70,7 +70,7 @@ export class AddPlayerComponent {
   async onSubmit() {
     if (this.addPlayerFormGroup.valid) {
       const convertedForm = this.convertFormToModel();
-      const response = await this.playersService.addPlayer(convertedForm);
+      const response = await this.playersService.addPlayer(this.addPlayerFile);
 
       if (response) {
         this.playablePositionOptions = [...PLAYABLE_POSITIONS_OPTIONS];
@@ -90,6 +90,13 @@ export class AddPlayerComponent {
     this.addPlayerFormGroup.get('playablePositions')!.value == '' ? convertedForm.playablePositions = [convertedForm.position]
       : convertedForm.playablePositions.push(convertedForm.position);
     convertedForm.teamId = this.teamID;
+
+    var jsonForm = JSON.parse(JSON.stringify(convertedForm));
+
+    Object.keys(jsonForm).forEach(key => {
+      this.addPlayerFile.append(key, jsonForm[key]);
+    });
+
     return convertedForm;
   }
 
