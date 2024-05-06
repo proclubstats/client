@@ -3,7 +3,7 @@
         LEAGUE TABLE
     </div>
     <pro-clubs-data-table [tableData]="leagueTable" [columnsToDisplay]="displayedColumns" [isClickable]="true"
-        [defaultSort]="'pointsAmount'" (onRowClickEvent)="onTeamClick($event)">
+        [defaultSort]="'points'" [secondarySort]="'goalDifference'" (onRowClickEvent)="onTeamClick($event)">
     </pro-clubs-data-table>
 </div>
 <pro-clubs-spinner *ngIf="isLoading"></pro-clubs-spinner>

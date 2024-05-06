@@ -9,6 +9,7 @@ import { TeamDetailsComponent } from './components/team-details/team-details.com
 import { PlayerDetailsComponent } from './components/player-details/player-details.component';
 import { AddTeamComponent } from './components/add-team/add-team.component';
 import { AddPlayerComponent } from './components/add-player/add-player.component';
+import { AddFixtureComponent } from './components/add-fixture/add-fixture.component';
 
 const routes: Routes = [
     {
@@ -49,6 +50,10 @@ const routes: Routes = [
     {
         path: 'add-player',
         component: AddPlayerComponent
+    },
+    {
+        path: 'add-fixture',
+        component: AddFixtureComponent
     }
 ];
 

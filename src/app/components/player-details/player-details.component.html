@@ -75,9 +75,20 @@
                         {{chosenPlayer!.stats.assists}}
                     </div>
                 </div>
+                <div
+                    class="pro-clubs-bg-primary flex-fill pro-clubs-header-2-regular d-grid text-center place-content-center pro-clubs-border-radius">
+                    <div>
+                        AVERAGE RATING
+                    </div>
+                    <div>
+                        {{chosenPlayer!.stats.avgRating.toFixed(2)}}
+                    </div>
+                </div>
             </div>
-            <div class="h-83 pro-clubs-bg-primary pro-clubs-border-radius squad-area">
-
+            <div class="h-83 pro-clubs-bg-primary pro-clubs-border-radius squad-area d-flex flex-column justify-content-end">
+                <div class="w-100 d-flex justify-content-end">
+                    <button class="pro-clubs-button-primary" (click)="deletePlayer()">DELETE PLAYER</button>
+                </div>
             </div>
         </div>
     </div>

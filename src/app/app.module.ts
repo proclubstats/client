@@ -21,7 +21,7 @@ import { TeamService } from "./services/team.service";
 import { FixtureService } from "./services/fixtures.service";
 import { LeagueService } from "./services/league.service";
 import { HttpClientModule } from "@angular/common/http";
-import { ModifyFixtureComponent } from "./components/modify-fixture/modify-fixture.component";
+import { ModifyGameComponent } from "./components/modify-game/modify-game.component";
 import { MatTabsModule } from '@angular/material/tabs';
 import { TeamDetailsOverallComponent } from "./components/team-details/tabs/team-details-overall/team-details-overall.component";
 import { TeamDetailsOverallDataComponent } from "./components/team-details/tabs/team-details-overall/team-details-overall-data/team-details-overall-data.component";
@@ -31,7 +31,9 @@ import { TeamDetailsStatsComponent } from "./components/team-details/tabs/team-d
 import { TeamDetailsOverallStatsComponent } from "./components/team-details/tabs/team-details-overall/team-details-overall-stats/team-details-overall-stats.component";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotificationService } from "./services/notification.service";
-import { ProClubsSpinnerComponent } from "./shared/components/pro-clubs-spinner/pro-clubs-spinner.component";
+import { AddFixtureComponent } from "./components/add-fixture/add-fixture.component";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [
@@ -47,7 +49,7 @@ import { ProClubsSpinnerComponent } from "./shared/components/pro-clubs-spinner/
         TeamDetailsComponent,
         AddPlayerComponent,
         AddTeamComponent,
-        ModifyFixtureComponent,
+        ModifyGameComponent,
         TeamDetailsComponent,
         TeamDetailsOverallComponent,
         TeamDetailsOverallDataComponent,
@@ -55,6 +57,7 @@ import { ProClubsSpinnerComponent } from "./shared/components/pro-clubs-spinner/
         TeamDetailsMatchesComponent,
         TeamDetailsSquadComponent,
         TeamDetailsStatsComponent,
+        AddFixtureComponent,
     ],
     imports: [
         AppRoutingModule,
@@ -65,7 +68,9 @@ import { ProClubsSpinnerComponent } from "./shared/components/pro-clubs-spinner/
         HttpClientModule,
         MatTabsModule,
         MatSnackBarModule,
-        SharedModule
+        SharedModule,
+        MatPaginatorModule,
+        MatDialogModule
     ],
     exports: [],
     providers: [

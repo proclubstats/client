@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, NgModel, Validators } from '@angular/forms';
 import { PLAYABLE_POSITIONS_OPTIONS } from '../top-scorers/top-scorers.definitions';
 import { ActivatedRoute } from '@angular/router';
-import { TEAMS_DATA } from '../league-table/league-table.mock';
 import { ListOption } from '../../shared/models/list-option.model';
 import { AddPlayerDataRequest } from '../../shared/models/addPlayerDataRequest';
 import { PlayerService } from '../../services/player.service';

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { LEAGUE_TABLE_DISPLAY_COLUMN, SHORTENED_LEAGUE_TABLE_DISPLAY_COLUMN } from './league-table.mock';
+import { LEAGUE_TABLE_DISPLAY_COLUMN, SHORTENED_LEAGUE_TABLE_DISPLAY_COLUMN, leagueSortColumns } from './league-table.constants';
 import { Column } from '../../shared/models/column.model';
 import { Router } from '@angular/router';
 import { LeagueService } from '../../services/league.service';
@@ -12,6 +12,7 @@ import { LEAGUE_ID } from '../../constants/constants';
   styleUrl: './league-table.component.scss'
 })
 export class LeagueTableComponent {
+  leagueSortColumns = leagueSortColumns;
   displayedColumns: Column[] = [];
   leagueTable: LeagueTableRow[] = [];
   isLoading: boolean = false;

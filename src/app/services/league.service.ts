@@ -5,6 +5,8 @@ import { LeagueTableRow } from '../shared/models/leagueTableTeam';
 import { IPlayer } from '../shared/models/player.model';
 import { TopScorer } from '../shared/models/topscorer.model';
 import { TopAssister } from '../shared/models/topassister.model';
+import { AddFixtureDataRequest } from '../shared/models/addFixtureDataRequest';
+import { FixtureDTO } from '../shared/models/game.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +54,24 @@ export class LeagueService {
 
   async getTopAssists(leagueId: string): Promise<TopAssister[]> {
     const response = await this.apiService.get<TopAssister[]>(`${this.LEAGUE_CONTROLLER_URL}${leagueId}/topAssists`);
+
+    return response.data;
+  }
+
+  async getLeagueFixtures(leagueId: string,): Promise<FixtureDTO[]> {
+    const response = await this.apiService.get<FixtureDTO[]>(`${this.LEAGUE_CONTROLLER_URL}league/round${leagueId}/fixtures`);
+
+    return response.data;
+  }
+
+  async getPaginatedLeagueFixturesGames(leagueId: string, page: number , pageSize: number): Promise<FixtureDTO[]> {
+    const response = await this.apiService.get<FixtureDTO[]>(`fixture/${this.LEAGUE_CONTROLLER_URL}${leagueId}/paginatedGames?page=${page}?pageSize=${pageSize}`);
+
+    return response.data;
+  }
+
+  async createFixture(leagueId: string, createFixtureRequest: AddFixtureDataRequest): Promise<FixtureDTO> {
+    const response = await this.apiService.post<FixtureDTO>(`${this.LEAGUE_CONTROLLER_URL}${leagueId}/createFixture`, createFixtureRequest);
 
     return response.data;
   }

@@ -39,6 +39,7 @@ export interface PlayerDTO {
         cleanSheets: number;
         assists: number;
         playerOfTheMatch: number;
+        avgRating: number;
     };
 }
 

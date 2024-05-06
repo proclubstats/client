@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
 import { PlayerDTO } from '../../shared/models/player.model';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-player-details',
@@ -14,7 +15,7 @@ export class PlayerDetailsComponent {
   editPlayerPhotoMode: boolean = false;
   editPlayerPhotoModel: FormData | null = null;
 
-  constructor(private route: ActivatedRoute, private router: Router, private playerService: PlayerService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private playerService: PlayerService, private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.loadPlayerData();
@@ -45,6 +46,13 @@ export class PlayerDetailsComponent {
 
     const file: File = $event.target.files[0];
     this.setPlayerImage(file);
+  }
+
+  async deletePlayer() {
+    const serverResponse = await this.playerService.deletePlayer(this.chosenPlayer!.id);
+
+    this.notificationService.success(`${this.chosenPlayer!.name} deleted successfuly`);
+    
   }
 
   onArrowBackClick() : void {

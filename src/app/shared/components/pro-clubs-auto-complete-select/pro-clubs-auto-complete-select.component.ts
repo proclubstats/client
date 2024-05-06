@@ -11,7 +11,7 @@ import { FormControl } from '@angular/forms';
 export class ProClubsAutoCompleteSelectComponent {
   @Input() selectOptions: ListOption[] = [];
   @Input() placeholder: string = '';
-  @Input() defaultOption: any = '';
+  @Input() defaultOption?: any;
   selectedOption = new FormControl(this.defaultOption);
 
   inputValue: string = '';
@@ -28,6 +28,12 @@ export class ProClubsAutoCompleteSelectComponent {
       startWith(''),
       map(value => this._filter(value || '')),
     );
+    
+    if (this.defaultOption) {
+      const selectedOption = this.selectOptions.find(option => option.value === this.defaultOption);
+      this.inputValue = selectedOption!.displayText;
+      this.selectionChange.emit(selectedOption);
+    }
   }
 
   // view --> model

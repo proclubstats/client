@@ -1,7 +1,10 @@
-import { Component, Input, ViewChild } from '@angular/core';
-import { Fixture } from '../../shared/models/game.model';
-import { gamesArray } from './fixtures.mock';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { FixtureDTO, GameFixtureData, GameStatus } from '../../shared/models/game.model';
 import { Modal } from 'bootstrap';
+import { LeagueService } from '../../services/league.service';
+import { LEAGUE_ID } from '../../constants/constants';
+import { GameService } from '../../services/game.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'fixtures',
@@ -9,24 +12,48 @@ import { Modal } from 'bootstrap';
   styleUrl: './fixtures.component.scss'
 })
 export class FixturesComponent {
-  fixturesData: Fixture[] = gamesArray;
-  selectedFixture: Fixture | undefined = undefined;
+  GameStatus = GameStatus;
+  fixtures: FixtureDTO[] | null = null;
+  currentFixture: FixtureDTO | null = null;
+  selectedGame: GameFixtureData | null = null;
   dateFormat = 'dd.MM.YYYY';
-  editFixture: boolean = false;
+  isLoading: boolean = false;
+  editGame: boolean = false;
+  currentEditedGameId: string | null = null;
+  homeTeamGoals: number = 0;
+  awayTeamGoals: number = 0;
 
   @Input() hideTitle: boolean = false;
 
-  @ViewChild('gameDetailsModal') modalRef: any;
+  @ViewChild('gameDetailsModal') modalRef!: ElementRef;
 
-  constructor() {
+  constructor(private leagueService: LeagueService, private gameService: GameService,
+     private notificationService: NotificationService) { }
+
+  ngOnInit() {
+    this.loadFixtures();
   }
 
-  ngOnInit() {}
+  async loadFixtures() {
+    this.isLoading = true;
+    const serverResponse = await this.leagueService.getPaginatedLeagueFixturesGames(LEAGUE_ID, 2, 1);
 
-  onGameClick(selectedFixture: Fixture): void {
-    this.selectedFixture = selectedFixture;
+    this.fixtures = serverResponse;
+    this.currentFixture = this.fixtures[0];
+    this.isLoading = false;
+  }
+
+  onGameClick(selectedGame: GameFixtureData): void {
+    if (this.currentEditedGameId === selectedGame.id) {
+      return;
+    }
+    this.selectedGame = selectedGame;
     const modal = new Modal(this.modalRef.nativeElement);
     modal.show();
+  }
+
+  onPageChange(event: any) {
+    this.currentFixture = this.fixtures![event.pageIndex];
   }
 
   closeModal() {
@@ -34,11 +61,38 @@ export class FixturesComponent {
     modal.hide();
   }
 
+  onEditGameResultClick(game: GameFixtureData) {
+    if (game!.status !== GameStatus.SCHEDULED) {
+      this.homeTeamGoals = game.result!.homeTeamGoals;
+      this.awayTeamGoals = game.result!.awayTeamGoals;
+    }
+    else {
+      this.homeTeamGoals = 0;
+      this.awayTeamGoals = 0;
+    }
+
+    this.currentEditedGameId = game.id;
+  }
+
+  async onSaveClick(game: GameFixtureData) {
+    const serverResponse = await this.gameService.updateGameResult(game.id, this.homeTeamGoals, this.awayTeamGoals);
+
+    if (serverResponse) {
+      this.notificationService.success(`Result: ${game.homeTeam.name} ${this.homeTeamGoals} : ${this.awayTeamGoals} ${game.awayTeam.name} updated successfuly`);
+      game.status = GameStatus.PLAYED;
+      game.result = {homeTeamGoals: this.homeTeamGoals,  awayTeamGoals:this.awayTeamGoals};
+//      this.loadFixtures();
+    }
+
+
+    this.currentEditedGameId = null;
+  }
+
   onEditClick() {
-    this.editFixture = true;
+    this.editGame = true;
   }
 
   onCancelClick() {
-    this.editFixture = false;
+    this.editGame = false;
   }
 }

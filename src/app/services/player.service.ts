@@ -36,6 +36,6 @@ export class PlayerService {
   }
 
   async deletePlayer(id: string): Promise<void> {
-    await this.apiService.delete<void>(`${this.PLAYERS_CONTROLLER_URL}/`, id);
+    await this.apiService.delete<void>(`${this.PLAYERS_CONTROLLER_URL}/${id}`);
   }
 }

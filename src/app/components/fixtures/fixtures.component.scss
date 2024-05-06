@@ -8,19 +8,18 @@
     opacity: 0.8;
 }
 
-.home-side {
-    width: 30%;
-}
-
-.score-side {
-    width: 20%;
-}
-
-.away-side {
-    width: 30%;
-}
-
 .game-details-modal {
     width: 1300px;
     height: 500px;
+}
+
+.team-image-size {
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+}
+
+.mat-mdc-paginator {
+    background-color: var(--secondary);
+    color: white;
 }

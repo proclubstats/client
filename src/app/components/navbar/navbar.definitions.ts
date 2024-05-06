@@ -23,5 +23,9 @@ export const NAVBAR_OPTIONS_ITEMS : NavItem[] = [
     {
         displayText: "Add Team",
         link: "add-team"
+    },
+    {
+        displayText: "Add Fixture",
+        link: "add-fixture"
     }
 ]
