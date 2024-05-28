@@ -12,7 +12,8 @@ import { NotificationService } from '../../services/notification.service';
 export class PlayerDetailsComponent {
   playerID: string = '';
   chosenPlayer: PlayerDTO | null = null;
-  editPlayerPhotoMode: boolean = false;
+  editPlayerMode: boolean = false;
+  editedPlayerName: string | null = null;
   editPlayerPhotoModel: FormData | null = null;
 
   constructor(private route: ActivatedRoute, private router: Router, private playerService: PlayerService, private notificationService: NotificationService) { }
@@ -34,10 +35,7 @@ export class PlayerDetailsComponent {
   async setPlayerImage(file: File) {
     this.editPlayerPhotoModel = new FormData();
     this.editPlayerPhotoModel.append('file', file);
-    const response = await this.playerService.setPlayerImage(this.editPlayerPhotoModel, this.playerID);
-    this.editPlayerPhotoModel = null;
-    this.editPlayerPhotoMode = false;
-    this.chosenPlayer!.imgUrl = response;
+
   }
 
   onFileSelected($event: any) {
@@ -48,14 +46,40 @@ export class PlayerDetailsComponent {
     this.setPlayerImage(file);
   }
 
+  onEditClick() {
+    this.editedPlayerName = this.chosenPlayer!.name;
+    this.editPlayerMode = true;
+  }
+
+  onCancelEditClick() {
+    this.editPlayerMode = false;
+  }
+
   async deletePlayer() {
     const serverResponse = await this.playerService.deletePlayer(this.chosenPlayer!.id);
 
     this.notificationService.success(`${this.chosenPlayer!.name} deleted successfuly`);
-    
+
+    this.onArrowBackClick();
   }
 
-  onArrowBackClick() : void {
+  onArrowBackClick(): void {
     history.back();
+  }
+
+  async onSaveClick() {
+    if (this.editPlayerPhotoModel) {
+      const response = await this.playerService.setPlayerImage(this.editPlayerPhotoModel!, this.playerID);
+      this.editPlayerPhotoModel = null;
+      this.editPlayerMode = false;
+      this.chosenPlayer!.imgUrl = response;
+    }
+
+    if (this.chosenPlayer!.name !== this.editedPlayerName) {
+      const response = await this.playerService.renamePlayer(this.editedPlayerName!, this.playerID);
+      this.editedPlayerName = null;
+      this.editPlayerMode = false;
+      this.chosenPlayer!.name = response;
+    }
   }
 }

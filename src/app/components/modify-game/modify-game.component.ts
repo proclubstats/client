@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Game, GameDTO, GameFixtureData, GameStatus, TeamGameStatsData, UpdatePlayerPerformanceDataRequest } from '../../shared/models/game.model';
 import { ListOption } from '../../shared/models/list-option.model';
 import { PlayerStat } from '../../shared/models/player-stat.model';
@@ -22,6 +22,8 @@ export class ModifyGameComponent {
   selectedGame: GameDTO | undefined = undefined;
 
   @Input() selectedGameId: string | undefined = undefined;
+
+  @Output() onSaveEvent: EventEmitter<void> = new EventEmitter();
 
   constructor(private teamService: TeamService, private formBuilder: FormBuilder,
     private gameService: GameService, private notificationService: NotificationService
@@ -112,7 +114,11 @@ export class ModifyGameComponent {
 
   removePlayer(isHomeTeam: boolean, index: number): void {
     isHomeTeam ? (this.homeTeamPlayers.removeAt(index)) : (this.awayTeamPlayers.removeAt(index));
+  }
 
+  isScoreModified(): boolean {
+    return (this.homeTeamGoalsAmount != this.selectedGame!.result!.homeTeamGoals ||
+      this.awayTeamGoalsAmount != this.selectedGame!.result!.awayTeamGoals)
   }
 
   async submitForm() {
@@ -122,6 +128,13 @@ export class ModifyGameComponent {
     const homeTeamPlayerStats = formAsObject.homeTeamPlayers;
     const awayTeamPlayerStats = formAsObject.awayTeamPlayers;
 
+    if (this.isScoreModified()) {
+      const serverResponse = await this.gameService.updateGameResult(this.selectedGame!.id, this.homeTeamGoalsAmount, this.awayTeamGoalsAmount);
+
+      if (serverResponse) {
+        this.notificationService.success(`Result: ${this.selectedGame!.homeTeam.name} ${this.homeTeamGoalsAmount} : ${this.awayTeamGoalsAmount} ${this.selectedGame!.awayTeam.name} updated successfuly`);
+      }
+    }
 
     if (homeTeamPlayerStats.length > 0) {
       updateScoreModel = homeTeamPlayerStats;
@@ -129,6 +142,7 @@ export class ModifyGameComponent {
 
       if (homeTeamResponse) {
         this.notificationService.success(`${this.selectedGame!.homeTeam.name}'s players performance updated successfuly`);
+        this.onSaveEvent.emit();
       }
     }
 
@@ -137,9 +151,9 @@ export class ModifyGameComponent {
       const awayTeamResponse = await this.gameService.updateTeamPlayersPerformance(this.selectedGame!.id, updateScoreModel, false);
       if (awayTeamResponse) {
         this.notificationService.success(`${this.selectedGame!.awayTeam.name}'s players performance updated successfuly`);
+        this.onSaveEvent.emit();
       }
     }
-
   }
 
   async loadPlayersOptions() {

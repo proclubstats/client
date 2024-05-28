@@ -1,0 +1,25 @@
+.game-area {
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    height: 60px;
+}
+
+.game-area:hover {
+    opacity: 0.8;
+}
+
+.game-details-modal {
+    width: 1300px;
+    height: 500px;
+}
+
+.team-image-size {
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+}
+
+.mat-mdc-paginator {
+    background-color: var(--secondary);
+    color: white;
+}

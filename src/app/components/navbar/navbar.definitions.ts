@@ -19,7 +19,7 @@ export const NAVBAR_ITEMS: NavItem[] = [
     }
 ];
 
-export const NAVBAR_OPTIONS_ITEMS : NavItem[] = [
+export const NAVBAR_OPTIONS_ITEMS: NavItem[] = [
     {
         displayText: "Add Team",
         link: "add-team"
@@ -27,5 +27,13 @@ export const NAVBAR_OPTIONS_ITEMS : NavItem[] = [
     {
         displayText: "Add Fixture",
         link: "add-fixture"
+    },
+    {
+        displayText: "Sign Up",
+        link: "sign-up"
+    },
+     {
+        displayText: "Login",
+        link: "login"
     }
 ]

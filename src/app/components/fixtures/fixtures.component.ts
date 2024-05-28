@@ -5,6 +5,10 @@ import { LeagueService } from '../../services/league.service';
 import { LEAGUE_ID } from '../../constants/constants';
 import { GameService } from '../../services/game.service';
 import { NotificationService } from '../../services/notification.service';
+import { MatDialog } from '@angular/material/dialog';
+import { GameDetailsComponent } from '../game-details/game-details.component';
+import { ModifyGameComponent } from '../modify-game/modify-game.component';
+import { PopupDialogComponent } from '../../shared/components/popup-dialog/popup-dialog.component';
 
 @Component({
   selector: 'fixtures',
@@ -28,7 +32,8 @@ export class FixturesComponent {
   @ViewChild('gameDetailsModal') modalRef!: ElementRef;
 
   constructor(private leagueService: LeagueService, private gameService: GameService,
-     private notificationService: NotificationService) { }
+    private matDialog: MatDialog,
+    private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.loadFixtures();
@@ -48,8 +53,10 @@ export class FixturesComponent {
       return;
     }
     this.selectedGame = selectedGame;
-    const modal = new Modal(this.modalRef.nativeElement);
-    modal.show();
+
+    this.matDialog.open(PopupDialogComponent, { data: {components: [GameDetailsComponent, ModifyGameComponent], componentSwitchMode: true, componentParams: {selectedGameId: this.selectedGame.id }}, autoFocus: true, width: '1550px',  height: '820px' });
+     //const modal = new Modal(this.modalRef.nativeElement);
+    //modal.show();
   }
 
   onPageChange(event: any) {
@@ -80,8 +87,8 @@ export class FixturesComponent {
     if (serverResponse) {
       this.notificationService.success(`Result: ${game.homeTeam.name} ${this.homeTeamGoals} : ${this.awayTeamGoals} ${game.awayTeam.name} updated successfuly`);
       game.status = GameStatus.PLAYED;
-      game.result = {homeTeamGoals: this.homeTeamGoals,  awayTeamGoals:this.awayTeamGoals};
-//      this.loadFixtures();
+      game.result = { homeTeamGoals: this.homeTeamGoals, awayTeamGoals: this.awayTeamGoals };
+      //      this.loadFixtures();
     }
 
 

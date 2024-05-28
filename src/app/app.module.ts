@@ -34,6 +34,9 @@ import { NotificationService } from "./services/notification.service";
 import { AddFixtureComponent } from "./components/add-fixture/add-fixture.component";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatDialogModule } from '@angular/material/dialog';
+import { TeamGamesComponent } from "./components/team-games/team-games.component";
+import { SignUpComponent } from "./components/sign-up/sign-up.component";
+import { LoginComponent } from "./components/login/login.component";
 
 @NgModule({
     declarations: [
@@ -58,6 +61,9 @@ import { MatDialogModule } from '@angular/material/dialog';
         TeamDetailsSquadComponent,
         TeamDetailsStatsComponent,
         AddFixtureComponent,
+        TeamGamesComponent,
+        SignUpComponent,
+        LoginComponent
     ],
     imports: [
         AppRoutingModule,

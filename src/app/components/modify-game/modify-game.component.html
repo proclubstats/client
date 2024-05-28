@@ -20,28 +20,28 @@
         <div class="d-flex mt-4">
             <div class="w-45 text-center">
                 <div formArrayName="homeTeamPlayers" class="w-100">
-                    <div class="d-flex score-row">
-                        <div class="w-40">
+                    <div class="d-flex score-row w-100">
+                        <div class="w-50">
                             PLAYER NAME
                         </div>
-                        <div class="w-10">
+                        <div>
                             RATING
                         </div>
-                        <div class="w-10">
+                        <div>
                             GOALS
                         </div>
-                        <div class="w-10">
+                        <div>
                             ASSISTS
                         </div>
-                        <div class="w-10">
+                        <div>
                             POTM?
                         </div>
-                        <div class="w-10">
+                        <div>
                         </div>
                     </div>
                     <div class="d-flex score-row mt-1" *ngFor="let player of homeTeamPlayers.controls; let i = index"
                         [formGroupName]="i">
-                        <div class="w-40">
+                        <div class="w-50">
                             <pro-clubs-auto-complete-select [defaultOption]="player.get('playerId')!.value" [placeholder]="'PLAYER NAME'" (selectionChange)="onSelectionChange($event, true, i)"
                                 [selectOptions]="homeTeamPlayersOptions!"></pro-clubs-auto-complete-select>
                         </div>
@@ -57,7 +57,7 @@
                                 maxlength="2">
                         </div>
                         <div class="w-10">
-                            <input type="checkbox" formControlName="isPlayerOfTheMatch" class="pro-clubs-short-input h-100"
+                            <input type="checkbox" formControlName="playerOfTheMatch" class="pro-clubs-short-input h-100"
                                 maxlength="2">
                         </div>
                         <div class="d-flex align-items-center">
@@ -92,7 +92,7 @@
                         <div class="w-10">
                         </div>
                     </div>
-                    <div class="d-flex score-row mb-2" *ngFor="let player of awayTeamPlayers.controls; let i = index"
+                    <div class="d-flex score-row mt-1" *ngFor="let player of awayTeamPlayers.controls; let i = index"
                         [formGroupName]="i">
                         <div class="w-40">
                             <pro-clubs-auto-complete-select [placeholder]="'PLAYER NAME'"

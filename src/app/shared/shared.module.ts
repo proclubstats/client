@@ -11,13 +11,18 @@ import { MatInputModule } from '@angular/material/input';
 import { ProClubsMultipleSelectComponent } from "./components/pro-clubs-multiple-select/pro-clubs-multiple-select.component";
 import { MatSelectModule } from "@angular/material/select";
 import { ProClubsSpinnerComponent } from "./components/pro-clubs-spinner/pro-clubs-spinner.component";
+import { PopupDialogComponent } from "./components/popup-dialog/popup-dialog.component";
+import { MatDialogModule } from "@angular/material/dialog";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
         ProClubsDataTableComponent,
         ProClubsAutoCompleteSelectComponent,
         ProClubsMultipleSelectComponent,
-        ProClubsSpinnerComponent
+        ProClubsSpinnerComponent,
+        PopupDialogComponent
     ],
     imports: [
         MatTableModule,
@@ -28,7 +33,10 @@ import { ProClubsSpinnerComponent } from "./components/pro-clubs-spinner/pro-clu
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
-        MatSelectModule
+        MatSelectModule,
+        MatDialogModule,
+        BrowserModule,
+        BrowserAnimationsModule
     ],
     exports: [ProClubsDataTableComponent, ProClubsSpinnerComponent, ProClubsAutoCompleteSelectComponent, ProClubsMultipleSelectComponent],
     providers: [
