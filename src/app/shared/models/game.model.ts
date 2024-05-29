@@ -1,17 +1,141 @@
 import { PlayerStat } from "./player-stat.model";
+import { IPlayerStats } from "./player.model";
 
-export class Fixture {
-    id: number = 0;
-    fixtureNum: number = 0;
-    homeTeamDetails: TeamDetails = new TeamDetails();
-    awayTeamDetails: TeamDetails = new TeamDetails();
-    date: Date | undefined = undefined;
+export interface Fixture {
+    id: string;
+    leagueId: string;
+    fixtureNum: number
+    startDate: Date | undefined;
+    endDate: Date | undefined;
+    games: Game[];
+
+
 }
 
-class TeamDetails { 
-    teamID: string = '';
-    teamName: string = '';
-    teamGoalsAmount: number = 0;
-    teamScorers? : PlayerStat[] = []; // player id and how many scored
-    teamAssists? : PlayerStat[] = []; // player id and how many scored
+export interface Game {
+    id: string;
+    fixtureNum: number;
+    homeTeamDetails: TeamStats;
+    awayTeamDetails: TeamStats;
+    date?: Date | undefined;
+    status?: string;
 }
+
+export interface TeamStats {
+    teamID: string;
+    teamName: string;
+    teamImgUrl?: string;
+    teamGoalsAmount: number;
+    teamScorers?: PlayerStat[]; // player id and how many scored
+    teamAssists?: PlayerStat[];// player id and how many scored
+}
+
+export type FixtureDTO = {
+    id: string;
+    round: number;
+    leagueId: string;
+    startDate: Date;
+    endDate: Date;
+    games: GameFixtureData[];
+  };
+
+  export type GameFixtureData = {
+    id: string,
+    homeTeam: {
+      id: string;
+      name: string;
+      imgUrl?: string;
+    };
+    awayTeam: {
+      id: string;
+      name: string;
+      imgUrl?: string;
+    };
+    result?: {
+      homeTeamGoals: number;
+      awayTeamGoals: number;
+    };
+    status: GameStatus;
+    date?: Date;
+  };
+
+  export enum GameStatus {
+    SCHEDULED = "Scheduled",
+    POSTPONED = "Postponed",
+    CANCELLED = "Cancelled",
+    PLAYED = "Played",
+    COMPLETED = "Completed",
+  }
+
+  type GoalsData = {
+    scorerId: string;
+    minute?: number;
+    assistId?: string;
+  }
+
+
+  export type GameDTO = {
+    id: string;
+    fixtureId: string;
+    status: GameStatus;
+    result?: {
+      homeTeamGoals: number;
+      awayTeamGoals: number;
+    };
+    homeTeam: {
+      id: string;
+      name: string;
+      imgUrl?: string;
+      playersPerformance?: PlayerPerformanceDTO[];
+    };
+    awayTeam: {
+      id: string;
+      name: string;
+      imgUrl?: string;
+      playersPerformance?: PlayerPerformanceDTO[];
+    };
+    date?: Date;
+  };
+
+  export type PlayerPerformanceDTO = {
+    playerId: string;
+    name: string;
+    imgUrl?: string;
+    rating: number;
+    goals?: number;
+    assists?: number;
+    playerOfTheMatch?: boolean;
+  };
+
+  export type IGameTeamStats = {
+    goals: number;
+    playerStats: IPlayerStats[];
+    // add other teams stats
+  };
+
+  
+  export type PlayerGameStatsData = {
+    id: string;
+    goals?: number;
+    assists?: number;
+    rating: number;
+    playerOfTheMatch?: boolean;
+  };
+  
+  export type UpdatePlayerPerformanceDataRequest = {
+    playerId: string;
+    goals: number;
+    assists: number;
+    playerOfTheMatch: boolean;
+    rating: number;
+  };
+
+  export type TeamGameStatsData = {
+    playersStats: PlayerGameStatsData[];
+    goals?: {
+      scorerId: string;
+      minute?: number;
+      assisterId?: string;
+      isOwnGoal?: boolean;
+    }[];
+  };

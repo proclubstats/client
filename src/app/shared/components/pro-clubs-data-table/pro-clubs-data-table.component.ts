@@ -10,7 +10,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class ProClubsDataTableComponent {
   dataTypes = DataType;
-  @ViewChild(MatSort) sort: MatSort | null = null;
+  @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   displayedColumnsData: Column[] = [];
   columnsNamesOnly: string[] = [];
@@ -19,6 +19,7 @@ export class ProClubsDataTableComponent {
   originalData: any;
 
   @Input() defaultSort?: string;
+  @Input() secondarySort?: string;
   @Input() isClickable: boolean = false;
   @Input() set columnsToDisplay(displayedColumns: Column[]) {
     if (displayedColumns) {
@@ -51,9 +52,16 @@ export class ProClubsDataTableComponent {
       return;
     }
 
-    this.sortedTableData.data = data.sort((a: any, b: any) => {
-      const isAsc = sort.direction === 'asc';
-      return this.compare(a[sort.active], b[sort.active], isAsc);
+    this.sortedTableData.data = data.sort((a:any, b:any) => {
+      const isAsc = this.sort!.direction === 'asc';
+      if (a[this.sort!.active] === b[this.sort!.active]) {
+        // Secondary sorting logic
+        if (this.sort!.active === this.defaultSort && this.secondarySort) {
+          return (a[this.secondarySort] < b[this.secondarySort] ? -1 : 1) * (isAsc ? 1 : -1);
+        }
+        return 0;
+      }
+      return (a[this.sort!.active] < b[this.sort!.active] ? -1 : 1) * (isAsc ? 1 : -1);
     });
 
   }

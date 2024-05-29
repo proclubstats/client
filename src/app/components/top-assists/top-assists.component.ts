@@ -33,13 +33,14 @@ export class TopAssistsComponent {
 
     topAssistsResponse.map(topAssist => {
       topAssist.tableIcon = { name: topAssist.playerName, imgUrl: topAssist.playerImgUrl!, isTeam: false };
+      topAssist.assistsPerGame = parseFloat(topAssist.assistsPerGame.toFixed(2));
     });
 
     this.topAssistsData = topAssistsResponse;
     this.isLoading = false;
   }
 
-  onPlayerClick($playerDetails: any): void {
-    this.router.navigate(['/player-details', { id: $playerDetails._id }])
+  onPlayerClick($playerDetails: TopAssister): void {
+    this.router.navigate(['/player-details', { id: $playerDetails.playerId }])
   }
 }

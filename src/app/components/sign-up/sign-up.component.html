@@ -1,0 +1,41 @@
+<div class="w-100">
+    <div class="pro-clubs-header-1 pb-2">
+        SIGN UP
+    </div>
+    <form [formGroup]="signUpFormGroup" (ngSubmit)="onSubmit()">
+        <ng-container *ngFor="let control of formControls">
+            <div class="d-flex mt-3">
+                <div class="w-25 d-flex align-items-center">
+                    {{ control.displayText }} <span class="text-red px-2"
+                        *ngIf="isRequiredForm(control.control)">*</span>
+                </div>
+                <div class="d-flex">
+                    <input *ngIf="control.type === 'text-input' " [formControlName]="control.field"
+                        [maxlength]="control.maxLength!" [placeholder]="control.displayText" class="pro-clubs-input">
+                    <pro-clubs-auto-complete-select *ngIf="control.type === 'select'"
+                        [placeholder]="control.displayText" (selectionChange)="onSelectionChange($event)"
+                        [selectOptions]="playablePositionOptions"></pro-clubs-auto-complete-select>
+                    <pro-clubs-multiple-select *ngIf="control.type === 'multi-select' "
+                        [placeholder]="control.displayText" (selectionChange)="onMultipleSelectionChange($event)"
+                        [selectOptions]="playablePositionOptions"></pro-clubs-multiple-select>
+                    <input *ngIf="control.type === 'password' " [formControlName]="control.field" type="password"
+                        [maxlength]="control.maxLength!" [placeholder]="control.displayText" class="pro-clubs-input">
+                </div>
+            </div>
+        </ng-container>
+        <div class="d-flex gap-15px">
+            <label for="urlPhoto" class="custom-file-label">
+                <button type="button" (click)="fileInput.click()" class="pro-clubs-button-primary pro-clubs-input">ADD
+                    IMAGE</button>
+            </label>
+            <!-- <div class="d-grid align-items-center ml-3" *ngIf="control.control.value != ''">
+                    {{}}</div> -->
+            <input type="file" #fileInput id="urlPhoto" class="custom-file-input" (change)="onFileSelected($event)">
+        </div>
+        <div class="text-center mt-5">
+            <button type="submit" class="pro-clubs-button-primary"
+                [ngClass]="{'disabled-button' : signUpFormGroup.invalid}"
+                [disabled]="signUpFormGroup.invalid">Submit</button>
+        </div>
+    </form>
+</div>

@@ -24,4 +24,8 @@ export class ApiService {
     async delete<T>(path: string, params: any = {}): Promise<AxiosResponse<T, any>> {
         return await axios.delete(this.SERVER_URL + path, params);
     }
+
+    async put<T>(path: string, params: any = {}): Promise<AxiosResponse<T, any>> {
+        return await axios.put(this.SERVER_URL + path, params);
+    }
 }

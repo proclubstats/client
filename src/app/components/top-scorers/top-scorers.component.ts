@@ -32,6 +32,7 @@ export class TopScorersComponent {
 
     topScorersResponse.map(topScorer=> {
         topScorer.tableIcon = { name: topScorer.playerName, imgUrl: topScorer.playerImgUrl!, isTeam: false};
+        topScorer.goalsPerGame = parseFloat(topScorer.goalsPerGame.toFixed(2));
     });
     this.topScorers = topScorersResponse;
     this.isLoading = false;

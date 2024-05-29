@@ -29,6 +29,12 @@ export class PlayerService {
     return response.data;
   }
 
+  async renamePlayer(playerId: string, playerName: string) : Promise<string> {
+    const response = await this.apiService.patch<string>(`${this.PLAYERS_CONTROLLER_URL}/${playerId}/rename/`, playerName);
+
+    return response.data;
+  }
+
   async addPlayer(playerRequestModel: FormData): Promise<IPlayer> {
     const response = await this.apiService.post<IPlayer>(`${this.PLAYERS_CONTROLLER_URL}/`, playerRequestModel);
 
@@ -36,6 +42,6 @@ export class PlayerService {
   }
 
   async deletePlayer(id: string): Promise<void> {
-    await this.apiService.delete<void>(`${this.PLAYERS_CONTROLLER_URL}/`, id);
+    await this.apiService.delete<void>(`${this.PLAYERS_CONTROLLER_URL}/${id}`);
   }
 }

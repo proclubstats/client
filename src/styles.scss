@@ -89,9 +89,24 @@ body {
     height: 95%;
 }
 
+.w-10 {
+    width: 10%;
+}
+
+.w-15 {
+    width: 15%;
+}
 
 .w-30 {
     width: 30%;
+}
+
+.w-40{
+    width: 40%;
+}
+
+.w-45 {
+    width: 45%;
 }
 
 .width-max-content {
@@ -142,4 +157,12 @@ input[type="file"] {
 
 .arrow-back {
     font-size: 24px;
+}
+
+.mat-mdc-text-field-wrapper {
+    height: 48px !important;
+}
+
+.height-max-content {
+    height: max-content;
 }

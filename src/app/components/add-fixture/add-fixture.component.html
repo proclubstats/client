@@ -1,0 +1,62 @@
+<div class="w-100" *ngIf="teamsOptions && !isLoading">
+    <div class="pro-clubs-header-1 pb-2">
+        ADD FIXTURE
+    </div>
+    <form [formGroup]="addFixtureFormGroup!" (ngSubmit)="onSubmit()">
+        <div class="d-flex mt-3">
+            <div class="w-25 d-flex align-items-center">
+                FIXTURE NUMBER <span class="text-red px-2">*</span>
+            </div>
+            <div class="d-flex">
+                <input formControlName="round" maxlength="2" [placeholder]="'Fixture Number'" class="pro-clubs-input">
+            </div>
+        </div>
+        <div class="d-flex mt-3">
+            <div class="w-25 d-flex align-items-center">
+                START DATE <span class="text-red px-2">*</span>
+            </div>
+            <div class="d-flex">
+                <input formControlName="startDate" type="date" [placeholder]="'Start Date'" class="pro-clubs-input">
+            </div>
+        </div>
+        <div class="d-flex mt-3">
+            <div class="w-25 d-flex align-items-center">
+                END DATE <span class="text-red px-2">*</span>
+            </div>
+            <div class="d-flex">
+                <input formControlName="endDate" type="date" [placeholder]="'End Date'" class="pro-clubs-input">
+            </div>
+        </div>
+        <div class="d-flex mt-3">
+            <div formArrayName="games">
+                <div *ngFor="let item of games.controls; let i=index" [formGroupName]="i">
+                    <div class="mt-3">
+                        GAME {{i+1}}
+                    </div>
+                    <div class="d-flex gap-15px teams-row">
+                        <div class="d-grid align-items-center">
+                            HOME TEAM
+                        </div>
+                        <div>
+                            <pro-clubs-auto-complete-select [selectOptions]="teamsOptions"
+                                (selectionChange)="onSelectionChange($event, i, true)"></pro-clubs-auto-complete-select>
+                        </div>
+                        <div class="d-grid align-items-center mx-5">
+                            AWAY TEAM
+                        </div>
+                        <div>
+                            <pro-clubs-auto-complete-select [selectOptions]="teamsOptions"
+                                (selectionChange)="onSelectionChange($event, i , false)"></pro-clubs-auto-complete-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <button type="submit" class="pro-clubs-button-primary"
+                [ngClass]="{'disabled-button' : addFixtureFormGroup!.invalid}"
+                [disabled]="addFixtureFormGroup!.invalid">Submit</button>
+        </div>
+    </form>
+</div>
+<pro-clubs-spinner *ngIf="isLoading"></pro-clubs-spinner>

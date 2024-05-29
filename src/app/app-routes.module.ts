@@ -9,6 +9,9 @@ import { TeamDetailsComponent } from './components/team-details/team-details.com
 import { PlayerDetailsComponent } from './components/player-details/player-details.component';
 import { AddTeamComponent } from './components/add-team/add-team.component';
 import { AddPlayerComponent } from './components/add-player/add-player.component';
+import { AddFixtureComponent } from './components/add-fixture/add-fixture.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
     {
@@ -49,6 +52,18 @@ const routes: Routes = [
     {
         path: 'add-player',
         component: AddPlayerComponent
+    },
+    {
+        path: 'add-fixture',
+        component: AddFixtureComponent
+    },
+    {
+        path: 'sign-up',
+        component: SignUpComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent
     }
 ];
 
