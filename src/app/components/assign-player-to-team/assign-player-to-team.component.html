@@ -1,0 +1,31 @@
+<div>
+    <div class="d-flex mt-5">
+
+        <div *ngIf="freeAgentsOptions" class="w-50 text-center">
+            <pro-clubs-auto-complete-select [selectOptions]="freeAgentsOptions!"
+                (selectionChange)="onPlayerSelect($event)"></pro-clubs-auto-complete-select>
+        </div>
+
+        <div *ngIf="selectedPlayer" class="w-50 text-center d-grid player-details">
+            <div>
+                {{selectedPlayer.name}}
+            </div>
+            <div>
+                <img class="player-image-size mx-2"
+                    [src]="selectedPlayer.imgUrl ? selectedPlayer.imgUrl : 'assets/Icons/User.jpg'" />
+            </div>
+            <div>
+                {{selectedPlayer.age}}
+            </div>
+            <div>
+                {{selectedPlayer.position}}
+            </div>
+            <div>
+                {{selectedPlayer.playablePositions}}
+            </div>
+        </div>
+    </div>
+    <div class="w-100 text-center">
+        <button class="pro-clubs-button-primary" (click)="onAssignClick()" *ngIf="selectedPlayer">ASSIGN PLAYER</button>
+    </div>
+</div>

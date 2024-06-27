@@ -40,13 +40,16 @@ export class TeamService {
   }
 
   async setTeamCaptain(teamId: string, playerId: string) {
-    await this.apiService.patch<void>(`${this.TEAMS_CONTROLLER_URL}/${teamId}/setCaptain/`, {captainId: playerId});
+    await this.apiService.patch<void>(`${this.TEAMS_CONTROLLER_URL}/${teamId}/setCaptain/`, { captainId: playerId });
   }
 
-  async setTeamImage(teamPhoto: FormData, teamId: string) : Promise<string> {
+  async setTeamImage(teamPhoto: FormData, teamId: string): Promise<string> {
     const response = await this.apiService.patch<string>(`${this.TEAMS_CONTROLLER_URL}/${teamId}/setImage/`, teamPhoto);
 
     return response.data;
   }
 
+  async addPlayerToTeam(teamId: string, playerId: string): Promise<void> {
+    await this.apiService.put<void>(`${this.TEAMS_CONTROLLER_URL}/${teamId}/addPlayer/`, { playerId: playerId });
+  }
 }

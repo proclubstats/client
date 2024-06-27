@@ -14,7 +14,6 @@ import { SharedModule } from "./shared/shared.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PlayerDetailsComponent } from "./components/player-details/player-details.component";
 import { TeamDetailsComponent } from "./components/team-details/team-details.component";
-import { AddPlayerComponent } from "./components/add-player/add-player.component";
 import { AddTeamComponent } from "./components/add-team/add-team.component";
 import { PlayerService } from "./services/player.service";
 import { TeamService } from "./services/team.service";
@@ -37,6 +36,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { TeamGamesComponent } from "./components/team-games/team-games.component";
 import { SignUpComponent } from "./components/sign-up/sign-up.component";
 import { LoginComponent } from "./components/login/login.component";
+import { CreatePlayerComponent } from "./components/create-player/create-player.component";
+import { AssignPlayerToTeamComponent } from "./components/assign-player-to-team/assign-player-to-team.component";
 
 @NgModule({
     declarations: [
@@ -50,7 +51,7 @@ import { LoginComponent } from "./components/login/login.component";
         GameDetailsComponent,
         PlayerDetailsComponent,
         TeamDetailsComponent,
-        AddPlayerComponent,
+        CreatePlayerComponent,
         AddTeamComponent,
         ModifyGameComponent,
         TeamDetailsComponent,
@@ -63,7 +64,8 @@ import { LoginComponent } from "./components/login/login.component";
         AddFixtureComponent,
         TeamGamesComponent,
         SignUpComponent,
-        LoginComponent
+        LoginComponent,
+        AssignPlayerToTeamComponent
     ],
     imports: [
         AppRoutingModule,

@@ -6,7 +6,7 @@ import { IPlayer } from '../shared/models/player.model';
 import { TopScorer } from '../shared/models/topscorer.model';
 import { TopAssister } from '../shared/models/topassister.model';
 import { AddFixtureDataRequest } from '../shared/models/addFixtureDataRequest';
-import { FixtureDTO } from '../shared/models/game.model';
+import { FixtureDTO, PaginatedFixtureDTO } from '../shared/models/game.model';
 
 @Injectable({
   providedIn: 'root'
@@ -64,8 +64,8 @@ export class LeagueService {
     return response.data;
   }
 
-  async getPaginatedLeagueFixturesGames(leagueId: string, page: number , pageSize: number): Promise<FixtureDTO[]> {
-    const response = await this.apiService.get<FixtureDTO[]>(`fixture/${this.LEAGUE_CONTROLLER_URL}${leagueId}/paginatedGames?page=${page}?pageSize=${pageSize}`);
+  async getPaginatedLeagueFixturesGames(leagueId: string, page: number , pageSize: number): Promise<PaginatedFixtureDTO> {
+    const response = await this.apiService.get<PaginatedFixtureDTO>(`fixture/${this.LEAGUE_CONTROLLER_URL}${leagueId}/paginatedGames?page=${page}&pageSize=${pageSize}`);
 
     return response.data;
   }

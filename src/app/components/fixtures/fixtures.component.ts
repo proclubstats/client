@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GameDetailsComponent } from '../game-details/game-details.component';
 import { ModifyGameComponent } from '../modify-game/modify-game.component';
 import { PopupDialogComponent } from '../../shared/components/popup-dialog/popup-dialog.component';
+import { ListOption } from '../../shared/models/list-option.model';
 
 @Component({
   selector: 'fixtures',
@@ -16,20 +17,21 @@ import { PopupDialogComponent } from '../../shared/components/popup-dialog/popup
   styleUrl: './fixtures.component.scss'
 })
 export class FixturesComponent {
+  currentFixtureNumber: number = 1;
   GameStatus = GameStatus;
   fixtures: FixtureDTO[] | null = null;
   currentFixture: FixtureDTO | null = null;
   selectedGame: GameFixtureData | null = null;
+  fixturesOptions: ListOption[] = [];
   dateFormat = 'dd.MM.YYYY';
   isLoading: boolean = false;
   editGame: boolean = false;
   currentEditedGameId: string | null = null;
   homeTeamGoals: number = 0;
   awayTeamGoals: number = 0;
+  totalFixtures: number = 0;
 
   @Input() hideTitle: boolean = false;
-
-  @ViewChild('gameDetailsModal') modalRef!: ElementRef;
 
   constructor(private leagueService: LeagueService, private gameService: GameService,
     private matDialog: MatDialog,
@@ -41,11 +43,27 @@ export class FixturesComponent {
 
   async loadFixtures() {
     this.isLoading = true;
-    const serverResponse = await this.leagueService.getPaginatedLeagueFixturesGames(LEAGUE_ID, 2, 1);
+    const serverResponse = await this.leagueService.getPaginatedLeagueFixturesGames(LEAGUE_ID, this.currentFixtureNumber, 34);
+    this.totalFixtures = serverResponse.totalFixtures;
+    this.loadFixturesOptions();
 
-    this.fixtures = serverResponse;
+    this.fixtures = serverResponse.fixtures;
     this.currentFixture = this.fixtures[0];
     this.isLoading = false;
+  };
+
+  private loadFixturesOptions() {
+    this.fixturesOptions = [];
+    this.fixturesOptions = Array.from({ length: this.totalFixtures }, (_, i) => ({ value: (i + 1).toString(), displayText: (i + 1).toString() }));
+  };
+
+  onSelectionChange(selectedOption: ListOption) {
+    if (!selectedOption) {
+      return;
+    }
+    this.currentFixture = this.fixtures![parseInt(selectedOption.value) - 1];
+
+    this.currentFixtureNumber = parseInt(selectedOption.value);
   }
 
   onGameClick(selectedGame: GameFixtureData): void {
@@ -54,18 +72,11 @@ export class FixturesComponent {
     }
     this.selectedGame = selectedGame;
 
-    this.matDialog.open(PopupDialogComponent, { data: {components: [GameDetailsComponent, ModifyGameComponent], componentSwitchMode: true, componentParams: {selectedGameId: this.selectedGame.id }}, autoFocus: true, width: '1550px',  height: '820px' });
-     //const modal = new Modal(this.modalRef.nativeElement);
-    //modal.show();
+    this.matDialog.open(PopupDialogComponent, { data: { components: [GameDetailsComponent, ModifyGameComponent], componentSwitchMode: true, componentParams: { selectedGameId: this.selectedGame.id } }, autoFocus: true, width: '1550px', height: '820px' });
   }
 
   onPageChange(event: any) {
     this.currentFixture = this.fixtures![event.pageIndex];
-  }
-
-  closeModal() {
-    const modal = new Modal(this.modalRef.nativeElement);
-    modal.hide();
   }
 
   onEditGameResultClick(game: GameFixtureData) {

@@ -76,7 +76,7 @@ export class PlayerDetailsComponent {
     }
 
     if (this.chosenPlayer!.name !== this.editedPlayerName) {
-      const response = await this.playerService.renamePlayer(this.editedPlayerName!, this.playerID);
+      const response = await this.playerService.renamePlayer(this.playerID, this.editedPlayerName!);
       this.editedPlayerName = null;
       this.editPlayerMode = false;
       this.chosenPlayer!.name = response;

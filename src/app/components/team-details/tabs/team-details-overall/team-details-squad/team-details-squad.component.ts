@@ -35,7 +35,7 @@ export class TeamDetailsSquadComponent {
   }
 
   onAddPlayerClick(): void {
-    this.router.navigate(['/add-player', { id: this.chosenTeam!.id, name: this.chosenTeam!.name }]);
+    this.router.navigate(['/assign-player-to-team', { id: this.chosenTeam!.id, name: this.chosenTeam!.name }]);
   }
 
   getTeamAttackers() {

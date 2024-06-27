@@ -23,14 +23,14 @@ export class PlayerService {
     return response.data;
   }
 
-  async setPlayerImage(playerPhoto: FormData, playerId: string) : Promise<string> {
+  async setPlayerImage(playerPhoto: FormData, playerId: string): Promise<string> {
     const response = await this.apiService.patch<string>(`${this.PLAYERS_CONTROLLER_URL}/${playerId}/setImage/`, playerPhoto);
 
     return response.data;
   }
 
-  async renamePlayer(playerId: string, playerName: string) : Promise<string> {
-    const response = await this.apiService.patch<string>(`${this.PLAYERS_CONTROLLER_URL}/${playerId}/rename/`, playerName);
+  async renamePlayer(playerId: string, playerName: string): Promise<string> {
+    const response = await this.apiService.put<string>(`${this.PLAYERS_CONTROLLER_URL}/${playerId}/rename/`, { newName: playerName });
 
     return response.data;
   }
@@ -43,5 +43,11 @@ export class PlayerService {
 
   async deletePlayer(id: string): Promise<void> {
     await this.apiService.delete<void>(`${this.PLAYERS_CONTROLLER_URL}/${id}`);
+  }
+
+  async getFreeAgents(): Promise<PlayerDTO[]> {
+    const response = await this.apiService.get<PlayerDTO[]>(`${this.PLAYERS_CONTROLLER_URL}/freeAgents`);
+
+    return response.data;
   }
 }

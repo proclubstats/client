@@ -3,6 +3,10 @@ import { GameService } from '../../services/game.service';
 import { GameDTO, GameStatus } from '../../shared/models/game.model';
 import { Modal } from 'bootstrap';
 import { NotificationService } from '../../services/notification.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupDialogComponent } from '../../shared/components/popup-dialog/popup-dialog.component';
+import { GameDetailsComponent } from '../game-details/game-details.component';
+import { ModifyGameComponent } from '../modify-game/modify-game.component';
 
 @Component({
   selector: 'team-games',
@@ -20,13 +24,12 @@ export class TeamGamesComponent {
   awayTeamGoals: number = 0;
   editGame: boolean = false;
 
-  @ViewChild('gameDetailsModal') modalRef!: ElementRef;
-
   @Input() teamId: string | undefined = undefined;
 
-  constructor(private gameService: GameService, private notificationService: NotificationService){}
+  constructor(private gameService: GameService, private notificationService: NotificationService, private matDialog: MatDialog) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.loadTeamGames();
   }
 
@@ -37,6 +40,8 @@ export class TeamGamesComponent {
       if (response) {
         this.teamGamesData = response;
       }
+
+      this.isLoading = false;
     }
   }
 
@@ -44,17 +49,11 @@ export class TeamGamesComponent {
     if (this.currentEditedGameId === selectedGame.id) {
       return;
     }
-    this.selectedGame = selectedGame;
-    const modal = new Modal(this.modalRef.nativeElement);
-    modal.show();
+
+    this.matDialog.open(PopupDialogComponent, { data: { components: [GameDetailsComponent, ModifyGameComponent], componentSwitchMode: true, componentParams: { selectedGameId: selectedGame.id } }, autoFocus: true, width: '1550px', height: '820px' });
   }
 
   onPageChange(event: any) {
-  }
-
-  closeModal() {
-    const modal = new Modal(this.modalRef.nativeElement);
-    modal.hide();
   }
 
   onEditClick() {
@@ -84,8 +83,8 @@ export class TeamGamesComponent {
     if (serverResponse) {
       this.notificationService.success(`Result: ${game.homeTeam.name} ${this.homeTeamGoals} : ${this.awayTeamGoals} ${game.awayTeam.name} updated successfuly`);
       game.status = GameStatus.PLAYED;
-      game.result = {homeTeamGoals: this.homeTeamGoals,  awayTeamGoals:this.awayTeamGoals};
-//      this.loadFixtures();
+      game.result = { homeTeamGoals: this.homeTeamGoals, awayTeamGoals: this.awayTeamGoals };
+      //      this.loadFixtures();
     }
 
 

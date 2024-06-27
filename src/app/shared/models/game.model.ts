@@ -39,6 +39,13 @@ export type FixtureDTO = {
     games: GameFixtureData[];
   };
 
+  export type PaginatedFixtureDTO = {
+    fixtures: FixtureDTO[];
+    currentPage: number;
+    totalPages: number;
+    totalFixtures: number;
+  };
+
   export type GameFixtureData = {
     id: string,
     homeTeam: {
