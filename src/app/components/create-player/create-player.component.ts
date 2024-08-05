@@ -44,8 +44,6 @@ export class CreatePlayerComponent {
     this.addPlayerFormGroup = new FormGroup(group);
   }
 
-
-
   clearForm() {
     this.addPlayerFormGroup.reset();
   }
@@ -66,6 +64,7 @@ export class CreatePlayerComponent {
       if (response) {
         this.playablePositionOptions = [...PLAYABLE_POSITIONS_OPTIONS];
         this.notificationService.success(`${convertedForm.name} created successfuly`);
+        this.clearForm();
       }
     }
   }

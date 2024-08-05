@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { Column } from '../../shared/models/column.model';
 import { Router } from '@angular/router';
 import { LeagueService } from '../../services/league.service';
-import { IPlayer } from '../../shared/models/player.model';
 import { LEAGUE_ID } from '../../constants/constants';
 import { TopAssister } from '../../shared/models/topassister.model';
 import { SHORTENED_TOP_ASSISTS_COLUMNS, TOP_ASSISTS_COLUMNS } from './top-assists.definitions';
@@ -33,7 +32,8 @@ export class TopAssistsComponent {
 
     topAssistsResponse.map(topAssist => {
       topAssist.tableIcon = { name: topAssist.playerName, imgUrl: topAssist.playerImgUrl!, isTeam: false };
-      topAssist.assistsPerGame = parseFloat(topAssist.assistsPerGame.toFixed(2));
+      if (topAssist.assistsPerGame)
+        topAssist.assistsPerGame = parseFloat(topAssist.assistsPerGame.toFixed(2));
     });
 
     this.topAssistsData = topAssistsResponse;

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { ILeague } from '../shared/models/league-table.model';
 import { LeagueTableRow } from '../shared/models/leagueTableTeam';
-import { IPlayer } from '../shared/models/player.model';
 import { TopScorer } from '../shared/models/topscorer.model';
 import { TopAssister } from '../shared/models/topassister.model';
 import { AddFixtureDataRequest } from '../shared/models/addFixtureDataRequest';

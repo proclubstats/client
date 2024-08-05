@@ -7,12 +7,12 @@ import { TopScorersComponent } from './components/top-scorers/top-scorers.compon
 import { TopAssistsComponent } from './components/top-assists/top-assists.component';
 import { TeamDetailsComponent } from './components/team-details/team-details.component';
 import { PlayerDetailsComponent } from './components/player-details/player-details.component';
-import { AddTeamComponent } from './components/add-team/add-team.component';
 import { AddFixtureComponent } from './components/add-fixture/add-fixture.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
 import { CreatePlayerComponent } from './components/create-player/create-player.component';
 import { AssignPlayerToTeamComponent } from './components/assign-player-to-team/assign-player-to-team.component';
+import { CreateTeamComponent } from './components/create-team/create-team.component';
 
 const routes: Routes = [
     {
@@ -47,8 +47,8 @@ const routes: Routes = [
         component: PlayerDetailsComponent
     },
     {
-        path: 'add-team',
-        component: AddTeamComponent
+        path: 'create-team',
+        component: CreateTeamComponent
     },
     {
         path: 'create-player',

@@ -17,7 +17,7 @@ import { ListOption } from '../../shared/models/list-option.model';
   styleUrl: './fixtures.component.scss'
 })
 export class FixturesComponent {
-  currentFixtureNumber: number = 1;
+  currentFixtureNumber: number = 17;
   GameStatus = GameStatus;
   fixtures: FixtureDTO[] | null = null;
   currentFixture: FixtureDTO | null = null;
@@ -43,7 +43,7 @@ export class FixturesComponent {
 
   async loadFixtures() {
     this.isLoading = true;
-    const serverResponse = await this.leagueService.getPaginatedLeagueFixturesGames(LEAGUE_ID, this.currentFixtureNumber, 34);
+    const serverResponse = await this.leagueService.getPaginatedLeagueFixturesGames(LEAGUE_ID, 1,26);
     this.totalFixtures = serverResponse.totalFixtures;
     this.loadFixturesOptions();
 
@@ -72,7 +72,7 @@ export class FixturesComponent {
     }
     this.selectedGame = selectedGame;
 
-    this.matDialog.open(PopupDialogComponent, { data: { components: [GameDetailsComponent, ModifyGameComponent], componentSwitchMode: true, componentParams: { selectedGameId: this.selectedGame.id } }, autoFocus: true, width: '1550px', height: '820px' });
+    this.matDialog.open(PopupDialogComponent, { data: { components: [GameDetailsComponent, ModifyGameComponent], componentSwitchMode: true, componentParams: { selectedGameId: this.selectedGame.id } }, autoFocus: true, width: '1750px', height: '820px' });
   }
 
   onPageChange(event: any) {

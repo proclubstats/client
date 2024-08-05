@@ -126,4 +126,8 @@ export const PLAYABLE_POSITIONS_OPTIONS: ListOption[] = [
     value: 'LW',
     displayText: 'LW'
   },
+  {
+    value: 'All Around',
+    displayText: "All Around"
+  }
 ]

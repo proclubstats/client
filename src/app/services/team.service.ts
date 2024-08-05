@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { CreateTeamModel, ITeam, TeamDTO } from '../shared/models/team.model';
-import { IPlayer, PlayerDTO } from '../shared/models/player.model';
+import { CreateTeamModel } from '../shared/models/team.model';
+import { PlayerDTO, TeamDTO } from '@pro-clubs-manager/shared-dtos';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class TeamService {
   constructor(private apiService: ApiService) { }
 
   async createTeam(createTeamModel: CreateTeamModel): Promise<TeamDTO> {
-    const response = await this.apiService.post<TeamDTO>(`${this.TEAMS_CONTROLLER_URL}`, { name: createTeamModel.name, leagueId: createTeamModel.leagueId, logoUrl: createTeamModel.logoUrl });
+    const response = await this.apiService.post<TeamDTO>(`${this.TEAMS_CONTROLLER_URL}`, { name: createTeamModel.name });
 
     return response.data;
   }
@@ -51,5 +51,9 @@ export class TeamService {
 
   async addPlayerToTeam(teamId: string, playerId: string): Promise<void> {
     await this.apiService.put<void>(`${this.TEAMS_CONTROLLER_URL}/${teamId}/addPlayer/`, { playerId: playerId });
+  }
+
+  async removePlayerFromTeam(teamId: string, playerId: string): Promise<void> {
+    await this.apiService.put<void>(`${this.TEAMS_CONTROLLER_URL}/${teamId}/removePlayer/`, { playerId: playerId });
   }
 }

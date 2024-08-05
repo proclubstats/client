@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
-import {  TeamDTO } from '../../shared/models/team.model';
 import { TeamService } from '../../services/team.service';
+import { TeamDTO } from '@pro-clubs-manager/shared-dtos';
 
 @Component({
   selector: 'app-team-details',

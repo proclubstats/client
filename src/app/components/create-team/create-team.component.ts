@@ -5,11 +5,11 @@ import { TeamService } from '../../services/team.service';
 import { NotificationService } from '../../services/notification.service';
 
 @Component({
-  selector: 'app-add-team',
-  templateUrl: './add-team.component.html',
-  styleUrl: './add-team.component.scss'
+  selector: 'app-create-team',
+  templateUrl: './create-team.component.html',
+  styleUrl: './create-team.component.scss'
 })
-export class AddTeamComponent {
+export class CreateTeamComponent {
   addTeamFormGroup: FormGroup;
   addTeamFile: FormData = new FormData();
   LEAGUE_ID = "65ecb1eb2f272e434483a821";

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TeamDTO } from '../../../../../shared/models/team.model';
+import { TeamDTO } from '@pro-clubs-manager/shared-dtos';
 
 @Component({
   selector: 'team-details-overall-stats',

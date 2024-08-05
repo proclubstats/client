@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { TeamDTO } from '../../../../../shared/models/team.model';
 import { ListOption } from '../../../../../shared/models/list-option.model';
 import { TeamService } from '../../../../../services/team.service';
 import { NotificationService } from '../../../../../services/notification.service';
+import { TeamDTO } from '@pro-clubs-manager/shared-dtos';
 
 @Component({
   selector: 'team-details-overall-data',

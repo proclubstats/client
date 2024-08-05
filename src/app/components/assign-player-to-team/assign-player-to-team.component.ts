@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { PlayerService } from '../../services/player.service';
 import { ListOption } from '../../shared/models/list-option.model';
-import { PlayerDTO } from '../../shared/models/player.model';
 import { ActivatedRoute } from '@angular/router';
 import { TeamService } from '../../services/team.service';
+import { PlayerDTO } from '@pro-clubs-manager/shared-dtos';
 
 @Component({
   selector: 'assign-player-to-team',

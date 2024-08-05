@@ -15,7 +15,7 @@
         <div *ngFor="let game of currentFixture!.games"
             class="text-center mb-2 gap-15px cursor-pointer align-items-center d-flex" [ngClass]="{'px-4': hideTitle}">
             <div class="d-flex game-area place-content-center pro-clubs-bg-primary w-100" (click)="onGameClick(game)">
-                <div class="w-45 align-items-center d-flex justify-content-end">
+                <div class="w-45 align-items-center d-flex justify-content-end ml-3">
                     {{game.homeTeam.name}}
                     <img class="team-image-size mx-2"
                         [src]="game.homeTeam!.imgUrl ?  game.homeTeam!.imgUrl : 'assets/Icons/TeamLogo.jpg'" />
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="w-45 align-items-center d-flex">
-                    <img class="team-image-size mx-2"
+                    <img class="team-image-size mx-2 mr-3"
                         [src]="game.awayTeam!.imgUrl ?  game.awayTeam!.imgUrl : 'assets/Icons/TeamLogo.jpg'" />
                     {{game.awayTeam.name}}
                 </div>
