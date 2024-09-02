@@ -38,6 +38,9 @@ import { LoginComponent } from "./components/login/login.component";
 import { CreatePlayerComponent } from "./components/create-player/create-player.component";
 import { AssignPlayerToTeamComponent } from "./components/assign-player-to-team/assign-player-to-team.component";
 import { CreateTeamComponent } from "./components/create-team/create-team.component";
+import { LastGamesFormComponent } from "./components/last-games-form/last-games-form.component";
+import { AgChartsModule } from "ag-charts-angular";
+import { PlayerStatsByPositionComponent } from "./components/player-stats-by-position/player-stats-by-position.component";
 
 @NgModule({
     declarations: [
@@ -65,7 +68,9 @@ import { CreateTeamComponent } from "./components/create-team/create-team.compon
         TeamGamesComponent,
         SignUpComponent,
         LoginComponent,
-        AssignPlayerToTeamComponent
+        AssignPlayerToTeamComponent,
+        LastGamesFormComponent,
+        PlayerStatsByPositionComponent
     ],
     imports: [
         AppRoutingModule,
@@ -78,7 +83,8 @@ import { CreateTeamComponent } from "./components/create-team/create-team.compon
         MatSnackBarModule,
         SharedModule,
         MatPaginatorModule,
-        MatDialogModule
+        MatDialogModule,
+        AgChartsModule
     ],
     exports: [],
     providers: [

@@ -5,3 +5,12 @@ export interface PlayerDTOShort {
     imgUrl?: string;
     position: string;
 }
+
+export interface IPlayerStats {
+    games: number;
+    goals: number;
+    assists: number;
+    cleanSheets: number;
+    playerOfTheMatch: number;
+    avgRating: number;
+  }

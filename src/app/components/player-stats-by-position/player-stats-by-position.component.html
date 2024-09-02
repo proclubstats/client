@@ -1,0 +1,14 @@
+<div class="d-flex flex-column gap-15">
+    <div>
+        <div>
+            STATS BY POSITION
+        </div>
+        <div class="d-flex flex-column" *ngIf="playerStats && playerStatsChartOptions">
+            <ag-charts [options]="playerStatsChartOptions">
+            </ag-charts>
+        </div>
+        <div *ngIf="!playerStats || !playerStatsChartOptions ">
+            <pro-clubs-spinner></pro-clubs-spinner>
+        </div>
+    </div>
+</div>

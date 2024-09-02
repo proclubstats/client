@@ -1,6 +1,5 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FixtureDTO, GameFixtureData, GameStatus } from '../../shared/models/game.model';
-import { Modal } from 'bootstrap';
 import { LeagueService } from '../../services/league.service';
 import { LEAGUE_ID } from '../../constants/constants';
 import { GameService } from '../../services/game.service';
@@ -17,7 +16,7 @@ import { ListOption } from '../../shared/models/list-option.model';
   styleUrl: './fixtures.component.scss'
 })
 export class FixturesComponent {
-  currentFixtureNumber: number = 17;
+  currentFixtureNumber: number = 1;
   GameStatus = GameStatus;
   fixtures: FixtureDTO[] | null = null;
   currentFixture: FixtureDTO | null = null;

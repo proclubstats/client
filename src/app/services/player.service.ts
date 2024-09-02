@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { PlayerDTO } from '@pro-clubs-manager/shared-dtos';
+import { PlayerDTO, PlayerLastGamesForm } from '@pro-clubs-manager/shared-dtos';
+import { IPlayerStats } from '../shared/models/player.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,12 +38,24 @@ export class PlayerService {
     return response.data;
   }
 
-  async deletePlayer(id: string): Promise<void> {
-    await this.apiService.delete<void>(`${this.PLAYERS_CONTROLLER_URL}/${id}`);
+  async deletePlayer(playerId: string): Promise<void> {
+    await this.apiService.delete<void>(`${this.PLAYERS_CONTROLLER_URL}/${playerId}`);
   }
 
   async getFreeAgents(): Promise<PlayerDTO[]> {
     const response = await this.apiService.get<PlayerDTO[]>(`${this.PLAYERS_CONTROLLER_URL}/freeAgents`);
+
+    return response.data;
+  }
+
+  async getPlayerForm(playerId: string): Promise<PlayerLastGamesForm> {
+    const response = await this.apiService.get<PlayerLastGamesForm>(`${this.PLAYERS_CONTROLLER_URL}/${playerId}/form`);
+
+    return response.data;
+  }
+  
+  async getPlayerStatsByPosition(playerId: string): Promise<{ [position: string]: IPlayerStats }> {
+    const response = await this.apiService.get<{ [position: string]: IPlayerStats }>(`${this.PLAYERS_CONTROLLER_URL}/${playerId}/statsByPosition`);
 
     return response.data;
   }

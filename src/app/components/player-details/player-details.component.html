@@ -88,8 +88,15 @@
                 </div>
             </div>
             <div
-                class="h-83 pro-clubs-bg-primary pro-clubs-border-radius squad-area d-flex flex-column justify-content-end">
-                <div class="w-100 d-flex justify-content-end">
+                class="h-83 pro-clubs-bg-primary pro-clubs-border-radius squad-area d-flex flex-column">
+                <div>
+                    <player-stats-by-position [playerId]="playerID"></player-stats-by-position>
+                </div>
+                <div>
+                    <last-games-form [playerId]="playerID" [teamId]="chosenPlayer.team!.id"></last-games-form>
+                </div>
+
+                <div class="w-100 d-flex flex-column justify-content-end h-100">
                     <button class="pro-clubs-button-primary" (click)="removePlayerFromTeam()">REMOVE FROM TEAM</button>
                 </div>
             </div>
