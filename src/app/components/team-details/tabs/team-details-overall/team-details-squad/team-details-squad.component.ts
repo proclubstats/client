@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { TeamService } from '../../../../../services/team.service';
-import { PlayerDTO, PlayerDTOShort } from '../../../../../shared/models/player.model';
+import { PlayerDTOShort } from '../../../../../shared/models/player.model';
 import { PlayerService } from '../../../../../services/player.service';
-import { TeamDTO } from '../../../../../shared/models/team.model';
+import { TeamDTO } from '@pro-clubs-manager/shared-dtos';
 
 @Component({
   selector: 'team-details-squad',
@@ -35,7 +35,7 @@ export class TeamDetailsSquadComponent {
   }
 
   onAddPlayerClick(): void {
-    this.router.navigate(['/add-player', { id: this.chosenTeam!.id, name: this.chosenTeam!.name }]);
+    this.router.navigate(['/assign-player-to-team', { id: this.chosenTeam!.id, name: this.chosenTeam!.name }]);
   }
 
   getTeamAttackers() {

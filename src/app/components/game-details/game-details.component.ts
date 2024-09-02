@@ -3,6 +3,7 @@ import { GameDTO, GameStatus, PlayerPerformanceDTO } from '../../shared/models/g
 import { Router } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { PlayerStatsForDisplay } from '../../shared/models/player-stat.model';
 
 @Component({
   selector: 'app-game-details',
@@ -12,10 +13,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class GameDetailsComponent {
   GameStatus = GameStatus;
   selectedGame: GameDTO | undefined = undefined;
-  homeTeamScorers: PlayerPerformanceDTO[] = [];
-  homeTeamAssists: PlayerPerformanceDTO[] = [];
-  awayTeamScorers: PlayerPerformanceDTO[] = [];
-  awayTeamAssists: PlayerPerformanceDTO[] = [];
+  homeTeamScorersAndAssists: PlayerPerformanceDTO[] = [];
+  awayTeamScorersAndAssists: PlayerPerformanceDTO[] = [];
 
   @Input() set selectedGameId(gameId: string) {
     this._selectedGameId = gameId;
@@ -23,10 +22,8 @@ export class GameDetailsComponent {
   }
 
   ngOnDestroy() {
-    this.homeTeamAssists = [];
-    this.homeTeamScorers = [];
-    this.awayTeamAssists = [];
-    this.awayTeamScorers = [];
+    this.homeTeamScorersAndAssists = [];
+    this.awayTeamScorersAndAssists = [];
   }
 
   _selectedGameId: string | undefined = undefined;
@@ -47,13 +44,11 @@ export class GameDetailsComponent {
     const awayTeamPerformance = this.selectedGame.awayTeam.playersPerformance;
 
     if (homeTeamPerformance) {
-      this.homeTeamScorers = homeTeamPerformance.filter(player => player.goals! > 0);
-      this.homeTeamAssists = homeTeamPerformance.filter(player => player.assists! > 0);
+      this.homeTeamScorersAndAssists = homeTeamPerformance.filter(player => player.goals! > 0 || player.assists! > 0);
     }
 
     if (awayTeamPerformance) {
-      this.awayTeamScorers = awayTeamPerformance.filter(player => player.goals! > 0);
-      this.awayTeamAssists = awayTeamPerformance.filter(player => player.assists! > 0);
+      this.awayTeamScorersAndAssists = awayTeamPerformance.filter(player => player.goals! > 0 || player.assists! > 0);
     }
   }
 

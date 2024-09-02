@@ -38,7 +38,7 @@ export class AddFixtureComponent {
     });
 
     // Add initial 9 items
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 7; i++) {
       this.games.push(this.formBuilder.group({
         homeTeamId: ['', Validators.required],
         awayTeamId: ['', Validators.required]

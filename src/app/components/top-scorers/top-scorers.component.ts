@@ -24,14 +24,15 @@ export class TopScorersComponent {
     this.loadTopScorersData();
   }
 
-  private async loadTopScorersData( ) {
+  private async loadTopScorersData() {
     this.isLoading = true;
 
     this.hideTitle ? (this.displayedColumns = SHORTENED_TOP_SCORERS_COLUMNS) : (this.displayedColumns = TOP_SCORERS_COLUMNS);
     const topScorersResponse = await this.leagueService.getTopScorers(LEAGUE_ID);
 
-    topScorersResponse.map(topScorer=> {
-        topScorer.tableIcon = { name: topScorer.playerName, imgUrl: topScorer.playerImgUrl!, isTeam: false};
+    topScorersResponse.map(topScorer => {
+      topScorer.tableIcon = { name: topScorer.playerName, imgUrl: topScorer.playerImgUrl!, isTeam: false };
+      if (topScorer.goalsPerGame)
         topScorer.goalsPerGame = parseFloat(topScorer.goalsPerGame.toFixed(2));
     });
     this.topScorers = topScorersResponse;

@@ -1,4 +1,4 @@
-<div class="w-100 " *ngIf="!isLoading">
+<div class="w-100 " *ngIf="!isLoading && teamGamesData">
     <div>
         <div *ngFor="let game of teamGamesData"
             class="text-center mb-2 gap-15px cursor-pointer align-items-center d-flex">
@@ -43,26 +43,3 @@
 </div>
 
 <pro-clubs-spinner *ngIf="isLoading"></pro-clubs-spinner>
-
-<div class="modal fade" tabindex="-1" #gameDetailsModal aria-hidden="true" *ngIf="selectedGame">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 1500px;">
-        <div class="modal-content align-items-center pro-clubs-bg-primary overflow-y-auto"
-            style="height: 800px; padding: 20px;">
-            <div class="d-flex w-100 justify-content-between">
-                <div class="d-flex  cursor-pointer" *ngIf="!editGame">
-                    <div (click)="onEditClick()">
-                        EDIT FIXTURE <i class="fas fa-edit text-white"></i>
-                    </div>
-                </div>
-                <div *ngIf="editGame" class="d-flex cursor-pointer" (click)="onCancelClick()">
-                    CANCEL EDIT MODE
-                </div>
-                <div class="d-flex">
-                    <i class="fa-solid fa-xmark cursor-pointer" (click)="closeModal()"></i>
-                </div>
-            </div>
-            <app-game-details [selectedGameId]="selectedGame!.id" class="w-100" *ngIf="!editGame"></app-game-details>
-            <modify-game [selectedGameId]="selectedGame!.id" (onSaveEvent)="editGame = false"  class="w-100" *ngIf="editGame"></modify-game>
-        </div>
-    </div>
-</div>

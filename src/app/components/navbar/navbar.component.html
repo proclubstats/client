@@ -5,10 +5,10 @@
             <a class="nav-link" [href]="navbarItem.link">{{navbarItem.displayText}}</a>
         </li>
         <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Options
             </a>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown" >
+            <ul class="dropdown-menu dropdown-menu-dark" >
               <li class="navbar-dark" *ngFor="let option of navbarOptionsItems"><a class="dropdown-item" [href]="option.link">{{option.displayText}}</a></li>
             </ul>
           </li>

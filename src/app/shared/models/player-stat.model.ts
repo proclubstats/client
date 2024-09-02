@@ -10,3 +10,9 @@ export class PlayerStat {
         this.playerStatsAmount = 0;
     }
 }
+
+export interface PlayerStatsForDisplay {
+    playerId: string;
+    playerAssists: number;
+    playerGoals: number;
+}

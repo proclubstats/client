@@ -8,16 +8,15 @@ import { PlayerService } from '../../services/player.service';
 import { NotificationService } from '../../services/notification.service';
 
 @Component({
-  selector: 'app-add-player',
-  templateUrl: './add-player.component.html',
-  styleUrl: './add-player.component.scss'
+  selector: 'create-player',
+  templateUrl: './create-player.component.html',
+  styleUrl: './create-player.component.scss'
 })
 
-export class AddPlayerComponent {
+export class CreatePlayerComponent {
   addPlayerFormGroup: FormGroup = new FormGroup({});
   addPlayerFile: FormData = new FormData();
-  teamID: string = '';
-  teamName: string = '';
+
 
   formControls = [
     { control: new FormControl('', Validators.required), field: 'name', displayText: 'Name', type: 'text-input', maxLength: 25 },
@@ -29,12 +28,11 @@ export class AddPlayerComponent {
 
   playablePositionOptions: ListOption[] = [];
 
-  constructor(private route: ActivatedRoute, private playersService: PlayerService, private notificationService: NotificationService) { }
+  constructor(private playersService: PlayerService, private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.playablePositionOptions = [...PLAYABLE_POSITIONS_OPTIONS];
     this.loadFormControl();
-    this.loadSelectedTeam();
   }
 
   loadFormControl() {
@@ -44,14 +42,6 @@ export class AddPlayerComponent {
     });
 
     this.addPlayerFormGroup = new FormGroup(group);
-  }
-
-  private loadSelectedTeam(): void {
-    this.teamID = this.route.snapshot.paramMap.get('id') || this.teamID;
-    this.teamName = this.route.snapshot.paramMap.get('name') || this.teamName;
-
-    if (!this.teamID || !this.teamName) { return; }
-
   }
 
   clearForm() {
@@ -73,11 +63,9 @@ export class AddPlayerComponent {
 
       if (response) {
         this.playablePositionOptions = [...PLAYABLE_POSITIONS_OPTIONS];
-        this.notificationService.success(`${convertedForm.name} Added successfuly to ${this.teamName}`);
-        history.back();
+        this.notificationService.success(`${convertedForm.name} created successfuly`);
+        this.clearForm();
       }
-      // Here you can send form data to your backend or perform any necessary action
-    } else {
     }
   }
 
@@ -88,7 +76,6 @@ export class AddPlayerComponent {
     //if there's no playable positions -> set only the primary position, else add the primary position
     this.addPlayerFormGroup.get('playablePositions')!.value == '' ? convertedForm.playablePositions = [convertedForm.position]
       : convertedForm.playablePositions.push(convertedForm.position);
-    convertedForm.teamId = this.teamID;
 
     var jsonForm = JSON.parse(JSON.stringify(convertedForm));
 

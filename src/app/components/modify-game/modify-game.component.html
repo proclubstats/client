@@ -21,8 +21,11 @@
             <div class="w-45 text-center">
                 <div formArrayName="homeTeamPlayers" class="w-100">
                     <div class="d-flex score-row w-100">
-                        <div class="w-50">
+                        <div>
                             PLAYER NAME
+                        </div>
+                        <div>
+                            POSITION
                         </div>
                         <div>
                             RATING
@@ -41,11 +44,19 @@
                     </div>
                     <div class="d-flex score-row mt-1" *ngFor="let player of homeTeamPlayers.controls; let i = index"
                         [formGroupName]="i">
-                        <div class="w-50">
-                            <pro-clubs-auto-complete-select [defaultOption]="player.get('playerId')!.value" [placeholder]="'PLAYER NAME'" (selectionChange)="onSelectionChange($event, true, i)"
+                        <div style="width: 185px;">
+                            <pro-clubs-auto-complete-select [defaultOption]="player.get('playerId')!.value"
+                                [placeholder]="'PLAYER NAME'"
+                                (selectionChange)="onSelectionChange('playerId', $event, true, i)"
                                 [selectOptions]="homeTeamPlayersOptions!"></pro-clubs-auto-complete-select>
                         </div>
-                        <div  class="w-10">
+                        <div style="width: 110px;">
+                            <pro-clubs-auto-complete-select [placeholder]="'Position'"
+                                [defaultOption]="player.get('positionPlayed') ? player.get('positionPlayed')!.value : ''"
+                                (selectionChange)="onSelectionChange('position', $event, true, i)"
+                                [selectOptions]="playablePositionOptions"></pro-clubs-auto-complete-select>
+                        </div>
+                        <div class="w-10">
                             <input type="number" formControlName="rating" class="pro-clubs-short-input h-100">
                         </div>
                         <div class="w-10">
@@ -57,25 +68,30 @@
                                 maxlength="2">
                         </div>
                         <div class="w-10">
-                            <input type="checkbox" formControlName="playerOfTheMatch" class="pro-clubs-short-input h-100"
-                                maxlength="2">
+                            <input type="checkbox" formControlName="playerOfTheMatch"
+                                class="pro-clubs-short-input h-100" maxlength="2">
                         </div>
                         <div class="d-flex align-items-center">
                             <i class="fa-solid fa-trash cursor-pointer" (click)="removePlayer(true, i)"></i>
                         </div>
                     </div>
-                    <div class="mt-4 ">
-                        <button type="button" class="pro-clubs-button-primary" (click)="addPlayer(true)">Add Player</button>
+                    <div class="mt-4 d-flex place-content-center gap-15px" *ngIf="homeTeamPlayers.length < 11">
+                        <button type="button" class="pro-clubs-button-primary" (click)="addPlayer(true)">Add
+                            Player</button>
+                        <button type="button" class="pro-clubs-button-primary" (click)="addFullTeam(true)">Add
+                            Full Team</button>
                     </div>
-
                 </div>
             </div>
             <div class="w-10"></div>
             <div class="w-45 text-center">
                 <div formArrayName="awayTeamPlayers" class="w-100">
                     <div class="d-flex score-row">
-                        <div class="w-40">
+                        <div>
                             PLAYER NAME
+                        </div>
+                        <div>
+                            POSITION
                         </div>
                         <div class="w-10">
                             RATING
@@ -94,32 +110,44 @@
                     </div>
                     <div class="d-flex score-row mt-1" *ngFor="let player of awayTeamPlayers.controls; let i = index"
                         [formGroupName]="i">
-                        <div class="w-40">
+                        <div style="width: 185px;">
                             <pro-clubs-auto-complete-select [placeholder]="'PLAYER NAME'"
-                                [selectOptions]="awayTeamPlayersOptions!" [defaultOption]="player.get('playerId')!.value" (selectionChange)="onSelectionChange($event, false, i)"></pro-clubs-auto-complete-select>
+                                [selectOptions]="awayTeamPlayersOptions!"
+                                [defaultOption]="player.get('playerId')!.value"
+                                (selectionChange)="onSelectionChange('playerId', $event, false, i)"></pro-clubs-auto-complete-select>
                         </div>
+                        <div style="width: 110px;">
+                            <pro-clubs-auto-complete-select [placeholder]="'Position'"
+                                [defaultOption]="player.get('positionPlayed') ? player.get('positionPlayed')!.value : ''"
+                                (selectionChange)="onSelectionChange('position', $event, false, i)"
+                                [selectOptions]="playablePositionOptions"></pro-clubs-auto-complete-select>
+                        </div>
+
                         <div class="w-10">
-                            <input type="number" formControlName="rating" class="pro-clubs-short-input h-100" max="10.0"
-                               >
+                            <input type="number" formControlName="rating" class="pro-clubs-short-input h-100"
+                                max="10.0">
                         </div>
                         <div class="w-10">
                             <input type="number" formControlName="goals" class="pro-clubs-short-input h-100"
-                                 maxlength="2">
+                                maxlength="2">
                         </div>
                         <div class="w-10">
                             <input type="number" formControlName="assists" class="pro-clubs-short-input h-100"
-                                 maxlength="2">
+                                maxlength="2">
                         </div>
                         <div class="w-10">
-                            <input type="checkbox" formControlName="playerOfTheMatch" class="pro-clubs-short-input h-100"
-                                 maxlength="2">
+                            <input type="checkbox" formControlName="playerOfTheMatch"
+                                class="pro-clubs-short-input h-100" maxlength="2">
                         </div>
                         <div class="d-grid align-items-center">
                             <i class="fa-solid fa-trash cursor-pointer" (click)="removePlayer(false, i)"></i>
                         </div>
                     </div>
-                    <div class="mt-4 text-center">
-                        <button type="button" class="pro-clubs-button-primary" (click)="addPlayer(false)">Add Player</button>
+                    <div class="mt-4 d-flex place-content-center gap-15px" *ngIf="awayTeamPlayers.length < 11">
+                        <button type="button" class="pro-clubs-button-primary" (click)="addPlayer(false)">Add
+                            Player</button>
+                        <button type="button" class="pro-clubs-button-primary" (click)="addFullTeam(false)">Add
+                            Full Team</button>
                     </div>
                 </div>
             </div>

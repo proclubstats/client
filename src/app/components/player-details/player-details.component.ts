@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
-import { PlayerDTO } from '../../shared/models/player.model';
 import { NotificationService } from '../../services/notification.service';
+import { PlayerDTO } from '@pro-clubs-manager/shared-dtos';
+import { TeamService } from '../../services/team.service';
 
 @Component({
   selector: 'app-player-details',
@@ -16,7 +17,8 @@ export class PlayerDetailsComponent {
   editedPlayerName: string | null = null;
   editPlayerPhotoModel: FormData | null = null;
 
-  constructor(private route: ActivatedRoute, private router: Router, private playerService: PlayerService, private notificationService: NotificationService) { }
+  constructor(private route: ActivatedRoute, private router: Router,
+    private teamService: TeamService, private playerService: PlayerService, private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.loadPlayerData();
@@ -55,8 +57,8 @@ export class PlayerDetailsComponent {
     this.editPlayerMode = false;
   }
 
-  async deletePlayer() {
-    const serverResponse = await this.playerService.deletePlayer(this.chosenPlayer!.id);
+  async removePlayerFromTeam() {
+    const serverResponse = await this.teamService.removePlayerFromTeam(this.chosenPlayer!.team!.id,this.chosenPlayer!.id);
 
     this.notificationService.success(`${this.chosenPlayer!.name} deleted successfuly`);
 
@@ -69,17 +71,19 @@ export class PlayerDetailsComponent {
 
   async onSaveClick() {
     if (this.editPlayerPhotoModel) {
-      const response = await this.playerService.setPlayerImage(this.editPlayerPhotoModel!, this.playerID);
+      await this.playerService.setPlayerImage(this.editPlayerPhotoModel!, this.playerID);
+      this.notificationService.success(`${this.chosenPlayer!.name}'s image changed successfuly`);
       this.editPlayerPhotoModel = null;
       this.editPlayerMode = false;
-      this.chosenPlayer!.imgUrl = response;
     }
 
     if (this.chosenPlayer!.name !== this.editedPlayerName) {
-      const response = await this.playerService.renamePlayer(this.editedPlayerName!, this.playerID);
+      await this.playerService.renamePlayer(this.playerID, this.editedPlayerName!);
+      this.notificationService.success(`Player renamed to ${this.editedPlayerName} successfuly`);
       this.editedPlayerName = null;
       this.editPlayerMode = false;
-      this.chosenPlayer!.name = response;
-    }
+    };
+    
+    this.loadPlayerData();
   }
 }

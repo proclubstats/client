@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Game, GameDTO, GameFixtureData, GameStatus, TeamGameStatsData, UpdatePlayerPerformanceDataRequest } from '../../shared/models/game.model';
 import { ListOption } from '../../shared/models/list-option.model';
 import { PlayerStat } from '../../shared/models/player-stat.model';
@@ -6,6 +6,8 @@ import { TeamService } from '../../services/team.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GameService } from '../../services/game.service';
 import { NotificationService } from '../../services/notification.service';
+import { PLAYABLE_POSITIONS_OPTIONS } from '../top-scorers/top-scorers.definitions';
+import { PlayerDTO } from '@pro-clubs-manager/shared-dtos';
 
 @Component({
   selector: 'modify-game',
@@ -13,6 +15,8 @@ import { NotificationService } from '../../services/notification.service';
   styleUrl: './modify-game.component.scss'
 })
 export class ModifyGameComponent {
+  allHomeTeamPlayers: PlayerDTO[] | undefined = undefined;
+  allAwayTeamPlayers: PlayerDTO[] | undefined = undefined;
   playersStatsFormGroup: FormGroup | undefined = undefined;
   homeTeamPlayersOptions: ListOption[] | undefined = undefined;
   awayTeamPlayersOptions: ListOption[] | undefined = undefined;
@@ -20,12 +24,14 @@ export class ModifyGameComponent {
   homeTeamGoalsAmount: number = 0;
   awayTeamGoalsAmount: number = 0;
   selectedGame: GameDTO | undefined = undefined;
+  playablePositionOptions: ListOption[] = [...PLAYABLE_POSITIONS_OPTIONS];
+
 
   @Input() selectedGameId: string | undefined = undefined;
 
   @Output() onSaveEvent: EventEmitter<void> = new EventEmitter();
 
-  constructor(private teamService: TeamService, private formBuilder: FormBuilder,
+  constructor(private teamService: TeamService, private formBuilder: FormBuilder, private cdRef: ChangeDetectorRef,
     private gameService: GameService, private notificationService: NotificationService
   ) { }
 
@@ -62,6 +68,9 @@ export class ModifyGameComponent {
     if (this.selectedGame!.homeTeam.playersPerformance && this.selectedGame!.homeTeam.playersPerformance!.length > 0) {
       this.homeTeamPlayers.clear();
       this.selectedGame!.homeTeam.playersPerformance.forEach(playerPerformance => {
+        if (!playerPerformance.positionPlayed) {
+          playerPerformance.positionPlayed = '';
+        }
         this.homeTeamPlayers.push(this.formBuilder.group(playerPerformance));
       });
     }
@@ -69,6 +78,9 @@ export class ModifyGameComponent {
     if (this.selectedGame!.awayTeam.playersPerformance && this.selectedGame!.awayTeam.playersPerformance!.length > 0) {
       this.awayTeamPlayers.clear();
       this.selectedGame!.awayTeam.playersPerformance.forEach(playerPerformance => {
+        if (!playerPerformance.positionPlayed) {
+          playerPerformance.positionPlayed = '';
+        }
         this.awayTeamPlayers.push(this.formBuilder.group(playerPerformance));
       });
     }
@@ -92,6 +104,7 @@ export class ModifyGameComponent {
   addPlayer(toHomeTeam: boolean) {
     const playerGroup = this.formBuilder.group({
       playerId: ['', Validators.required],
+      positionPlayed: ['', Validators.required],
       rating: [0, Validators.required],
       goals: [0],
       assists: [0],
@@ -99,6 +112,14 @@ export class ModifyGameComponent {
     });
 
     toHomeTeam ? (this.homeTeamPlayers.push(playerGroup)) : (this.awayTeamPlayers.push(playerGroup));
+  };
+
+  addFullTeam(toHomeTeam: boolean) {
+    const playersAmount = toHomeTeam ? this.homeTeamPlayers.length : this.awayTeamPlayers.length;
+
+    for (let i = 0; i < (11 - playersAmount); i++) {
+      this.addPlayer(toHomeTeam);
+    }
   }
 
   addGoal(toHomeTeam: boolean) {
@@ -157,20 +178,32 @@ export class ModifyGameComponent {
   }
 
   async loadPlayersOptions() {
-    const homeTeamPlayersResponse = await this.teamService.getPlayersByTeam(this.selectedGame!.homeTeam.id);
-    const awayTeamPlayersResponse = await this.teamService.getPlayersByTeam(this.selectedGame!.awayTeam.id);
+    this.allHomeTeamPlayers = await this.teamService.getPlayersByTeam(this.selectedGame!.homeTeam.id);
+    this.allAwayTeamPlayers = await this.teamService.getPlayersByTeam(this.selectedGame!.awayTeam.id);
 
-    this.homeTeamPlayersOptions = homeTeamPlayersResponse.map(player => { return { value: player.id, displayText: player.name } });
-    this.awayTeamPlayersOptions = awayTeamPlayersResponse.map(player => { return { value: player.id, displayText: player.name } });
+    this.homeTeamPlayersOptions = this.allHomeTeamPlayers.map(player => { return { value: player.id, displayText: player.name } });
+    this.awayTeamPlayersOptions = this.allAwayTeamPlayers.map(player => { return { value: player.id, displayText: player.name } });
 
     this.isLoading = false;
   }
 
-  onSelectionChange($chosenPlayer: ListOption, isHomeTeam: boolean, index: number) {
-    if (!$chosenPlayer) return;
+  onSelectionChange(selectType: string, $chosenOption: ListOption, isHomeTeam: boolean, index: number) {
+    if (!$chosenOption) return;
 
-    isHomeTeam ? (this.homeTeamPlayers.at(index).get('playerId')?.setValue($chosenPlayer.value)) :
-      (this.awayTeamPlayers.at(index).get('playerId')?.setValue($chosenPlayer.value));
+    if (selectType === 'position') {
+      isHomeTeam ? (this.homeTeamPlayers.at(index).get('positionPlayed')?.setValue($chosenOption.value)) :
+        (this.awayTeamPlayers.at(index).get('positionPlayed')?.setValue($chosenOption.value));
+    }
 
+    else {
+      isHomeTeam ? (this.homeTeamPlayers.at(index).get('playerId')?.setValue($chosenOption.value)) :
+        (this.awayTeamPlayers.at(index).get('playerId')?.setValue($chosenOption.value));
+
+      // const playerPosition = isHomeTeam ? this.allHomeTeamPlayers!.at(index)!.position :
+      //   this.allAwayTeamPlayers!.at(index)!.position;
+
+      //this.onSelectionChange('position', { displayText: playerPosition, value: playerPosition }, isHomeTeam, index);
+      //this.cdRef.detectChanges();
+    }
   }
 }

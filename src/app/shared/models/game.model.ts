@@ -1,5 +1,4 @@
 import { PlayerStat } from "./player-stat.model";
-import { IPlayerStats } from "./player.model";
 
 export interface Fixture {
     id: string;
@@ -37,6 +36,13 @@ export type FixtureDTO = {
     startDate: Date;
     endDate: Date;
     games: GameFixtureData[];
+  };
+
+  export type PaginatedFixtureDTO = {
+    fixtures: FixtureDTO[];
+    currentPage: number;
+    totalPages: number;
+    totalFixtures: number;
   };
 
   export type GameFixtureData = {
@@ -104,15 +110,9 @@ export type FixtureDTO = {
     rating: number;
     goals?: number;
     assists?: number;
+    positionPlayed?: string;
     playerOfTheMatch?: boolean;
   };
-
-  export type IGameTeamStats = {
-    goals: number;
-    playerStats: IPlayerStats[];
-    // add other teams stats
-  };
-
   
   export type PlayerGameStatsData = {
     id: string;
@@ -127,6 +127,7 @@ export type FixtureDTO = {
     goals: number;
     assists: number;
     playerOfTheMatch: boolean;
+    positionPlayed: string;
     rating: number;
   };
 

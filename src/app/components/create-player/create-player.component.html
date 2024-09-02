@@ -3,14 +3,14 @@
         ADD PLAYER
     </div>
     <form [formGroup]="addPlayerFormGroup" (ngSubmit)="onSubmit()">
-        <div class="d-flex mt-3">
+        <!-- <div class="d-flex mt-3">
             <div class="w-25 d-grid align-content-center">
                 Team Name:
             </div>
             <div class="pro-clubs-input d-grid align-content-center">
                 {{ teamName}}
             </div>
-        </div>
+        </div> -->
         <ng-container *ngFor="let control of formControls">
             <div class="d-flex mt-3">
                 <div class="w-25 d-flex align-items-center">
