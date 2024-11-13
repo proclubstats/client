@@ -75,7 +75,7 @@
                             <i class="fa-solid fa-trash cursor-pointer" (click)="removePlayer(true, i)"></i>
                         </div>
                     </div>
-                    <div class="mt-4 d-flex place-content-center gap-15px" *ngIf="homeTeamPlayers.length < 11">
+                    <div class="mt-4 d-flex place-content-center gap-15" *ngIf="homeTeamPlayers.length < 11">
                         <button type="button" class="pro-clubs-button-primary" (click)="addPlayer(true)">Add
                             Player</button>
                         <button type="button" class="pro-clubs-button-primary" (click)="addFullTeam(true)">Add
@@ -143,7 +143,7 @@
                             <i class="fa-solid fa-trash cursor-pointer" (click)="removePlayer(false, i)"></i>
                         </div>
                     </div>
-                    <div class="mt-4 d-flex place-content-center gap-15px" *ngIf="awayTeamPlayers.length < 11">
+                    <div class="mt-4 d-flex place-content-center gap-15" *ngIf="awayTeamPlayers.length < 11">
                         <button type="button" class="pro-clubs-button-primary" (click)="addPlayer(false)">Add
                             Player</button>
                         <button type="button" class="pro-clubs-button-primary" (click)="addFullTeam(false)">Add

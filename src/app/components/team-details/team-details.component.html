@@ -12,7 +12,10 @@
                 <team-details-matches [teamId]="teamID"></team-details-matches>
             </mat-tab>
             <mat-tab label="STATS">
-                <team-details-stats></team-details-stats>
+                <team-details-stats [teamId]="teamID"></team-details-stats>
+            </mat-tab>
+            <mat-tab label="HISTORY">
+                <team-details-history [teamId]="teamID"></team-details-history>
             </mat-tab>
         </mat-tab-group>
     </div>

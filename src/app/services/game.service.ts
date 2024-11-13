@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { GameDTO, UpdatePlayerPerformanceDataRequest } from '../shared/models/game.model';
+import { UpdatePlayerPerformanceDataRequest } from '../shared/models/game.model';
+import { GameDTO } from '@pro-clubs-manager/shared-dtos';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,9 @@ export class GameService {
     return response.data;
   }
 
-  async updateGameResult(id: string, homeTeamGoals: number, awayTeamGoals: number): Promise<GameDTO> {
-    const response = await this.apiService.put<GameDTO>(`${this.GAME_CONTROLLER_URL}/${id}/updateResult`, { homeTeamGoals: homeTeamGoals, awayTeamGoals: awayTeamGoals });
+  async updateGameResult(id: string, homeTeamGoals: number, awayTeamGoals: number, date: Date): Promise<GameDTO> {
+    const response = await this.apiService.put<GameDTO>(`${this.GAME_CONTROLLER_URL}/${id}/updateResult`,
+      { homeTeamGoals: homeTeamGoals, awayTeamGoals: awayTeamGoals, date: date });
 
     return response.data;
   }

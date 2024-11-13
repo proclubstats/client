@@ -4,6 +4,7 @@ import { ListOption } from '../../../../../shared/models/list-option.model';
 import { TeamService } from '../../../../../services/team.service';
 import { NotificationService } from '../../../../../services/notification.service';
 import { TeamDTO } from '@pro-clubs-manager/shared-dtos';
+import { ConfigurationService } from '../../../../../services/configration.service';
 
 @Component({
   selector: 'team-details-overall-data',
@@ -20,7 +21,8 @@ export class TeamDetailsOverallDataComponent {
 
   @Output() onTeamUpdateEvent: EventEmitter<void> = new EventEmitter();
 
-  constructor(private router: Router, private teamService: TeamService, private notificationService: NotificationService) { }
+  constructor(private router: Router, private teamService: TeamService,
+    private configurationService: ConfigurationService, private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.loadPlayersOptions();
@@ -81,5 +83,9 @@ export class TeamDetailsOverallDataComponent {
     this.notificationService.success(`${this.chosenTeam!.name}'s new captain: ${this.selectedCaptain?.displayText} `);
     this.onTeamUpdateEvent.emit();
     this.editCaptainMode = false;
+  }
+
+  isViewOnly() {
+    return this.configurationService.isViewOnly;
   }
 }

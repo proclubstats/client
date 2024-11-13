@@ -1,3 +1,4 @@
+import { GAME_STATUS } from "@pro-clubs-manager/shared-dtos";
 import { PlayerStat } from "./player-stat.model";
 
 export interface Fixture {
@@ -61,17 +62,9 @@ export type FixtureDTO = {
       homeTeamGoals: number;
       awayTeamGoals: number;
     };
-    status: GameStatus;
+    status: GAME_STATUS;
     date?: Date;
   };
-
-  export enum GameStatus {
-    SCHEDULED = "Scheduled",
-    POSTPONED = "Postponed",
-    CANCELLED = "Cancelled",
-    PLAYED = "Played",
-    COMPLETED = "Completed",
-  }
 
   type GoalsData = {
     scorerId: string;
@@ -79,41 +72,6 @@ export type FixtureDTO = {
     assistId?: string;
   }
 
-
-  export type GameDTO = {
-    id: string;
-    fixtureId: string;
-    status: GameStatus;
-    result?: {
-      homeTeamGoals: number;
-      awayTeamGoals: number;
-    };
-    homeTeam: {
-      id: string;
-      name: string;
-      imgUrl?: string;
-      playersPerformance?: PlayerPerformanceDTO[];
-    };
-    awayTeam: {
-      id: string;
-      name: string;
-      imgUrl?: string;
-      playersPerformance?: PlayerPerformanceDTO[];
-    };
-    date?: Date;
-  };
-
-  export type PlayerPerformanceDTO = {
-    playerId: string;
-    name: string;
-    imgUrl?: string;
-    rating: number;
-    goals?: number;
-    assists?: number;
-    positionPlayed?: string;
-    playerOfTheMatch?: boolean;
-  };
-  
   export type PlayerGameStatsData = {
     id: string;
     goals?: number;

@@ -27,6 +27,13 @@ export class PlayerStatsByPositionComponent {
     this.loadGraphData();
   };
 
+  getPlayerStatsAsArray() {
+    if (this.playerStats)
+      return Object.entries(this.playerStats!).map(([key, value]) => ({ key, value }));
+
+    return null;
+  }
+
   loadGraphData() {
     this.playerStatsChartOptions = {
       data: Object.entries(this.playerStats!).map(([key, value]) => ({ key, value })),

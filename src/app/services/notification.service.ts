@@ -17,5 +17,5 @@ export class NotificationService {
         verticalPosition: this.verticalPosition,
         duration: 3000
       });
-    }
+    };
 }

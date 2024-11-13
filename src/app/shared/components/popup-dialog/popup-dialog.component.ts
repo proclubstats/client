@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ComponentFactoryResolver, Inject, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ConfigurationService } from '../../../services/configration.service';
 
 @Component({
   selector: 'popup-dialog',
@@ -14,6 +15,7 @@ export class PopupDialogComponent {
 
   constructor(
     private resolver: ComponentFactoryResolver,
+    private configurationService: ConfigurationService,
     public dialogRef: MatDialogRef<PopupDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.componentParams = { $implicit: data.componentParams };
@@ -46,5 +48,9 @@ export class PopupDialogComponent {
 
   closeModal() {
     this.dialogRef.close();
+  }
+
+  isViewOnly() {
+    return this.configurationService.isViewOnly;
   }
 }

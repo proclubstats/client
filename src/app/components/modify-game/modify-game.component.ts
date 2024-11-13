@@ -1,13 +1,12 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Game, GameDTO, GameFixtureData, GameStatus, TeamGameStatsData, UpdatePlayerPerformanceDataRequest } from '../../shared/models/game.model';
+import { UpdatePlayerPerformanceDataRequest } from '../../shared/models/game.model';
 import { ListOption } from '../../shared/models/list-option.model';
-import { PlayerStat } from '../../shared/models/player-stat.model';
 import { TeamService } from '../../services/team.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GameService } from '../../services/game.service';
 import { NotificationService } from '../../services/notification.service';
 import { PLAYABLE_POSITIONS_OPTIONS } from '../top-scorers/top-scorers.definitions';
-import { PlayerDTO } from '@pro-clubs-manager/shared-dtos';
+import { GAME_STATUS, GameDTO, PlayerDTO } from '@pro-clubs-manager/shared-dtos';
 
 @Component({
   selector: 'modify-game',
@@ -26,7 +25,6 @@ export class ModifyGameComponent {
   selectedGame: GameDTO | undefined = undefined;
   playablePositionOptions: ListOption[] = [...PLAYABLE_POSITIONS_OPTIONS];
 
-
   @Input() selectedGameId: string | undefined = undefined;
 
   @Output() onSaveEvent: EventEmitter<void> = new EventEmitter();
@@ -43,7 +41,7 @@ export class ModifyGameComponent {
   async loadGameDetails() {
     this.selectedGame = await this.gameService.getGameById(this.selectedGameId!);
 
-    if (this.selectedGame!.status === GameStatus.SCHEDULED) {
+    if (this.selectedGame!.status === GAME_STATUS.SCHEDULED) {
       this.homeTeamGoalsAmount = 0;
       this.awayTeamGoalsAmount = 0;
     }
@@ -150,7 +148,7 @@ export class ModifyGameComponent {
     const awayTeamPlayerStats = formAsObject.awayTeamPlayers;
 
     if (this.isScoreModified()) {
-      const serverResponse = await this.gameService.updateGameResult(this.selectedGame!.id, this.homeTeamGoalsAmount, this.awayTeamGoalsAmount);
+      const serverResponse = await this.gameService.updateGameResult(this.selectedGame!.id, this.homeTeamGoalsAmount, this.awayTeamGoalsAmount, new Date());
 
       if (serverResponse) {
         this.notificationService.success(`Result: ${this.selectedGame!.homeTeam.name} ${this.homeTeamGoalsAmount} : ${this.awayTeamGoalsAmount} ${this.selectedGame!.awayTeam.name} updated successfuly`);

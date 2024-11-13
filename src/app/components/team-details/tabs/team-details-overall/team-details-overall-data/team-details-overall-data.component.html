@@ -4,7 +4,7 @@
         {{chosenTeam!.name}}
     </div>
     <div class="mt-3 w-100 text-center primary-border-bottom pb-4">
-        <div class="d-flex justify-content-end pe-2">
+        <div class="d-flex justify-content-end pe-2" *ngIf="!isViewOnly()">
             <i class="fas fa-edit text-white cursor-pointer" *ngIf="!editTeamPhotoMode"
                 (click)="editTeamPhotoMode = true"></i>
             <i class="fa-solid fa-xmark cursor-pointer" *ngIf="editTeamPhotoMode"
@@ -21,7 +21,7 @@
         <input type="file" #fileInput id="urlPhoto" class="custom-file-input" (change)="onFileSelected($event)">
     </div>
     <div class="mt-4 primary-border-bottom pb-4 pro-clubs-text-regular width-max-content w-100 text-center">
-        <div class="d-flex justify-content-end pe-2">
+        <div class="d-flex justify-content-end pe-2" *ngIf="!isViewOnly()">
             <i class="fas fa-edit text-white cursor-pointer" *ngIf="!editCaptainMode"
                 (click)="changeEditCaptainModeStatus(true)"></i>
             <i class="fa-solid fa-xmark cursor-pointer" *ngIf="editCaptainMode"

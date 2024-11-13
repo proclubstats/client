@@ -4,6 +4,7 @@ import { TeamService } from '../../../../../services/team.service';
 import { PlayerDTOShort } from '../../../../../shared/models/player.model';
 import { PlayerService } from '../../../../../services/player.service';
 import { TeamDTO } from '@pro-clubs-manager/shared-dtos';
+import { ConfigurationService } from '../../../../../services/configration.service';
 
 @Component({
   selector: 'team-details-squad',
@@ -18,7 +19,7 @@ export class TeamDetailsSquadComponent {
   midfielders: PlayerDTOShort[] = [];
   attackers: PlayerDTOShort[] = [];
 
-  constructor(private router: Router, private teamService: TeamService, private playerService: PlayerService) { }
+  constructor(private router: Router, private configurationService: ConfigurationService) { }
 
   ngOnInit() {
     this.loadPlayersData();
@@ -65,5 +66,9 @@ export class TeamDetailsSquadComponent {
 
   onPlayerClick(playerId: string): void {
     this.router.navigate(['/player-details', { id: playerId }]);
+  }
+
+  isViewOnly() {
+    return this.configurationService.isViewOnly;
   }
 }

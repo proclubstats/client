@@ -4,6 +4,7 @@ import { PlayerService } from '../../services/player.service';
 import { NotificationService } from '../../services/notification.service';
 import { PlayerDTO } from '@pro-clubs-manager/shared-dtos';
 import { TeamService } from '../../services/team.service';
+import { ConfigurationService } from '../../services/configration.service';
 
 @Component({
   selector: 'app-player-details',
@@ -17,7 +18,7 @@ export class PlayerDetailsComponent {
   editedPlayerName: string | null = null;
   editPlayerPhotoModel: FormData | null = null;
 
-  constructor(private route: ActivatedRoute, private router: Router,
+  constructor(private route: ActivatedRoute, private router: Router, private configurationService: ConfigurationService,
     private teamService: TeamService, private playerService: PlayerService, private notificationService: NotificationService) { }
 
   ngOnInit() {
@@ -85,5 +86,9 @@ export class PlayerDetailsComponent {
     };
     
     this.loadPlayerData();
+  };
+
+  isViewOnly() {
+    return this.configurationService.isViewOnly;
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FixtureDTO, GameFixtureData, GameStatus } from '../../shared/models/game.model';
+import { FixtureDTO, GameFixtureData } from '../../shared/models/game.model';
 import { LeagueService } from '../../services/league.service';
 import { LEAGUE_ID } from '../../constants/constants';
 import { GameService } from '../../services/game.service';
@@ -9,6 +9,8 @@ import { GameDetailsComponent } from '../game-details/game-details.component';
 import { ModifyGameComponent } from '../modify-game/modify-game.component';
 import { PopupDialogComponent } from '../../shared/components/popup-dialog/popup-dialog.component';
 import { ListOption } from '../../shared/models/list-option.model';
+import { GAME_STATUS } from '@pro-clubs-manager/shared-dtos';
+import { ConfigurationService } from '../../services/configration.service';
 
 @Component({
   selector: 'fixtures',
@@ -16,8 +18,8 @@ import { ListOption } from '../../shared/models/list-option.model';
   styleUrl: './fixtures.component.scss'
 })
 export class FixturesComponent {
-  currentFixtureNumber: number = 1;
-  GameStatus = GameStatus;
+  currentFixtureNumber: number = 5;
+  GameStatus = GAME_STATUS;
   fixtures: FixtureDTO[] | null = null;
   currentFixture: FixtureDTO | null = null;
   selectedGame: GameFixtureData | null = null;
@@ -33,7 +35,7 @@ export class FixturesComponent {
   @Input() hideTitle: boolean = false;
 
   constructor(private leagueService: LeagueService, private gameService: GameService,
-    private matDialog: MatDialog,
+    private matDialog: MatDialog, private configurationService: ConfigurationService,
     private notificationService: NotificationService) { }
 
   ngOnInit() {
@@ -79,7 +81,7 @@ export class FixturesComponent {
   }
 
   onEditGameResultClick(game: GameFixtureData) {
-    if (game!.status !== GameStatus.SCHEDULED) {
+    if (game!.status !== GAME_STATUS.SCHEDULED) {
       this.homeTeamGoals = game.result!.homeTeamGoals;
       this.awayTeamGoals = game.result!.awayTeamGoals;
     }
@@ -92,15 +94,14 @@ export class FixturesComponent {
   }
 
   async onSaveClick(game: GameFixtureData) {
-    const serverResponse = await this.gameService.updateGameResult(game.id, this.homeTeamGoals, this.awayTeamGoals);
+    const serverResponse = await this.gameService.updateGameResult(game.id, this.homeTeamGoals, this.awayTeamGoals, new Date());
 
     if (serverResponse) {
       this.notificationService.success(`Result: ${game.homeTeam.name} ${this.homeTeamGoals} : ${this.awayTeamGoals} ${game.awayTeam.name} updated successfuly`);
-      game.status = GameStatus.PLAYED;
+      game.status = GAME_STATUS.PLAYED;
       game.result = { homeTeamGoals: this.homeTeamGoals, awayTeamGoals: this.awayTeamGoals };
       //      this.loadFixtures();
     }
-
 
     this.currentEditedGameId = null;
   }
@@ -111,5 +112,9 @@ export class FixturesComponent {
 
   onCancelClick() {
     this.editGame = false;
+  }
+
+  isViewOnly() {
+    return this.configurationService.isViewOnly;
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { CreateTeamModel } from '../shared/models/team.model';
-import { PlayerDTO, TeamDTO } from '@pro-clubs-manager/shared-dtos';
+import { AdvancedPlayersStats, AdvancedTeamStats, PlayerDTO, TeamDTO } from '@pro-clubs-manager/shared-dtos';
 
 @Injectable({
   providedIn: 'root'
@@ -55,5 +55,17 @@ export class TeamService {
 
   async removePlayerFromTeam(teamId: string, playerId: string): Promise<void> {
     await this.apiService.put<void>(`${this.TEAMS_CONTROLLER_URL}/${teamId}/removePlayer/`, { playerId: playerId });
+  }
+
+  async getAdvancedTeamStats(teamId: string): Promise<AdvancedTeamStats> {
+    const response = await this.apiService.get<AdvancedTeamStats>(`${this.TEAMS_CONTROLLER_URL}/${teamId}/advancedStats/`);
+
+    return response.data;
+  }
+
+  async getTeamPlayerStats(teamId: string, limit?: number): Promise<AdvancedPlayersStats> {
+    const response = await this.apiService.get<AdvancedPlayersStats>(`${this.TEAMS_CONTROLLER_URL}/${teamId}/playerStats/?limit=${limit}`,);
+
+    return response.data;
   }
 }
