@@ -23,14 +23,14 @@
                 </div>
             </div>
         </ng-container>
-        <div class="d-flex gap-15px">
-            <label for="urlPhoto" class="custom-file-label">
+        <div class="d-flex gap-15">
+            <!-- <label for="urlPhoto" class="custom-file-label">
                 <button type="button" (click)="fileInput.click()" class="pro-clubs-button-primary pro-clubs-input">ADD
                     IMAGE</button>
-            </label>
+            </label> -->
             <!-- <div class="d-grid align-items-center ml-3" *ngIf="control.control.value != ''">
                     {{}}</div> -->
-            <input type="file" #fileInput id="urlPhoto" class="custom-file-input" (change)="onFileSelected($event)">
+            <!-- <input type="file" #fileInput id="urlPhoto" class="custom-file-input" (change)="onFileSelected($event)"> -->
         </div>
         <div class="text-center mt-5">
             <button type="submit" class="pro-clubs-button-primary"
@@ -38,4 +38,14 @@
                 [disabled]="signUpFormGroup.invalid">Submit</button>
         </div>
     </form>
+    <div>
+        <div id="g_id_onload" data-client_id="465418039105-p141710mc4km6ap5bkm3ujp1ftfog8bb.apps.googleusercontent.com"
+            data-context="signup" data-ux_mode="popup" data-login_uri="http://localhost:3000/team"
+            data-auto_prompt="false">
+        </div>
+
+        <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="outline" data-text="signup_with"
+            data-size="large" data-locale="en-US" data-logo_alignment="left">
+        </div>
+    </div>
 </div>

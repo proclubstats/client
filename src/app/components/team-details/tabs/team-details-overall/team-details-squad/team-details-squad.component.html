@@ -4,7 +4,7 @@
             SQUAD ({{chosenTeam.players.length}})
         </div>
         <div>
-            <button class="pro-clubs-button-primary" (click)="onAddPlayerClick()">Add Player</button>
+            <button class="pro-clubs-button-primary" (click)="onAddPlayerClick()" *ngIf="!isViewOnly()">Add Player</button>
         </div>
     </div>
     <div class="overflow-y-auto h-95">

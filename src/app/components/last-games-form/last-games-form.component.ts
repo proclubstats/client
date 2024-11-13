@@ -19,7 +19,6 @@ export class LastGamesFormComponent {
 
   ngOnInit() {
     this.loadPlayerLastGamesForm();
-
   }
 
   async loadPlayerLastGamesForm() {
@@ -38,7 +37,6 @@ export class LastGamesFormComponent {
         type: "line",
         xKey: "round",
         yKey: "rating",
-        yName: "Rating",
         tooltip: {
           renderer: (tooltipParams) => {
             return {
@@ -48,7 +46,21 @@ export class LastGamesFormComponent {
             };
           },
         }
-      }]
+      }],
+      axes: [{
+        type: 'category',
+        position: 'bottom',
+        title: {
+          text: 'Fixture Number'
+        },
+        reverse: true,
+      }, {
+        type: 'number',
+        position: 'left',
+        title: {
+          text: 'Average Rating',
+        },
+      },]
     };
   };
 

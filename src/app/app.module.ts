@@ -41,6 +41,10 @@ import { CreateTeamComponent } from "./components/create-team/create-team.compon
 import { LastGamesFormComponent } from "./components/last-games-form/last-games-form.component";
 import { AgChartsModule } from "ag-charts-angular";
 import { PlayerStatsByPositionComponent } from "./components/player-stats-by-position/player-stats-by-position.component";
+import { TeamDetailsHistoryComponent } from "./components/team-details/tabs/team-details-history/team-details-history.component";
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { SocialAuthService } from "angularx-social-login";
+import { ConfigurationService } from "./services/configration.service";
 
 @NgModule({
     declarations: [
@@ -64,6 +68,7 @@ import { PlayerStatsByPositionComponent } from "./components/player-stats-by-pos
         TeamDetailsMatchesComponent,
         TeamDetailsSquadComponent,
         TeamDetailsStatsComponent,
+        TeamDetailsHistoryComponent,
         AddFixtureComponent,
         TeamGamesComponent,
         SignUpComponent,
@@ -84,16 +89,31 @@ import { PlayerStatsByPositionComponent } from "./components/player-stats-by-pos
         SharedModule,
         MatPaginatorModule,
         MatDialogModule,
-        AgChartsModule
+        AgChartsModule,
+        SocialLoginModule
     ],
     exports: [],
     providers: [
+        {
+            provide: 'SocialAuthServiceConfig',
+            useValue: {
+                autoLogin: false,
+                providers: [
+                    {
+                        id: GoogleLoginProvider.PROVIDER_ID,
+                        provider: new GoogleLoginProvider('465418039105-p141710mc4km6ap5bkm3ujp1ftfog8bb.apps.googleusercontent.com'),
+                    },
+                ],
+            } as SocialAuthServiceConfig,
+        },
         provideAnimationsAsync(),
         PlayerService,
         TeamService,
         FixtureService,
         LeagueService,
-        NotificationService
+        SocialAuthService,
+        NotificationService,
+        ConfigurationService
     ],
     bootstrap: [AppComponent]
 })

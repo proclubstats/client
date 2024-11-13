@@ -1,7 +1,7 @@
 <div class="w-100 " *ngIf="!isLoading && teamGamesData">
     <div>
         <div *ngFor="let game of teamGamesData"
-            class="text-center mb-2 gap-15px cursor-pointer align-items-center d-flex">
+            class="text-center mb-2 gap-15 cursor-pointer align-items-center d-flex">
             <div class="d-flex game-area place-content-center pro-clubs-bg-primary w-100" (click)="onGameClick(game)">
                 <div class="w-45 align-items-center d-flex justify-content-end">
                     {{game.homeTeam.name}}
@@ -33,7 +33,7 @@
                     {{game.awayTeam.name}}
                 </div>
             </div>
-            <div class="d-grid align-items-center ml-2" >
+            <div class="d-grid align-items-center ml-2" *ngIf="!isViewOnly()">
                 <i class="fas fa-edit text-white cursor-pointer" *ngIf="currentEditedGameId !== game.id" (click)="onEditGameResultClick(game)"></i>
                 <i class="fa-solid fa-floppy-disk text-white cursor-pointer" (click)="onSaveClick(game)" *ngIf="currentEditedGameId === game.id"></i>
             </div>

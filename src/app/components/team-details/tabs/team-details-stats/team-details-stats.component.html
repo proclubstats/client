@@ -1,1 +1,134 @@
-<pro-clubs-spinner></pro-clubs-spinner>
+<div class="w-100 h-100" *ngIf="teamStats && playersStats">
+    <div class="d-flex h-15 w-100 justify-content-between gap-10">
+        <div
+            class="pro-clubs-bg-primary flex-fill pro-clubs-header-2-regular d-grid text-center place-content-center pro-clubs-border-radius">
+            <div>
+                LONGEST WIN STREAK
+            </div>
+            <div class="pro-clubs-text-primary">
+                {{teamStats.longestWinStreak}}
+            </div>
+        </div>
+        <div
+            class="pro-clubs-bg-primary flex-fill pro-clubs-header-2-regular d-grid text-center place-content-center pro-clubs-border-radius">
+            <div>
+                LONGEST UNBEATEN STREAK
+            </div>
+            <div class="pro-clubs-text-primary">
+                {{teamStats.longestUnbeatenStreak}}
+            </div>
+        </div>
+        <div
+            class="pro-clubs-bg-primary flex-fill pro-clubs-header-2-regular d-grid text-center place-content-center pro-clubs-border-radius">
+            <div>
+                LONGEST WITHOUT SCORING STREAK
+            </div>
+            <div class="pro-clubs-text-primary">
+                {{teamStats.longestWithoutScoringStreak}}
+            </div>
+        </div>
+        <div
+            class="pro-clubs-bg-primary flex-fill pro-clubs-header-2-regular d-grid text-center place-content-center pro-clubs-border-radius">
+            <div>
+                LONGEST LOSE STREAK
+            </div>
+            <div class="pro-clubs-text-primary">
+                {{teamStats.longestLoseStreak}}
+            </div>
+        </div>
+    </div>
+    <div class="d-flex h-85 w-100 justify-content-between gap-10 mt-2">
+        <div
+            class="pro-clubs-bg-primary flex-fill pro-clubs-header-2-regular d-grid text-center pro-clubs-border-radius">
+            <div class="primary-border-bottom d-flex justify-content-center align-items-center mb-2">
+                TOP RATINGS
+            </div>
+            <div class="d-flex gap-2 w-100">
+                <div class="w-50">
+                    NAME
+                </div>
+                <div class="w-20">
+                    G
+                </div>
+                <div class="w-20">
+                    RTG
+                </div>
+            </div>
+            <div *ngFor="let topRating of playersStats.topAvgRating">
+                <div class="d-flex gap-2 w-100">
+                    <div class="w-50 cursor-pointer" (click)="onPlayerClick(topRating.playerId);">
+                        {{topRating.playerName}}
+                    </div>
+                    <div class="w-20">
+                        {{topRating.games}}
+                    </div>
+                    <div class="w-20">
+                        {{topRating.avgRating.toFixed(2)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="pro-clubs-bg-primary flex-fill pro-clubs-header-2-regular d-grid text-center pro-clubs-border-radius">
+            <div class="primary-border-bottom d-flex justify-content-center align-items-center mb-2">
+                TOP SCORERS
+            </div>
+            <div class="d-flex gap-2 w-100">
+                <div class="w-50">
+                    NAME
+                </div>
+                <div class="w-20">
+                    G
+                </div>
+                <div class="w-20">
+                    G
+                </div>
+            </div>
+            <div *ngFor="let topScorer of playersStats.topScorers">
+                <div class="d-flex gap-2 w-100">
+                    <div class="w-50 cursor-pointer" (click)="onPlayerClick(topScorer.playerId);">
+                        {{topScorer.playerName}}
+                    </div>
+                    <div class="w-20">
+                        {{topScorer.games}}
+                    </div>
+                    <div class="w-20">
+                        {{topScorer.goals}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="pro-clubs-bg-primary flex-fill pro-clubs-header-2-regular d-grid text-center pro-clubs-border-radius">
+            <div class="primary-border-bottom d-flex justify-content-center align-items-center mb-2">
+                TOP ASSISTERS
+            </div>
+            <div class="d-flex gap-2 w-100">
+                <div class="w-50">
+                    NAME
+                </div>
+                <div class="w-20">
+                    G
+                </div>
+                <div class="w-20">
+                    A
+                </div>
+            </div>
+            <div *ngFor="let topAssister of playersStats.topAssisters">
+                <div class="d-flex gap-2 w-100">
+                    <div class="w-50 cursor-pointer" (click)="onPlayerClick(topAssister.playerId);">
+                        {{topAssister.playerName}}
+                    </div>
+                    <div class="w-20">
+                        {{topAssister.games}}
+                    </div>
+                    <div class="w-20">
+                        {{topAssister.assists}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<pro-clubs-spinner *ngIf="!teamStats"></pro-clubs-spinner>

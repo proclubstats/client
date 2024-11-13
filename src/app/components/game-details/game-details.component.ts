@@ -1,9 +1,8 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
-import { GameDTO, GameStatus, PlayerPerformanceDTO } from '../../shared/models/game.model';
 import { Router } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { PlayerStatsForDisplay } from '../../shared/models/player-stat.model';
+import { GAME_STATUS, GameDTO, PlayerPerformanceDTO } from '@pro-clubs-manager/shared-dtos';
 
 @Component({
   selector: 'app-game-details',
@@ -11,10 +10,12 @@ import { PlayerStatsForDisplay } from '../../shared/models/player-stat.model';
   styleUrl: './game-details.component.scss'
 })
 export class GameDetailsComponent {
-  GameStatus = GameStatus;
+  GameStatus = GAME_STATUS;
   selectedGame: GameDTO | undefined = undefined;
   homeTeamScorersAndAssists: PlayerPerformanceDTO[] = [];
   awayTeamScorersAndAssists: PlayerPerformanceDTO[] = [];
+  playerOfTheMatch: PlayerPerformanceDTO | undefined = undefined;
+  playerOfTheMatchTeamName: string = '';
 
   @Input() set selectedGameId(gameId: string) {
     this._selectedGameId = gameId;
@@ -34,6 +35,7 @@ export class GameDetailsComponent {
     this.selectedGame = await this.gameService.getGameById(this._selectedGameId!);
     this.cdRef.detectChanges();
     this.loadScorersAndAssists();
+    this.loadPlayerOfTheMatch();
   }
 
   loadScorersAndAssists() {
@@ -49,6 +51,16 @@ export class GameDetailsComponent {
 
     if (awayTeamPerformance) {
       this.awayTeamScorersAndAssists = awayTeamPerformance.filter(player => player.goals! > 0 || player.assists! > 0);
+    }
+  };
+
+  loadPlayerOfTheMatch() {
+    this.playerOfTheMatch = this.selectedGame!.homeTeam.playersPerformance?.find(performance => performance.playerOfTheMatch == true);
+    this.playerOfTheMatchTeamName = this.selectedGame!.homeTeam.name;
+
+    if (!this.playerOfTheMatch) {
+      this.playerOfTheMatch = this.selectedGame!.awayTeam.playersPerformance?.find(performance => performance.playerOfTheMatch == true);
+      this.playerOfTheMatchTeamName = this.selectedGame!.awayTeam.name;
     }
   }
 

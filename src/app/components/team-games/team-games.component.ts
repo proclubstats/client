@@ -1,12 +1,12 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GameService } from '../../services/game.service';
-import { GameDTO, GameStatus } from '../../shared/models/game.model';
-import { Modal } from 'bootstrap';
 import { NotificationService } from '../../services/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupDialogComponent } from '../../shared/components/popup-dialog/popup-dialog.component';
 import { GameDetailsComponent } from '../game-details/game-details.component';
 import { ModifyGameComponent } from '../modify-game/modify-game.component';
+import { GAME_STATUS, GameDTO } from '@pro-clubs-manager/shared-dtos';
+import { ConfigurationService } from '../../services/configration.service';
 
 @Component({
   selector: 'team-games',
@@ -14,7 +14,7 @@ import { ModifyGameComponent } from '../modify-game/modify-game.component';
   styleUrl: './team-games.component.scss'
 })
 export class TeamGamesComponent {
-  GameStatus = GameStatus;
+  GameStatus = GAME_STATUS;
   isLoading: boolean = false;
   dateFormat = 'dd.MM.YYYY';
   teamGamesData: GameDTO[] | undefined = undefined;
@@ -26,7 +26,8 @@ export class TeamGamesComponent {
 
   @Input() teamId: string | undefined = undefined;
 
-  constructor(private gameService: GameService, private notificationService: NotificationService, private matDialog: MatDialog) { }
+  constructor(private gameService: GameService, private notificationService: NotificationService,
+    private configurationService: ConfigurationService, private matDialog: MatDialog) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -65,7 +66,7 @@ export class TeamGamesComponent {
   }
 
   onEditGameResultClick(game: GameDTO) {
-    if (game!.status !== GameStatus.SCHEDULED) {
+    if (game!.status !== GAME_STATUS.SCHEDULED) {
       this.homeTeamGoals = game.result!.homeTeamGoals;
       this.awayTeamGoals = game.result!.awayTeamGoals;
     }
@@ -78,16 +79,21 @@ export class TeamGamesComponent {
   }
 
   async onSaveClick(game: GameDTO) {
-    const serverResponse = await this.gameService.updateGameResult(game.id, this.homeTeamGoals, this.awayTeamGoals);
+
+    // change it
+    const serverResponse = await this.gameService.updateGameResult(game.id, this.homeTeamGoals, this.awayTeamGoals, new Date());
 
     if (serverResponse) {
       this.notificationService.success(`Result: ${game.homeTeam.name} ${this.homeTeamGoals} : ${this.awayTeamGoals} ${game.awayTeam.name} updated successfuly`);
-      game.status = GameStatus.PLAYED;
+      game.status = GAME_STATUS.PLAYED;
       game.result = { homeTeamGoals: this.homeTeamGoals, awayTeamGoals: this.awayTeamGoals };
       //      this.loadFixtures();
     }
 
-
     this.currentEditedGameId = null;
+  };
+
+  isViewOnly() {
+    return this.configurationService.isViewOnly;
   }
 }

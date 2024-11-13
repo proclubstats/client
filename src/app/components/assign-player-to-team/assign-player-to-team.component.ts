@@ -52,8 +52,12 @@ export class AssignPlayerToTeamComponent {
   };
 
   async onAssignClick() {
-   await this.teamService.addPlayerToTeam(this.teamID, this.selectedPlayer!.id);
+    await this.teamService.addPlayerToTeam(this.teamID, this.selectedPlayer!.id);
 
-   history.back();
+    history.back();
+  }
+
+  onArrowBackClick() {
+    history.back();
   }
 }

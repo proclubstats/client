@@ -1,6 +1,6 @@
-<div class="d-flex flex-column gap-15">
+<div class="d-flex flex-column gap-15" *ngIf="lastGamesForm && lastGamesForm.lastGames.length > 0">
     <div>
-        <div>
+        <div class="mb-3 primary-border-bottom w-30">
             LAST 5 GAMES FORM
         </div>
         <div class="d-flex flex-column" *ngIf="lastGamesForm && lastGamesForm.lastGames ">

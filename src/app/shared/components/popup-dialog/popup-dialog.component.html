@@ -1,6 +1,6 @@
 <div class="pro-clubs-bg-primary h-100 popup-area">
     <div class="d-flex w-100 justify-content-between">
-        <div *ngIf="data.componentSwitchMode">
+        <div *ngIf="data.componentSwitchMode && !isViewOnly()">
             <div class="d-flex cursor-pointer" *ngIf="displayFirstComponent" (click)="switchBetweenComponents(false)">
                 <div >
                     EDIT FIXTURE <i class="fas fa-edit text-white"></i>
