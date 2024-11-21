@@ -1,8 +1,0 @@
-<div class="w-100" *ngIf="topScorers && !isLoading">
-    <div class="pro-clubs-header-1 text-white mb-2" *ngIf="!hideTitle">
-        TOP SCORERS
-    </div>
-        <pro-clubs-data-table [tableData]="topScorers" [defaultSort]="'goals'" [isClickable]="true" [secondarySort]="'goalsPerGame'" (onRowClickEvent)="onPlayerClick($event)"
-        [columnsToDisplay]="displayedColumns"></pro-clubs-data-table>
-</div>
-<pro-clubs-spinner *ngIf="isLoading"></pro-clubs-spinner>
