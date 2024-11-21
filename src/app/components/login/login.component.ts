@@ -4,12 +4,16 @@ import { ListOption } from '../../shared/models/list-option.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AddPlayerDataRequest } from '../../shared/models/addPlayerDataRequest';
 import { NotificationService } from '../../services/notification.service';
-import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  SocialAuthService,
+  SocialUser,
+} from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   signUpFormGroup: FormGroup = new FormGroup({});
@@ -17,13 +21,27 @@ export class LoginComponent {
   playablePositionOptions: ListOption[] = [];
   socialUser!: SocialUser;
   isLoggedin?: boolean;
-  
+
   formControls = [
-    { control: new FormControl('', Validators.required), field: 'email', displayText: 'Full Name', type: 'text-input', maxLength: 20 },
-    { control: new FormControl('', Validators.required), field: 'password', displayText: 'Password', type: 'password' },
+    {
+      control: new FormControl('', Validators.required),
+      field: 'email',
+      displayText: 'Full Name',
+      type: 'text-input',
+      maxLength: 20,
+    },
+    {
+      control: new FormControl('', Validators.required),
+      field: 'password',
+      displayText: 'Password',
+      type: 'password',
+    },
   ];
 
-  constructor(private notificationService: NotificationService, private socialAuthService: SocialAuthService) { }
+  constructor(
+    private notificationService: NotificationService,
+    private socialAuthService: SocialAuthService
+  ) {}
 
   ngOnInit() {
     this.playablePositionOptions = [...PLAYABLE_POSITIONS_OPTIONS];
@@ -34,12 +52,11 @@ export class LoginComponent {
       this.isLoggedin = user != null;
       console.log(this.socialUser);
     });
-
   }
 
   loadFormControl() {
     let group: any = {};
-    this.formControls.forEach(item => {
+    this.formControls.forEach((item) => {
       group[item.field] = item.control;
     });
 
@@ -48,7 +65,6 @@ export class LoginComponent {
 
   async onSubmit() {
     if (this.signUpFormGroup.valid) {
-
       if (!this.doPasswordsMatch()) {
         this.notificationService.success('Password are not matched');
         return;
@@ -56,13 +72,15 @@ export class LoginComponent {
       const convertedForm = this.convertFormToModel();
 
       // Here you can send form data to your backend or perform any necessary action
+    } else {
     }
-    else {
-    }
-  };
+  }
 
   private doPasswordsMatch(): boolean {
-    return this.signUpFormGroup.get('password')?.value === this.signUpFormGroup.get('confirmedPassword')?.value;
+    return (
+      this.signUpFormGroup.get('password')?.value ===
+      this.signUpFormGroup.get('confirmedPassword')?.value
+    );
   }
 
   // when the user presses on submit, converting the form group into model before passing it to the server
@@ -76,7 +94,7 @@ export class LoginComponent {
 
     var jsonForm = JSON.parse(JSON.stringify(convertedForm));
 
-    Object.keys(jsonForm).forEach(key => {
+    Object.keys(jsonForm).forEach((key) => {
       this.userFile.append(key, jsonForm[key]);
     });
 
